@@ -1,9 +1,9 @@
-#BattleShip
+# BattleShip
 
-##Project description
+## Project description
 A web based battleship game that updates player actions without reloading the page.
  
-##Goals
+## Goals
 ..* Working battleship game (HTML5? With drag-and-drop)
 ..* In-game chat
 ..* Email when it's your turn
@@ -11,13 +11,13 @@ A web based battleship game that updates player actions without reloading the pa
 ..* User settings
 ..* Reports send a copy of the chat log to the admins.
  
-##Stretch goals
+## Stretch goals
 ..* Email verification upon user registration
 ..* Adding friends
 ..* Chat with a friend out of game
 ..* Tournaments based on win/loss ratios
  
-##User stories
+## User stories
 |User story| Point value|
 |----------|------------|
 |As a new visitor, I can create an account.|3|
