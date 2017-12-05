@@ -47,7 +47,4 @@ public class Game {
 	// turn must be completed by this time
 	@Column(name = "Turn_Deadline")
 	private Date turnDeadline;
-
-	@Column(name = "Chat_Log")
-	private String chatLog;
 }

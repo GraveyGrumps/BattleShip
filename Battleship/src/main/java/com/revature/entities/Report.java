@@ -20,21 +20,20 @@ public class Report {
 	@GeneratedValue(generator = "RP_ID_seq", strategy = GenerationType.AUTO)
 	private int id;
 
-	@Column(name = "Game_ID")
+	@Column(name = "GM_ID")
 	private int gameId;
 
-	// TODO is this the user id or the player # (1/2)?
-	@Column(name = "Game_ID")
+	// TODO is this the user id or the player #?
+	@Column(name = "Winner")
 	private int winner;
 
-	// TODO if you have the game id, you can get its chat log, so is this necessary?
-	@Column(name = "Game_ID")
+	@Column(name = "Chat_Log")
 	private String chatLog;
 
 	@Column(name = "Report_Date")
 	private Date reportDate;
 
-	// User ID
+	// user id
 	@Column(name = "Claimant")
 	private int claimant;
 
@@ -45,6 +44,7 @@ public class Report {
 	@Column(name = "Report_Notes")
 	private String reportNotes;
 
-	// TODO flag
-	// @Column(name = "Flag")
+	// 1 requires admin's attention
+	@Column(name = "Flag")
+	private int flag;
 }
