@@ -1,6 +1,6 @@
 package com.revature.entities;
 
-import java.util.Date;
+import java.sql.Timestamp;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -31,7 +31,7 @@ public class Report {
 	private String chatLog;
 
 	@Column(name = "Report_Date")
-	private Date reportDate;
+	private Timestamp reportDate;
 
 	// user id
 	@Column(name = "Claimant")

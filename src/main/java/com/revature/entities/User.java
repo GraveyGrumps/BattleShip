@@ -1,7 +1,5 @@
 package com.revature.entities;
 
-import java.io.File;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -39,7 +37,7 @@ public class User {
 	private int winLossId;
 
 	@Column(name = "Profile_Pic")
-	private File profilePic;
+	private String profilePic;
 
 	@Column(name = "CL_ID")
 	private int clanId;

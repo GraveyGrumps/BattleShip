@@ -1,7 +1,5 @@
 package com.revature.entities;
 
-import java.io.File;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -27,5 +25,5 @@ public class Clan {
 	private String chatLog;
 
 	@Column(name = "Logo")
-	private File logo;
+	private String logo;
 }

@@ -1,5 +1,7 @@
 package com.revature.entities;
 
+import java.sql.Timestamp;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -22,8 +24,8 @@ public class Ban {
 	private String banStatus;
 
 	@Column(name = "Banished_Until")
-	private String banLiftDate;
+	private Timestamp banLiftDate;
 
 	@Column(name = "Record")
-	private int recordId;
+	private String record;
 }
