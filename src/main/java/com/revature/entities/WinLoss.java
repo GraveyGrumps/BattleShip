@@ -19,10 +19,10 @@ public class WinLoss {
 	private int id;
 
 	@Column(name = "Season_Wins")
-	private int seasonWins;
+	private double seasonWins;
 
 	@Column(name = "Season_Losses")
-	private int seasonLosses;
+	private double seasonLosses;
 
 	@Column(name = "Wins")
 	private int wins;

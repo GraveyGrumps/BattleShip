@@ -1,6 +1,6 @@
 package com.revature.entities;
 
-import java.util.Date;
+import java.sql.Timestamp;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -20,7 +20,7 @@ public class Game {
 	private int id;
 
 	@Column(name = "Status")
-	private int status;
+	private String status;
 
 	@Column(name = "P1_USR_ID")
 	private int player1Id;
@@ -42,9 +42,9 @@ public class Game {
 
 	// When game was created
 	@Column(name = "Post_Date")
-	private Date postDate;
+	private Timestamp postDate;
 
 	// turn must be completed by this time
 	@Column(name = "Turn_Deadline")
-	private Date turnDeadline;
+	private Timestamp turnDeadline;
 }
