@@ -1,0 +1,26 @@
+#chatboxDiv {
+  background: #f0f0f0;
+  color: rgb(0, 0, 0);
+  position: fixed;
+  left: auto;
+  top: 55px;
+  right: 0;
+  bottom: 0;
+  width: 20%;
+  min-width: 250px;
+  z-index: -1;
+  font-family: cursive;
+  border: black solid 1px;
+  overflow-y: auto;
+}
+#chat{
+    position: fixed;
+    bottom: 0px;
+    width: 100%    
+}
+h3{
+    text-align: center;
+}
+span{
+    padding: 2px;
+}

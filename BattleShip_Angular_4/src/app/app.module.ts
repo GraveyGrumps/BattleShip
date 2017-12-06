@@ -10,6 +10,8 @@ import {AppComponent} from './app.component';
 import {NavComponent} from './nav/nav.component';
 
 import { appRoutes } from './routes';
+import { ChatWindowComponent } from './chat-window/chat-window.component';
+import { GlobalChatService } from './global-chat.service';
 
 @NgModule({
   imports: [
@@ -22,10 +24,9 @@ import { appRoutes } from './routes';
   declarations: [
     AppComponent,
     NavComponent,
+    ChatWindowComponent,
    ],
-  providers: [
-
-   ],
+  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
