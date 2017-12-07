@@ -11,11 +11,11 @@ public interface WinLossDao {
 	WinLoss getWinLossById(int id);
 	List<WinLoss> getAllWinLoss();
 	//PUT
-	boolean changeWinLossWinsById(int id, int win);
-	boolean changeWinLossLossesById(int id, int loss);
-	boolean changeWinLossSeasonWinsById(int id, int win);
-	boolean changeWinLossSeasonLossesById(int id, int loss);
-	boolean clearWinLossSeason();
+	boolean modifyWinLossWinsById(int id, int win);
+	boolean modifyWinLossLossesById(int id, int loss);
+	boolean modifyWinLossSeasonWinsById(int id, int win);
+	boolean modifyWinLossSeasonLossesById(int id, int loss);
+	boolean clearWinLossSeasonById(int id);
 	//DELETE
 	boolean deleteWinLossById(int id);
 }

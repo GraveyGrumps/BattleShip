@@ -14,9 +14,8 @@ public interface ReportDao {
 	List<Report> getFlaggedReports();
 	List<Report> getAllReports();
 	//UPDATE
-	boolean changeReportViaReportById(int id, Report report);
 	boolean changeReportWinnerById(int id, int winner);
-	boolean changeChatLogById(int id, String chatLog);
+	String changeChatLogById(int id, String chatLog);
 	boolean changeReportDateById(int id, Timestamp time);
 	boolean changeClaimantById(int id, int claimant);
 	boolean changeDefendantById(int id, int defendant);
@@ -24,5 +23,4 @@ public interface ReportDao {
 	boolean changeReportFlagById(int id, int flag);
 	//DELETE
 	boolean deleteReportById(int id);
-	boolean deleteReportByReport(Report report);
 }

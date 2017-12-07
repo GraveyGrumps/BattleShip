@@ -13,15 +13,15 @@ public interface UserDao {
 	User getUserById(int id);
 	List<User> getAllUsers();
 	//Put
-	boolean changeUserUserNameById(int id, String username);
-	boolean changeUserPasswordById(int id, String password);
-	boolean changeUserEmailById(int id, String email);
-	boolean changeUserIsAdminById(int id, int isAdmin);
-	boolean changeUserProfilePicById(int id, String picturePath);
-	boolean changeUserIsOfficerById(int id, int isOfficer);
-	boolean changeUserAdminNotesById(int id, String adminNotes);
-	boolean changeUserVerifiedById(int id, int verified);
+	boolean modifyUserUserNameById(int id, String username);
+	boolean modifyUserPasswordById(int id, String password);
+	boolean modifyUserEmailById(int id, String email);
+	boolean modifyUserIsAdminById(int id, int isAdmin);
+	boolean modifyUserProfilePicById(int id, String picturePath);
+	boolean modifyUserIsOfficerById(int id, int isOfficer);
+	boolean modifyUserAdminNotesById(int id, String adminNotes);
+	boolean modifyUserAppendAdminNotesById(int id, String adminNotes);
+	boolean modifyUserVerifiedById(int id, int verified);
 	//Delete
 	boolean deleteUserById(int id);
-	boolean deleteUserbyUser(User user);
 }

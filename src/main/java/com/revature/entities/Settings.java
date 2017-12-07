@@ -13,8 +13,8 @@ public class Settings {
 
 	@Id
 	@Column(name = "S_ID")
-	@SequenceGenerator(name = "S_ID_seq", sequenceName = "S_ID_seq")
-	@GeneratedValue(generator = "S_ID_seq", strategy = GenerationType.AUTO)
+	@SequenceGenerator(name = "S_seq", sequenceName = "S_seq")
+	@GeneratedValue(generator = "S_seq", strategy = GenerationType.AUTO)
 	private int id;
 
 	// Allow global chat?
