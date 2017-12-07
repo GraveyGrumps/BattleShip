@@ -48,117 +48,108 @@ public class Game {
 	@Column(name = "Turn_Deadline")
 	private Timestamp turnDeadline;
 
-	
-	public Game(int id, String status, int player1Id, int player2Id, int turn, String boardState, String shipState,
-			Timestamp postDate, Timestamp turnDeadline) {
-		super();
-		this.id = id;
-		this.status = status;
-		this.player1Id = player1Id;
-		this.player2Id = player2Id;
-		this.turn = turn;
-		this.boardState = boardState;
-		this.shipState = shipState;
-		this.postDate = postDate;
-		this.turnDeadline = turnDeadline;
-	}
-
+	@Column(name = "Turn_Length")
+	private int turnLength;
 
 	public Game() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
+	public Game(int id, String status, int player1Id, int player2Id, int turn, String boardState, String shipState,
+			Timestamp postDate, Timestamp turnDeadline, int turnLength) {
+		super();
+		this.id = id;
+		this.status = status;
+		this.player1Id = player1Id;
+		this.player2Id = player2Id;
+		this.turn = turn;
+		this.boardState = boardState;
+		this.shipState = shipState;
+		this.postDate = postDate;
+		this.turnDeadline = turnDeadline;
+		this.turnLength = turnLength;
+	}
 
 	public int getId() {
 		return id;
 	}
 
-
 	public void setId(int id) {
 		this.id = id;
 	}
-
 
 	public String getStatus() {
 		return status;
 	}
 
-
 	public void setStatus(String status) {
 		this.status = status;
 	}
-
 
 	public int getPlayer1Id() {
 		return player1Id;
 	}
 
-
 	public void setPlayer1Id(int player1Id) {
 		this.player1Id = player1Id;
 	}
-
 
 	public int getPlayer2Id() {
 		return player2Id;
 	}
 
-
 	public void setPlayer2Id(int player2Id) {
 		this.player2Id = player2Id;
 	}
-
 
 	public int getTurn() {
 		return turn;
 	}
 
-
 	public void setTurn(int turn) {
 		this.turn = turn;
 	}
-
 
 	public String getBoardState() {
 		return boardState;
 	}
 
-
 	public void setBoardState(String boardState) {
 		this.boardState = boardState;
 	}
-
 
 	public String getShipState() {
 		return shipState;
 	}
 
-
 	public void setShipState(String shipState) {
 		this.shipState = shipState;
 	}
-
 
 	public Timestamp getPostDate() {
 		return postDate;
 	}
 
-
 	public void setPostDate(Timestamp postDate) {
 		this.postDate = postDate;
 	}
-
 
 	public Timestamp getTurnDeadline() {
 		return turnDeadline;
 	}
 
-
 	public void setTurnDeadline(Timestamp turnDeadline) {
 		this.turnDeadline = turnDeadline;
 	}
 
+	public int getTurnLength() {
+		return turnLength;
+	}
+
+	public void setTurnLength(int turnLength) {
+		this.turnLength = turnLength;
+	}
 
 	@Override
 	public int hashCode() {
@@ -173,9 +164,9 @@ public class Game {
 		result = prime * result + ((status == null) ? 0 : status.hashCode());
 		result = prime * result + turn;
 		result = prime * result + ((turnDeadline == null) ? 0 : turnDeadline.hashCode());
+		result = prime * result + turnLength;
 		return result;
 	}
-
 
 	@Override
 	public boolean equals(Object obj) {
@@ -219,16 +210,18 @@ public class Game {
 				return false;
 		} else if (!turnDeadline.equals(other.turnDeadline))
 			return false;
+		if (turnLength != other.turnLength)
+			return false;
 		return true;
 	}
-
 
 	@Override
 	public String toString() {
 		return "Game [id=" + id + ", status=" + status + ", player1Id=" + player1Id + ", player2Id=" + player2Id
 				+ ", turn=" + turn + ", boardState=" + boardState + ", shipState=" + shipState + ", postDate="
-				+ postDate + ", turnDeadline=" + turnDeadline + "]";
+				+ postDate + ", turnDeadline=" + turnDeadline + ", turnLength=" + turnLength + "]";
 	}
+	
 	
 	
 }
