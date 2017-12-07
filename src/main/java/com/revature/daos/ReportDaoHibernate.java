@@ -78,6 +78,8 @@ public class ReportDaoHibernate implements ReportDao {
 		log.trace("Changing winner: " + winner + " where id: " + id);
 		Session session = sf.getCurrentSession();
 		Report report = getReportByGameId(id);
+		if(report == null)
+			return false;
 		report.setWinner(winner);
 		session.merge(report);
 		session.close();
@@ -90,6 +92,8 @@ public class ReportDaoHibernate implements ReportDao {
 		log.trace("Adding to ChatLog: " + chatLog + " where id: " + id);
 		Session session = sf.getCurrentSession();
 		Report report = getReportByGameId(id);
+		if(report == null)
+			return "";
 		report.appendToChatLog(chatLog);
 		session.merge(report);
 		return report.getChatLog();
@@ -101,6 +105,8 @@ public class ReportDaoHibernate implements ReportDao {
 		log.trace("Changing Report Date: " + time + " where id: " + id);
 		Session session = sf.getCurrentSession();
 		Report report = getReportByGameId(id);
+		if(report == null)
+			return false;
 		report.setReportDate(time);
 		session.merge(report);
 		session.close();
@@ -113,6 +119,8 @@ public class ReportDaoHibernate implements ReportDao {
 		log.trace("Changing claimant: " + claimant + " where id: " + id);
 		Session session = sf.getCurrentSession();
 		Report report = getReportByGameId(id);
+		if(report == null)
+			return false;
 		report.setClaimant(claimant);
 		session.merge(report);
 		session.close();
@@ -125,6 +133,8 @@ public class ReportDaoHibernate implements ReportDao {
 		log.trace("Changing defendant: " + defendant + " where id: " + id);
 		Session session = sf.getCurrentSession();
 		Report report = getReportByGameId(id);
+		if(report == null)
+			return false;
 		report.setDefendant(defendant);
 		session.merge(report);
 		session.close();
@@ -137,6 +147,8 @@ public class ReportDaoHibernate implements ReportDao {
 		log.trace("Changing reportNotes: " + reportNotes + " where id: " + id);
 		Session session = sf.getCurrentSession();
 		Report report = getReportByGameId(id);
+		if(report == null)
+			return false;
 		report.setReportNotes(reportNotes);
 		session.merge(report);
 		session.close();
@@ -149,6 +161,8 @@ public class ReportDaoHibernate implements ReportDao {
 		log.trace("Changing Report Flag: " + flag + " where id: " + id);
 		Session session = sf.getCurrentSession();
 		Report report = getReportByGameId(id);
+		if(report == null)
+			return false;
 		report.setFlag(flag);
 		session.merge(report);
 		session.close();
@@ -161,6 +175,8 @@ public class ReportDaoHibernate implements ReportDao {
 		log.trace("Deleting Report where id: " + id);
 		Session session = sf.getCurrentSession();
 		Report report = getReportByGameId(id);
+		if(report == null)
+			return false;
 		session.delete(report);
 		session.close();
 		return true;

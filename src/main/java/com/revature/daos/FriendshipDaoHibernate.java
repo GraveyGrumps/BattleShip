@@ -56,6 +56,8 @@ public class FriendshipDaoHibernate implements FriendshipDao {
 		log.trace("Changing pending to user2 where id: " + id + " and pending: " + pending);
 		Session session = sf.getCurrentSession();
 		Friendship friendship = getFrienshipByIdAndPending(id, pending);
+		if(friendship == null)
+			return false;
 		friendship.setUser2Id(pending);
 		friendship.setPending(0);
 		session.merge(friendship);
@@ -69,6 +71,8 @@ public class FriendshipDaoHibernate implements FriendshipDao {
 		log.trace("Adding to chat log: " + chat+ " between p1: " + p1Id + " and p2: " + p2Id);
 		Session session = sf.getCurrentSession();
 		Friendship friendship = getFriendshipByIds(p1Id, p2Id);
+		if(friendship == null)
+			return "";
 		friendship.addToChatLog(chat);
 		session.merge(friendship);
 		return friendship.getChatLog();
@@ -80,6 +84,8 @@ public class FriendshipDaoHibernate implements FriendshipDao {
 		log.trace("Deleting Friendship by id: " + id + " and pending: " + pending);
 		Session session = sf.getCurrentSession();
 		Friendship friendship = getFrienshipByIdAndPending(id, pending);
+		if(friendship == null)
+			return false;
 		session.delete(friendship);
 		session.close();
 		return true;
@@ -91,6 +97,8 @@ public class FriendshipDaoHibernate implements FriendshipDao {
 		log.trace("Deteling Friendship by id1: " + p1Id + " and id2: " + p2Id);
 		Session session = sf.getCurrentSession();
 		Friendship friendship = getFriendshipByIds(p1Id, p2Id);
+		if(friendship == null)
+			return false;
 		session.delete(friendship);
 		session.close();
 		return true;

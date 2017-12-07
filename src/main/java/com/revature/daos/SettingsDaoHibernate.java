@@ -42,6 +42,8 @@ public class SettingsDaoHibernate implements SettingsDao {
 		log.trace("Setting global chat to: " + allow + " where id: " + id);
 		Session session = sf.getCurrentSession();
 		Settings setting = getSettingsById(id);
+		if(setting == null)
+			return false;
 		setting.setGlobalChat(allow);
 		session.merge(setting);
 		session.close();
@@ -54,6 +56,8 @@ public class SettingsDaoHibernate implements SettingsDao {
 		log.trace("Setting in game chat to: " + allow + " where id: " + id);
 		Session session = sf.getCurrentSession();
 		Settings setting = getSettingsById(id);
+		if(setting == null)
+			return false;
 		setting.setInGameChat(allow);
 		session.merge(setting);
 		session.close();
@@ -66,6 +70,8 @@ public class SettingsDaoHibernate implements SettingsDao {
 		log.trace("Setting friend request to: " + allow + " where id: " + id);
 		Session session = sf.getCurrentSession();
 		Settings setting = getSettingsById(id);
+		if(setting == null)
+			return false;
 		setting.setAcceptFriendship(allow);
 		session.merge(setting);
 		session.close();
@@ -78,6 +84,8 @@ public class SettingsDaoHibernate implements SettingsDao {
 		log.trace("Setting challenges to: " + allow + " where id: " + id);
 		Session session = sf.getCurrentSession();
 		Settings setting = getSettingsById(id);
+		if(setting == null)
+			return false;
 		setting.setAllowChallenges(allow);
 		session.merge(setting);
 		session.close();
@@ -90,6 +98,8 @@ public class SettingsDaoHibernate implements SettingsDao {
 		log.trace("Setting viewable profile to: " + allow + " where id: " + id);
 		Session session = sf.getCurrentSession();
 		Settings setting = getSettingsById(id);
+		if(setting == null)
+			return false;
 		setting.setViewable(allow);
 		session.merge(setting);
 		session.close();
@@ -102,6 +112,8 @@ public class SettingsDaoHibernate implements SettingsDao {
 		log.trace("Deleting Setting with id: " + id);
 		Session session = sf.getCurrentSession();
 		Settings setting = getSettingsById(id);
+		if(setting == null)
+			return false;
 		session.delete(setting);
 		session.close();
 		return true;

@@ -56,6 +56,8 @@ public class WinLossDaoHibernate implements WinLossDao {
 		log.trace("Incrementing win by: " + win + " where id: " + id);
 		Session session = sf.getCurrentSession();
 		WinLoss winloss = getWinLossById(id);
+		if(winloss == null)
+			return false;
 		winloss.incrementWins(win);
 		session.merge(winloss);
 		session.close();
@@ -68,6 +70,8 @@ public class WinLossDaoHibernate implements WinLossDao {
 		log.trace("Incrementing losses by: " + loss + " where id: " + id);
 		Session session = sf.getCurrentSession();
 		WinLoss winloss = getWinLossById(id);
+		if(winloss == null)
+			return false;
 		winloss.incrementLosses(loss);
 		session.merge(winloss);
 		session.close();
@@ -80,6 +84,8 @@ public class WinLossDaoHibernate implements WinLossDao {
 		log.trace("Incrementing Seasonal Wins by: " + win + " where id: " + id);
 		Session session = sf.getCurrentSession();
 		WinLoss winloss = getWinLossById(id);
+		if(winloss == null)
+			return false;
 		winloss.incrementSeasonalWins(win);
 		session.merge(winloss);
 		session.close();
@@ -92,6 +98,8 @@ public class WinLossDaoHibernate implements WinLossDao {
 		log.trace("Incrementing Seasonal losses by: " + loss + " where id: " + id);
 		Session session = sf.getCurrentSession();
 		WinLoss winloss = getWinLossById(id);
+		if(winloss == null)
+			return false;
 		winloss.incrementSeasonalLosses(loss);
 		session.merge(winloss);
 		session.close();
@@ -104,6 +112,8 @@ public class WinLossDaoHibernate implements WinLossDao {
 		log.trace("Clearing seasonal wins and losses where id: " + id);
 		Session session = sf.getCurrentSession();
 		WinLoss winloss = getWinLossById(id);
+		if(winloss == null)
+			return false;
 		winloss.setSeasonLosses(0);
 		winloss.setSeasonWins(0);
 		session.merge(winloss);
@@ -117,6 +127,8 @@ public class WinLossDaoHibernate implements WinLossDao {
 		log.trace("Deleting WinLoss by Id: " + id);
 		Session session = sf.getCurrentSession();
 		WinLoss winloss = getWinLossById(id);
+		if(winloss == null)
+			return false;
 		session.delete(winloss);
 		session.close();
 		return true;
