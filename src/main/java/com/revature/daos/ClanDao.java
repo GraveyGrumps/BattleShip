@@ -12,8 +12,9 @@ public interface ClanDao {
 	List<Clan> getAllClans();
 	//PUT
 	boolean modfiyClanNameById(int id, String clanName);
-	boolean modifyClanChatLogById(int id, String chatLog);
+	String modifyClanChatLogById(int id, String chatLog);
 	boolean modifyClanLogoById(int id, String logoPath);
+	boolean clearClanChatById(int id);
 	//DELETE
 	boolean deleteClanById(int id);
 }

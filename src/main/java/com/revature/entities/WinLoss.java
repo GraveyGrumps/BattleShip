@@ -14,8 +14,8 @@ public class WinLoss {
 
 	@Id
 	@Column(name = "WL_ID")
-	@SequenceGenerator(name = "WL_ID_seq", sequenceName = "WL_ID_seq")
-	@GeneratedValue(generator = "WL_ID_seq", strategy = GenerationType.AUTO)
+	@SequenceGenerator(name = "WL_seq", sequenceName = "WL_seq")
+	@GeneratedValue(generator = "WL_seq", strategy = GenerationType.AUTO)
 	private int id;
 
 	@Column(name = "Season_Wins")
@@ -84,6 +84,22 @@ public class WinLoss {
 		this.losses = losses;
 	}
 
+	public void incrementWins(int win) {
+		this.wins += win;
+	}
+
+	public void incrementSeasonalWins(int win) {
+		this.seasonWins += win;
+	}
+
+	public void incrementLosses(int losses) {
+		this.losses += losses;
+	}
+
+	public void incrementSeasonalLosses(int losses) {
+		this.seasonLosses += losses;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -123,6 +139,5 @@ public class WinLoss {
 		return "WinLoss [id=" + id + ", seasonWins=" + seasonWins + ", seasonLosses=" + seasonLosses + ", wins=" + wins
 				+ ", losses=" + losses + "]";
 	}
-	
-	
+
 }

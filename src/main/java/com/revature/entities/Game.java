@@ -15,8 +15,8 @@ import javax.persistence.Table;
 public class Game {
 	@Id
 	@Column(name = "GM_ID")
-	@SequenceGenerator(name = "GM_ID_seq", sequenceName = "GM_ID_seq")
-	@GeneratedValue(generator = "GM_ID_seq", strategy = GenerationType.AUTO)
+	@SequenceGenerator(name = "GM_seq", sequenceName = "GM_seq")
+	@GeneratedValue(generator = "GM_seq", strategy = GenerationType.AUTO)
 	private int id;
 
 	@Column(name = "Status")

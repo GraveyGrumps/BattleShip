@@ -11,8 +11,8 @@ public interface FriendshipDao {
 	List<Friendship> getAllFriendshipsById(int id);
 	List<Friendship> getAllFriendshipsByPending(int pending);
 	//PUT
-	boolean updateFriendshipByUser1IdandPending(int id, int pending);
-	String updateChatLog(int p1Id, int p2Id, String chat);	
+	boolean modifyFriendshipByUser1IdandPending(int id, int pending);
+	String modifyChatLog(int p1Id, int p2Id, String chat);	
 	//DELETE
 	boolean deleteByIdAndPending(int id, int pending);
 	boolean deleteByIds(int p1Id, int P2Id);

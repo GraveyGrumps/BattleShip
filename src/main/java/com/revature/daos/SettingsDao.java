@@ -9,13 +9,11 @@ public interface SettingsDao {
 	//GET
 	Settings getSettingsById(int id);
 	//PUT
-	boolean changeAllSettingsById(int id, Settings setting);
-	boolean changeAllowGlobalChatById(int id, int allow);
-	boolean changeAllowInGameChatById(int id, int allow);
-	boolean changeAllowFriendRequestsById(int id, int allow);
-	boolean changeAllowChallengesById(int id, int allow);
-	boolean changeViewableProfileById(int id, int allow);
+	boolean modifyAllowGlobalChatById(int id, int allow);
+	boolean modifyAllowInGameChatById(int id, int allow);
+	boolean modifyAllowFriendRequestsById(int id, int allow);
+	boolean modifyAllowChallengesById(int id, int allow);
+	boolean modifyViewableProfileById(int id, int allow);
 	//DELETE
 	boolean deleteSettingsById(int id);
-	boolean deleteSettingsBySettings(Settings setting);
 }

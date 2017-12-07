@@ -11,12 +11,11 @@ public interface GameDao {
 	Game getGameById(int id);
 	List<Game> getAllGames();
 	//PUT
-	boolean changeGameStatusById(int id, String status);
-	boolean addPlayer2ToGameById(int id, int p2Id);
-	boolean changeGameTurnById(int id, int turn);
-	boolean changeGameBoardStateById(int id, String boardState);
-	boolean changeGameShipStateById(int id, String shipState);
+	boolean modifyGameStatusById(int id, String status);
+	boolean modifyGamePlayer2ById(int id, int p2Id);
+	boolean modifyGameTurnById(int id, int turn);
+	boolean modifyGameBoardStateById(int id, String boardState);
+	boolean modifyGameShipStateById(int id, String shipState);
 	//DELETE
 	boolean deleteGameById(int id);
-	boolean deleteGamebyGame(Game game);
 }
