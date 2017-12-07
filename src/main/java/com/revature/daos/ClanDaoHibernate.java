@@ -52,6 +52,8 @@ public class ClanDaoHibernate implements ClanDao {
 		log.trace("Modifying Clanname: " + clanName + " where id: " + id);
 		Session session = sf.getCurrentSession();
 		Clan clan = getClanById(id);
+		if(clan == null)
+			return false;
 		clan.setName(clanName);
 		session.merge(clan);
 		return true;
@@ -63,6 +65,8 @@ public class ClanDaoHibernate implements ClanDao {
 		log.trace("Adding to clan ChatLog: " + chatLog + " where id: " + id);
 		Session session = sf.getCurrentSession();
 		Clan clan = getClanById(id);
+		if(clan == null)
+			return "";
 		clan.addToChatLog(chatLog);
 		session.merge(clan);
 		return clan.getChatLog();
@@ -74,6 +78,8 @@ public class ClanDaoHibernate implements ClanDao {
 		log.trace("Modifying Clan Logo: " + logoPath + " where id: " + id);
 		Session session = sf.getCurrentSession();
 		Clan clan = getClanById(id);
+		if(clan == null)
+			return false;
 		clan.setLogo(logoPath);
 		session.merge(clan);
 		return true;
@@ -85,6 +91,8 @@ public class ClanDaoHibernate implements ClanDao {
 		log.trace("Deleting Clan with id: " + id);
 		Session session = sf.getCurrentSession();
 		Clan clan = getClanById(id);
+		if(clan == null)
+			return false;
 		session.delete(clan);
 		return true;
 	}
@@ -94,6 +102,8 @@ public class ClanDaoHibernate implements ClanDao {
 		log.trace("Clearing chat log of clan with id: " + id);
 		Session session = sf.getCurrentSession();
 		Clan clan = getClanById(id);
+		if(clan == null)
+			return false;
 		clan.setChatLog("");
 		session.merge(clan);
 		return true;

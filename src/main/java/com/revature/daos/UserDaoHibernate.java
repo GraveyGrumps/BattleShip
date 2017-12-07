@@ -62,6 +62,8 @@ public class UserDaoHibernate implements UserDao {
 		log.trace("Modifying user name: " + username + " where id: " + id);
 		Session session = sf.getCurrentSession();
 		User user = getUserById(id);
+		if(user == null)
+			return false;
 		user.setUsername(username);
 		session.merge(user);
 		session.close();
@@ -74,6 +76,8 @@ public class UserDaoHibernate implements UserDao {
 		log.trace("Modifying password: " + password + " where id: " + id);
 		Session session = sf.getCurrentSession();
 		User user = getUserById(id);
+		if(user == null)
+			return false;
 		user.setPassword(password);
 		session.merge(user);
 		session.close();
@@ -86,6 +90,8 @@ public class UserDaoHibernate implements UserDao {
 		log.trace("Modifying email: " + email + " where id: " + id);
 		Session session = sf.getCurrentSession();
 		User user = getUserById(id);
+		if(user == null)
+			return false;
 		user.setEmail(email);
 		session.merge(user);
 		session.close();
@@ -98,6 +104,8 @@ public class UserDaoHibernate implements UserDao {
 		log.trace("Modifying user is Admin: " + isAdmin + " where id: " + id);
 		Session session = sf.getCurrentSession();
 		User user = getUserById(id);
+		if(user == null)
+			return false;
 		user.setAdmin(isAdmin);
 		session.merge(user);
 		session.close();
@@ -110,6 +118,8 @@ public class UserDaoHibernate implements UserDao {
 		log.trace("Modifying profilepic: " + picturePath + " where id: " + id);
 		Session session = sf.getCurrentSession();
 		User user = getUserById(id);
+		if(user == null)
+			return false;
 		user.setProfilePic(picturePath);
 		session.merge(user);
 		session.close();
@@ -122,6 +132,8 @@ public class UserDaoHibernate implements UserDao {
 		log.trace("Modifying isOfficer: " + isOfficer + " where id: " + id);
 		Session session = sf.getCurrentSession();
 		User user = getUserById(id);
+		if(user == null)
+			return false;
 		user.setIsOfficer(isOfficer);
 		session.merge(user);
 		session.close();
@@ -134,6 +146,8 @@ public class UserDaoHibernate implements UserDao {
 		log.trace("setting AdminNotes: " + adminNotes + " where id: " + id);
 		Session session = sf.getCurrentSession();
 		User user = getUserById(id);
+		if(user == null)
+			return false;
 		user.setAdminNotes(adminNotes);
 		session.merge(user);
 		session.close();
@@ -146,6 +160,8 @@ public class UserDaoHibernate implements UserDao {
 		log.trace("Modifying verified: " + verified + " where id: " + id);
 		Session session = sf.getCurrentSession();
 		User user = getUserById(id);
+		if(user == null)
+			return false;
 		user.setVerified(verified);
 		session.merge(user);
 		session.close();
@@ -158,6 +174,8 @@ public class UserDaoHibernate implements UserDao {
 		log.trace("Deleting user with id: " + id);
 		Session session = sf.getCurrentSession();
 		User user = getUserById(id);
+		if(user == null)
+			return false;
 		session.delete(user);
 		session.close();
 		return true;
@@ -168,6 +186,8 @@ public class UserDaoHibernate implements UserDao {
 		log.trace("Appending AdminNotes: " + adminNotes + " where id: " + id);
 		Session session = sf.getCurrentSession();
 		User user = getUserById(id);
+		if(user == null)
+			return false;
 		user.appendAdminNotes(adminNotes);
 		session.merge(user);
 		session.close();
