@@ -14,7 +14,7 @@ import com.revature.service.UserService;
 @Controller
 @RequestMapping("user")
 //need allowCredentials, but won't need origins after bundling
-@CrossOrigin(allowCredentials = "true", origins = "http://localhost:4200")
+@CrossOrigin(allowCredentials = "true")
 public class UserController {
 
 	@Autowired
