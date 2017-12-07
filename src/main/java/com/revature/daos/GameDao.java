@@ -1,0 +1,21 @@
+package com.revature.daos;
+
+import java.util.List;
+
+import com.revature.entities.Game;
+
+public interface GameDao {
+	//POST
+	Game addGame(Game game);
+	//GET
+	Game getGameById(int id);
+	List<Game> getAllGames();
+	//PUT
+	boolean modifyGameStatusById(int id, String status);
+	boolean modifyGamePlayer2ById(int id, int p2Id);
+	boolean modifyGameTurnById(int id, int turn);
+	boolean modifyGameBoardStateById(int id, String boardState);
+	boolean modifyGameShipStateById(int id, String shipState);
+	//DELETE
+	boolean deleteGameById(int id);
+}
