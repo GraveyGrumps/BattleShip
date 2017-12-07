@@ -55,6 +55,8 @@ public class GameDaoHibernate implements GameDao {
 		log.trace("modifying game status: " + status + " where id:" + id);
 		Session session = sf.getCurrentSession();
 		Game game = getGameById(id);
+		if(game == null)
+			return false;
 		game.setStatus(status);
 		session.merge(game);
 		session.close();
@@ -67,6 +69,8 @@ public class GameDaoHibernate implements GameDao {
 		log.trace("Adding p2 of id : " + p2Id + " to game with id: " + id);
 		Session session = sf.getCurrentSession();
 		Game game = getGameById(id);
+		if(game == null)
+			return false;
 		game.setPlayer2Id(p2Id);
 		session.merge(game);
 		session.close();
@@ -79,6 +83,8 @@ public class GameDaoHibernate implements GameDao {
 		log.trace("Setting Turn: " + turn + " to game with id: " + id);
 		Session session = sf.getCurrentSession();
 		Game game = getGameById(id);
+		if(game == null)
+			return false;
 		game.setTurn(turn);
 		session.merge(game);
 		session.close();
@@ -91,6 +97,8 @@ public class GameDaoHibernate implements GameDao {
 		log.trace("Setting boardState: " + boardState + " to game with id: " + id);
 		Session session = sf.getCurrentSession();
 		Game game = getGameById(id);
+		if(game == null)
+			return false;
 		game.setBoardState(boardState);
 		session.merge(game);
 		session.close();
@@ -103,6 +111,8 @@ public class GameDaoHibernate implements GameDao {
 		log.trace("Setting shipState: " + shipState + " to game with id: " + id);
 		Session session = sf.getCurrentSession();
 		Game game = getGameById(id);
+		if(game == null)
+			return false;
 		game.setShipState(shipState);
 		session.merge(game);
 		session.close();
@@ -115,6 +125,8 @@ public class GameDaoHibernate implements GameDao {
 		log.trace("Deleting game with id: " + id);
 		Session session = sf.getCurrentSession();
 		Game game = getGameById(id);
+		if(game == null)
+			return false;
 		session.delete(game);
 		session.close();
 		return true;

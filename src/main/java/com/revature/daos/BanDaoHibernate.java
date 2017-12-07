@@ -54,6 +54,8 @@ public class BanDaoHibernate implements BanDao {
 		log.trace("Modifying ban status: " + status + " where ban id: " + id);
 		Session session = sf.getCurrentSession();
 		Ban ban = getBanById(id);
+		if(ban == null)
+			return false;
 		ban.setBanStatus(status);
 		session.merge(ban);
 		return true;
@@ -65,6 +67,8 @@ public class BanDaoHibernate implements BanDao {
 		log.trace("Modifying time banned: " + time + " where ban id: " + id);
 		Session session = sf.getCurrentSession();
 		Ban ban = getBanById(id);
+		if(ban == null)
+			return false;
 		ban.setBanLiftDate(time);
 		session.merge(ban);
 		return true;
@@ -76,6 +80,8 @@ public class BanDaoHibernate implements BanDao {
 		log.trace("Modifying ban record: " + record + " where ban id: " + id);
 		Session session = sf.getCurrentSession();
 		Ban ban = getBanById(id);
+		if(ban == null)
+			return false;
 		ban.setRecord(record);
 		session.merge(ban);
 		return true;
@@ -87,6 +93,8 @@ public class BanDaoHibernate implements BanDao {
 		log.trace("Delete ban with id: " + id);
 		Session session = sf.getCurrentSession();
 		Ban ban = getBanById(id);
+		if(ban == null)
+			return false;
 		session.delete(ban);
 		return true;
 	}
