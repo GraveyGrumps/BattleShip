@@ -16,6 +16,7 @@ public interface GameDao {
 	boolean modifyGameTurnById(int id, int turn);
 	boolean modifyGameBoardStateById(int id, String boardState);
 	boolean modifyGameShipStateById(int id, String shipState);
+	boolean modifyGameTurnLengthById(int id, int turnLength);
 	//DELETE
 	boolean deleteGameById(int id);
 }

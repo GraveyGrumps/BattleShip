@@ -132,4 +132,18 @@ public class GameDaoHibernate implements GameDao {
 		return true;
 	}
 
+	@Override
+	@Transactional
+	public boolean modifyGameTurnLengthById(int id, int turnLength) {
+		log.trace("Setting Turn Length: " + turnLength + " to game with id: " + id);
+		Session session = sf.getCurrentSession();
+		Game game = getGameById(id);
+		if(game == null)
+			return false;
+		game.setTurnLength(turnLength);
+		session.merge(game);
+		session.close();
+		return false;
+	}
+
 }
