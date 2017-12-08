@@ -12,9 +12,9 @@ import { appRoutes } from './routes';
 import { LoginComponent } from './login/login.component';
 import { ChatWindowComponent } from './chat-window/chat-window.component';
 import { GlobalChatService } from './global-chat.service';
+import { BattleshipComponent } from './games/battleship/battleship.component';
 import { UsersComponent } from './users/users.component';
 import { HomeComponent } from './users/home/home.component';
-
 
 @NgModule({
   imports: [
@@ -29,6 +29,7 @@ import { HomeComponent } from './users/home/home.component';
     NavComponent,
     LoginComponent,
     ChatWindowComponent,
+    BattleshipComponent,
     UsersComponent,
     HomeComponent
   ],

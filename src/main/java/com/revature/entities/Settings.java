@@ -28,7 +28,7 @@ public class Settings {
 	@Column(name = "In_Game_Chat")
 	private int inGameChat;
 
-	// TODO what does this field signify?
+	// what does this field signify? A: wither or not they can receive friend requests
 	@Column(name = "Accept_Friendship")
 	private int acceptFriendship;
 
