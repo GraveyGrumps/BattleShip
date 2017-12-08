@@ -13,22 +13,26 @@ import com.revature.entities.Settings;
 import com.revature.entities.User;
 import com.revature.entities.WinLoss;
 import com.revature.util.EncryptionUtil;
+import com.revature.util.ValidationUtil;
 
 @Service
 public class UserService {
 	private Logger log = Logger.getRootLogger();
 	@Autowired
-	UserDao ud;
+	private UserDao ud;
 	@Autowired
-	WinLossDao wld;
+	private WinLossDao wld;
 	@Autowired
-	SettingsDao sd;
+	private SettingsDao sd;
 	@Autowired
-	WinLoss wl;
+	private WinLoss wl;
 	@Autowired
-	Settings s;
+	private Settings s;
 	@Autowired
 	private EncryptionUtil eu;
+	@Autowired
+	private ValidationUtil vu;
+
 	public User login(User user) {
 		User u = ud.getUserByUsernameAndPassword(user.getUsername(), user.getPassword());
 		return u;
@@ -42,6 +46,7 @@ public class UserService {
 		user.setSettingsId(s.getId());
 		user.setWinLossId(wl.getId());
 		user.setPassword(eu.Encrypt(user.getPassword()));
+		user.setHash(eu.Encrypt(user.getUsername()));
 		try {
 			ud.addUser(user);
 		} catch (Exception e) {
@@ -54,12 +59,29 @@ public class UserService {
 
 	}
 
-	public List<User> getAllUsers() {
-		return ud.getAllUsers();
+	public List<User> getAllUsers(User u) {
+		if (vu.validateAccess(u, 1)) {
+			return ud.getAllUsers();
+		} else {
+			return null;
+		}
 	}
 
-	public User modifyUser(User user) {
-		return ud.modifyWholeUser(user);
+	public User modifyUser(User user, User u) {
+		if (vu.validateAccess(u, user.getId())) {
+			return ud.modifyWholeUser(user);
+		} else {
+			return null;
+		}
+		
+	}
+
+	public User getUserById(int id, User u) {
+		if (vu.validateAccess(u, id)) {
+			return ud.getUserById(id);
+		} else { 
+			return null;
+		}
 	}
 
 }
