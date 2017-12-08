@@ -60,7 +60,7 @@ public class UserService {
 	}
 
 	public List<User> getAllUsers(User u) {
-		if (vu.validateAccess(u, 1)) {
+		if (vu.validateUserAccess(u, 1)) {
 			return ud.getAllUsers();
 		} else {
 			return null;
@@ -68,18 +68,18 @@ public class UserService {
 	}
 
 	public User modifyUser(User user, User u) {
-		if (vu.validateAccess(u, user.getId())) {
+		if (vu.validateUserAccess(u, user.getId())) {
 			return ud.modifyWholeUser(user);
 		} else {
 			return null;
 		}
-		
+
 	}
 
 	public User getUserById(int id, User u) {
-		if (vu.validateAccess(u, id)) {
+		if (vu.validateUserAccess(u, id)) {
 			return ud.getUserById(id);
-		} else { 
+		} else {
 			return null;
 		}
 	}
