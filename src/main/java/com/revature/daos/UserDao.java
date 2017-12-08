@@ -2,12 +2,14 @@ package com.revature.daos;
 
 import java.util.List;
 
+import org.hibernate.exception.ConstraintViolationException;
+
 import com.revature.entities.User;
 
 public interface UserDao {
 
 	//Post
-	User addUser(User user);
+	User addUser(User user) throws ConstraintViolationException;
 	//Get
 	User getUserByUsernameAndPassword(String username, String password);
 	User getUserById(int id);
@@ -22,6 +24,7 @@ public interface UserDao {
 	boolean modifyUserAdminNotesById(int id, String adminNotes);
 	boolean modifyUserAppendAdminNotesById(int id, String adminNotes);
 	boolean modifyUserVerifiedById(int id, int verified);
+	User modifyWholeUser(User u);
 	//Delete
 	boolean deleteUserById(int id);
 }

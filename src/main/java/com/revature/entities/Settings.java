@@ -7,6 +7,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
 
+import org.springframework.stereotype.Component;
+
+@Component
 @Entity
 // @Table(name = "Settings")
 public class Settings {

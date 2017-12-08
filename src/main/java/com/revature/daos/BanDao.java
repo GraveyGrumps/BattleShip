@@ -8,7 +8,7 @@ import com.revature.entities.Ban;
 public interface BanDao {
 	//POST
 	Ban addBan(Ban ban);
-	//GET
+	//GET 
 	Ban getBanById(int id);
 	List<Ban> getAllBans();
 	//PUT
