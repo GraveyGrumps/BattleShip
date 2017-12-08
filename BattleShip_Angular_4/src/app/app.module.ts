@@ -12,6 +12,7 @@ import {NavComponent} from './nav/nav.component';
 import { appRoutes } from './routes';
 import { ChatWindowComponent } from './chat-window/chat-window.component';
 import { GlobalChatService } from './global-chat.service';
+import { BattleshipComponent } from './games/battleship/battleship.component';
 
 @NgModule({
   imports: [
@@ -25,6 +26,7 @@ import { GlobalChatService } from './global-chat.service';
     AppComponent,
     NavComponent,
     ChatWindowComponent,
+    BattleshipComponent
    ],
   providers: [],
   bootstrap: [AppComponent]
