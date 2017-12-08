@@ -2,11 +2,13 @@ package com.revature.daos;
 
 import java.util.List;
 
+import org.hibernate.exception.ConstraintViolationException;
+
 import com.revature.entities.Friendship;
 
 public interface FriendshipDao {
 	//POST
-	boolean addFriendShip(Friendship friendship);
+	boolean addFriendShip(Friendship friendship) throws ConstraintViolationException ;
 	//GET
 	List<Friendship> getAllFriendshipsById(int id);
 	List<Friendship> getAllFriendshipsByPending(int pending);

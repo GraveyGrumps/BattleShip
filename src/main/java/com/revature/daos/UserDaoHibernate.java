@@ -9,6 +9,7 @@ import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
+import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -22,7 +23,8 @@ public class UserDaoHibernate implements UserDao {
 
 	@Override
 	@Transactional
-	public User addUser(User user) {
+	public User addUser(User user) throws ConstraintViolationException {
+
 		sf.getCurrentSession().save(user);
 		return user;
 	}
@@ -182,6 +184,7 @@ public class UserDaoHibernate implements UserDao {
 	}
 
 	@Override
+	@Transactional
 	public boolean modifyUserAppendAdminNotesById(int id, String adminNotes) {
 		log.trace("Appending AdminNotes: " + adminNotes + " where id: " + id);
 		Session session = sf.getCurrentSession();
@@ -192,6 +195,15 @@ public class UserDaoHibernate implements UserDao {
 		session.merge(user);
 		session.close();
 		return true;
+	}
+
+	@Override
+	@Transactional
+	public User modifyWholeUser(User u) {
+		log.trace("Modifying entire user via a user object");
+		Session session = sf.getCurrentSession();
+		session.merge(u);
+		return u;
 	}
 
 }

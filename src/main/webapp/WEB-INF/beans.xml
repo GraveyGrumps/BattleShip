@@ -26,13 +26,13 @@
     <bean id="sessionFactory"
         class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
         <property name="dataSource" ref="OurDababase" />
-        <property name="packagesToScan" value="com.revature.entities" />
+        <property name="packagesToScan" value="com.revature" />
         <property name="hibernateProperties">
             <props>
                 <prop key="hibernate.dialect">org.hibernate.dialect.Oracle10gDialect</prop>
-                <prop key="hibernate.show_sql">true</prop>
-                <prop key="hibernate.format_sql">true</prop>
-                <prop key="hibernate.use_sql_comments">true</prop>
+                <prop key="hibernate.show_sql">false</prop>
+                <prop key="hibernate.format_sql">false</prop>
+                <prop key="hibernate.use_sql_comments">false</prop>
             </props>
         </property>
     </bean>

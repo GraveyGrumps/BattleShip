@@ -9,10 +9,12 @@ import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
+import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
 import com.revature.entities.Friendship;
-
+@Repository
 public class FriendshipDaoHibernate implements FriendshipDao {
 	private Logger log = Logger.getRootLogger();
 	@Autowired
@@ -20,7 +22,7 @@ public class FriendshipDaoHibernate implements FriendshipDao {
 	
 	@Override
 	@Transactional
-	public boolean addFriendShip(Friendship friendship) {
+	public boolean addFriendShip(Friendship friendship) throws ConstraintViolationException  {
 		log.trace("Adding a new Friendship to the Database");
 		sf.getCurrentSession().save(friendship);
 		return true;
