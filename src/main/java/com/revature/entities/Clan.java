@@ -14,8 +14,8 @@ public class Clan {
 
 	@Id
 	@Column(name = "CL_ID")
-	@SequenceGenerator(name = "CL_ID_seq", sequenceName = "CL_ID_seq")
-	@GeneratedValue(generator = "CL_ID_seq", strategy = GenerationType.AUTO)
+	@SequenceGenerator(name = "CL_seq", sequenceName = "CL_seq")
+	@GeneratedValue(generator = "CL_seq", strategy = GenerationType.AUTO)
 	private int id;
 
 	@Column(name = "Name")
@@ -70,6 +70,10 @@ public class Clan {
 
 	public void setLogo(String logo) {
 		this.logo = logo;
+	}
+	
+	public void addToChatLog(String chatLog) {
+		this.chatLog += chatLog;
 	}
 
 	@Override

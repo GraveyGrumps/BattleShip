@@ -1,5 +1,7 @@
 package com.revature.entities;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -7,7 +9,12 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "Friendships")
-public class Friendship {
+public class Friendship implements Serializable{
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	@Id
 	@Column(name = "Usr_1")
@@ -66,6 +73,9 @@ public class Friendship {
 
 	public void setChatLog(String chatLog) {
 		this.chatLog = chatLog;
+	}
+	public void addToChatLog(String chatLog) {
+		this.chatLog += chatLog;
 	}
 
 	@Override

@@ -13,8 +13,8 @@ import javax.persistence.Table;
 public class User {
 	@Id
 	@Column(name = "USR_ID")
-	@SequenceGenerator(name = "USR_ID_seq", sequenceName = "USR_ID_seq")
-	@GeneratedValue(generator = "USR_ID_seq", strategy = GenerationType.AUTO)
+	@SequenceGenerator(name = "USR_seq", sequenceName = "USR_seq")
+	@GeneratedValue(generator = "USR_seq", strategy = GenerationType.AUTO)
 	private int id;
 
 	@Column(name = "Username")
@@ -163,6 +163,9 @@ public class User {
 
 	public String getAdminNotes() {
 		return adminNotes;
+	}
+	public void appendAdminNotes(String notes) {
+		this.adminNotes += notes;
 	}
 
 	public void setAdminNotes(String adminNotes) {

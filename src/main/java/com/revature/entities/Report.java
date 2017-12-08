@@ -16,8 +16,8 @@ import javax.persistence.Table;
 public class Report {
 	@Id
 	@Column(name = "RP_ID")
-	@SequenceGenerator(name = "RP_ID_seq", sequenceName = "RP_ID_seq")
-	@GeneratedValue(generator = "RP_ID_seq", strategy = GenerationType.AUTO)
+	@SequenceGenerator(name = "RP_seq", sequenceName = "RP_seq")
+	@GeneratedValue(generator = "RP_seq", strategy = GenerationType.AUTO)
 	private int id;
 
 	@Column(name = "GM_ID")
@@ -97,6 +97,9 @@ public class Report {
 
 	public void setChatLog(String chatLog) {
 		this.chatLog = chatLog;
+	}
+	public void appendToChatLog(String chat) {
+		this.chatLog += chatLog;
 	}
 
 	public Timestamp getReportDate() {
