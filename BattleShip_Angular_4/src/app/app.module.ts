@@ -15,6 +15,8 @@ import { GlobalChatService } from './global-chat.service';
 import { BattleshipComponent } from './games/battleship/battleship.component';
 import { UsersComponent } from './users/users.component';
 import { HomeComponent } from './users/home/home.component';
+import { TopTenComponent } from './top-ten/top-ten.component';
+import { GametileComponent } from './gametile/gametile.component';
 
 @NgModule({
   imports: [
@@ -31,7 +33,9 @@ import { HomeComponent } from './users/home/home.component';
     ChatWindowComponent,
     BattleshipComponent,
     UsersComponent,
-    HomeComponent
+    HomeComponent,
+    TopTenComponent,
+    GametileComponent
   ],
   providers: [],
   bootstrap: [AppComponent]

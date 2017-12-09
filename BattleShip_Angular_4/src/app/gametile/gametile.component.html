@@ -1,0 +1,55 @@
+<div class = "container align-items-center" id = "gameTile" (click) = "showModal(content)">
+  <div class = "row vertical-align">
+    <div class = "col-xs col-centered">
+      <img class = "Img" src = "assets/img/battleshipcover.jpg">
+      <p id = "gameName">BattleShip</p>
+      </div>
+    <div class = "col-xs col-centered">
+       <p>{{gametime}}Game started</p>
+       <p>Time Left in Turn</p>
+    </div>
+    <div class = "col-xs col-centered">
+       <p>{{opponentname}} Opponent Name</p>
+       <p>Who's Turn it is</p>
+
+    </div>
+    <div class = "col-xs col-centered"> 
+      <img class = "Img" src = "assets/img/devil.jpg">
+      <p id = "oponentName">{{oponentname}} Opponent</p>
+    </div>
+  </div>
+</div>
+
+
+<ng-template #content let-c="close" let-d="dismiss">
+    <div class="modal-header">
+      <h4 class="modal-title">BattleShip</h4>
+      <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <div class = "container">
+        <div class = "row">
+          <div class = "col">
+              <img class = "Img" src = "assets/img/battleshipcover.jpg">
+          </div>
+          <div class = "col">
+              <p> Time per Turn </p>
+              <p> Time till Turn over</p>
+              <p> Who's turn</p>
+          </div>
+          <div class = "col">
+              <p> Oponenent Name</p>
+              <p> Their W/L</p>
+          </div>
+        
+        </div>
+  
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-secondary" (click)="c('Close click')">Close</button>
+      <button type= "button" class ="btn btn-primary">Start Game</button>
+    </div>
+  </ng-template>

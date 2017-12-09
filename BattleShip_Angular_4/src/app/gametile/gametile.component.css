@@ -1,0 +1,21 @@
+.Img{
+    width: 100px;
+    height: auto;
+}
+#gameTile{
+    border: 1px solid black;
+    background: rgb(238, 238, 238);
+    height: auto;
+    margin: 10px;
+}
+#gameName{
+    text-align:center;
+}
+.col-centered{
+    float: none;
+    margin: 0 auto;
+}
+.vertical-align {
+    display: flex;
+    align-items: center;
+}
