@@ -24,7 +24,7 @@ public class UserDaoHibernate implements UserDao {
 	@Override
 	@Transactional
 	public User addUser(User user) throws ConstraintViolationException {
-
+		log.trace("Saving user to database");
 		sf.getCurrentSession().save(user);
 		return user;
 	}

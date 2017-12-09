@@ -26,8 +26,7 @@ public class WinLossDaoHibernate implements WinLossDao {
 	@Transactional
 	public WinLoss addWinLoss(WinLoss winloss) {
 		log.trace("Adding a new WinLoss to the Database");
-		Session session = sf.getCurrentSession();
-		log.trace(session.save(winloss));
+		sf.getCurrentSession().save(winloss);
 		return winloss;
 	}
 
