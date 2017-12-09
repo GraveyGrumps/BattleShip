@@ -1,0 +1,10 @@
+<div id="chatboxDiv">
+  <h3>Global Chat</h3>
+
+  <div *ngFor="let line of getChat()">
+    <span>{{line}}</span>
+  </div>
+  <div id="inputdiv">
+    <input type="text" id="chat" #chat (keyup.enter)="onKey(chat)" placeholder="Talk to Global Chat">
+  </div>
+</div>
