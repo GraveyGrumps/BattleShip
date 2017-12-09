@@ -10,6 +10,7 @@ public interface GameDao {
 	//GET
 	Game getGameById(int id);
 	List<Game> getAllGames();
+	List<Game> getAllPendingGames();
 	//PUT
 	boolean modifyGameStatusById(int id, String status);
 	boolean modifyGamePlayer2ById(int id, int p2Id);

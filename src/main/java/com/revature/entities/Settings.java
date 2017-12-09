@@ -7,11 +7,13 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
 
+import org.springframework.beans.factory.config.ConfigurableBeanFactory;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 @Component
 @Entity
-// @Table(name = "Settings")
+@Scope(value = ConfigurableBeanFactory.SCOPE_PROTOTYPE)
 public class Settings {
 
 	@Id
