@@ -1,37 +1,45 @@
 <div class="container">
     <div class="card card-container">
-        <p id="profile-name" class="profile-name-card"></p>
-        <form class="form-signin" (ngSubmit)="createGame()">        
+        <form class="form-signin" (ngSubmit)="createGame()">
             <div>
-                    <label class="">Game Type</label>
+                <h1>Game Options</h1>
             </div>
-            
-            <div class="btn-group" ngbRadioGroup name="radioBasic" [(ngModel)]="newUser.role" [ngModelOptions]="{standalone: true}">
+            <div>
+                <label class="">Game Type</label>
+            </div>
+
+            <div class="btn-group 0" ngbRadioGroup>
                 <label ngbButtonLabel class="btn-primary btn-radio">
                     <input ngbButton type="radio" name="radios" id="radios-0" [value]="1"> Battleship
+                </label>
+                <label ngbButtonLabel class="btn-primary btn-radio">
+                    <input ngbButton type="radio" name="radios" id="radios-1" [value]="2"> Also Battleship
                 </label>
             </div>
 
             <div>
-                    <label class="">Turn Length</label>
+                <label class="">Turn Length</label>
             </div>
-            
-            <div class="btn-group" ngbRadioGroup name="radioBasic" [(ngModel)]="newUser.role" [ngModelOptions]="{standalone: true}">
+
+            <div class="btn-group" ngbRadioGroup name="radioBasic" [(ngModel)]="newGame.turnLength" [ngModelOptions]="{standalone: true}">
                 <label ngbButtonLabel class="btn-primary btn-radio">
-                    <input ngbButton type="radio" name="radios" id="radios-0" [value]="30"> 30 Minutes
+                    <input ngbButton type="radio" name="radios" id="radios-3" [value]="1"> 1 Minute
                 </label>
                 <label ngbButtonLabel class="btn-primary btn-radio">
-                    <input ngbButton type="radio" name="radios" id="radios-1" [value]="60"> 1 Hour
+                    <input ngbButton type="radio" name="radios" id="radios-4" [value]="10"> 10 Minutes
                 </label>
                 <label ngbButtonLabel class="btn-primary btn-radio">
-                    <input ngbButton type="radio" name="radios" id="radios-1" [value]="1440"> 1 Day
+                    <input ngbButton type="radio" name="radios" id="radios-5" [value]="60"> 1 Hour
+                </label>
+                <label ngbButtonLabel class="btn-primary btn-radio">
+                    <input ngbButton type="radio" name="radios" id="radios-6" [value]="1440"> 1 Day
                 </label>
             </div>
 
             <button class="btn btn-lg btn-primary btn-block btn-signin" type="submit">Create Game</button>
         </form>
         <!-- /form -->
-        <button class="btn btn-lg btn-primary btn-block btn-signin" (click)="cancel()">
+        <button class="btn btn-lg btn-primary btn-block btn-signin" (click)="cancel()" >
             Cancel
         </button>
     </div>

@@ -11,12 +11,18 @@ import { Game } from '../battleship/beans/Game';
   styleUrls: ['./newgame.component.css']
 })
 
-export class NewGameComponent {
+export class NewGameComponent implements OnInit {
 
   newGame = new Game();
 
+
+
   constructor( @Inject(Http) public http: Http) {
 
+  }
+
+  ngOnInit() {
+    this.newGame.turnLength = 10;
   }
 
   createGame() {
