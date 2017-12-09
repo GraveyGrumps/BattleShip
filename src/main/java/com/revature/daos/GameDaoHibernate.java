@@ -24,9 +24,7 @@ public class GameDaoHibernate implements GameDao {
 	@Transactional
 	public Game addGame(Game game) {
 		log.trace("adding a game to the DataBase");
-		Session session = sf.getCurrentSession();
-		session.save(game);
-		session.close();
+		sf.getCurrentSession().save(game);
 		return game;
 	}
 
@@ -144,6 +142,17 @@ public class GameDaoHibernate implements GameDao {
 		session.merge(game);
 		session.close();
 		return false;
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	@Transactional
+	public List<Game> getAllPendingGames() {
+		log.trace("Getting all pending games");
+		Session session = sf.getCurrentSession();
+		Criteria criteria = session.createCriteria(Game.class);
+		criteria.add(Restrictions.ilike("status", "pending"));
+		return (List<Game>) criteria.list();
 	}
 
 }

@@ -1,0 +1,13 @@
+.image{
+    width: 10px;
+    height: auto;
+}
+h3{
+    text-align: center;
+}
+td{
+    font-size: 75%;
+}
+table {
+    max-width: none;
+}

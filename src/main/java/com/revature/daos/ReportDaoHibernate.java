@@ -26,9 +26,7 @@ public class ReportDaoHibernate implements ReportDao {
 	@Transactional
 	public Report addReport(Report report) {
 		log.trace("Adding a new Report to the Database");
-		Session session = sf.getCurrentSession();
-		session.save(report);
-		session.close();
+		sf.getCurrentSession().save(report);
 		return report;
 	}
 

@@ -22,8 +22,7 @@ public class SettingsDaoHibernate implements SettingsDao {
 	@Transactional
 	public Settings addSettings(Settings setting) {
 		log.trace("Adding setting to DataBase");
-		Session session = sf.getCurrentSession();
-		session.save(setting);
+		sf.getCurrentSession().save(setting);
 		return setting;
 	}
 
