@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.revature.entities.User;
+import com.revature.service.SettingsService;
 import com.revature.service.UserService;
 
 @Controller
@@ -27,6 +28,9 @@ public class UserController {
 	private Logger log = Logger.getRootLogger();
 	@Autowired
 	private UserService us;
+
+	@Autowired
+	private SettingsService ss;
 
 	@PostMapping("login")
 	@ResponseBody
@@ -51,7 +55,7 @@ public class UserController {
 	@PostMapping("all")
 	@ResponseBody
 	public List<User> getAll(HttpServletRequest request) {
-		return us.getAllUsers((User)request.getAttribute("user"));
+		return us.getAllUsers((User) request.getAttribute("user"));
 	}
 
 	@PostMapping("modify")
@@ -59,7 +63,7 @@ public class UserController {
 	public User modifyUser(@RequestBody User user, HttpServletRequest request) {
 		return us.modifyUser(user, (User) request.getAttribute("user"));
 	}
-	
+
 	@GetMapping("{id}")
 	@ResponseBody
 	public User getUserById(@PathVariable int id, HttpServletRequest request) {
