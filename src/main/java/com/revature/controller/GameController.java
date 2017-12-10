@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.revature.entities.Game;
@@ -24,10 +25,18 @@ public class GameController {
 	@Autowired
 	private GameService gs;
 	private Logger log = Logger.getRootLogger();
+	
 	@GetMapping("pending")
 	public List<Game> getPendingGames(){
 		log.info("Getting Pending Games");
 		return gs.getPendingGames();
+	}
+	
+	@GetMapping("load")
+	@ResponseBody
+	public Game loadGame(@RequestParam("id") int id) {
+		log.info("Loading Game " + id);		
+		return gs.loadGame(id);
 	}
 	
 	@PostMapping("new")
