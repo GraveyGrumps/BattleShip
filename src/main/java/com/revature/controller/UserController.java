@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.revature.entities.User;
-import com.revature.service.SettingsService;
 import com.revature.service.UserService;
 
 @Controller
@@ -28,9 +27,6 @@ public class UserController {
 	private Logger log = Logger.getRootLogger();
 	@Autowired
 	private UserService us;
-
-	@Autowired
-	private SettingsService ss;
 
 	@PostMapping("login")
 	@ResponseBody
@@ -69,5 +65,11 @@ public class UserController {
 	public User getUserById(@PathVariable int id, HttpServletRequest request) {
 		return us.getUserById(id, (User) request.getAttribute("user"));
 	}
-
+	@GetMapping("winloss/{id}")
+	@ResponseBody
+	public User getUserByWinlossId(@PathVariable int id) {
+		log.info("Getting user by Winloss id");
+		log.trace("id is: " + id);
+		return us.getUserByWinlossId(id);
+	}
 }

@@ -14,6 +14,7 @@ public interface UserDao {
 	User getUserByUsernameAndPassword(String username, String password);
 	User getUserById(int id);
 	List<User> getAllUsers();
+	User getUserByWinlossId(int id);
 	//Put
 	boolean modifyUserUserNameById(int id, String username);
 	boolean modifyUserPasswordById(int id, String password);
@@ -27,4 +28,5 @@ public interface UserDao {
 	User modifyWholeUser(User u);
 	//Delete
 	boolean deleteUserById(int id);
+	
 }

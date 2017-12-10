@@ -21,10 +21,11 @@ export class LoginComponent implements OnInit {
 
   submit() {
 
-    this.http.post(environment.context + 'user/login', this.credential, { withCredentials: true })
+    this.http.post(environment.context + '/user/login', this.credential, { withCredentials: true })
       .subscribe((succResp) => {
         if (succResp.text() !== '') {
-          this.router.navigateByUrl('/user/home');
+          console.log('success');
+          this.router.navigateByUrl('/users/home');
         } else {
           alert('failed to login');
         }

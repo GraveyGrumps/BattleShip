@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,6 +26,7 @@ public class GameController {
 	private GameService gs;
 	private Logger log = Logger.getRootLogger();
 	@GetMapping("pending")
+	@ResponseBody
 	public List<Game> getPendingGames(){
 		log.info("Getting Pending Games");
 		return gs.getPendingGames();
@@ -38,10 +40,16 @@ public class GameController {
 	}
 	
 	@PostMapping("start")
+	@ResponseBody
 	public Game startGame(@RequestBody Game game) {
 		log.info("Starting a game");
 		log.trace("Game is: " + game);
 		return gs.startGame(game);
+	}
+	@GetMapping("{id}")
+	@ResponseBody
+	public List<Game> getMyGames(@PathVariable int id) {
+		return gs.getMyGames(id);
 	}
 
 }

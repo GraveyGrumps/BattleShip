@@ -56,5 +56,9 @@ public class GameService {
 		return null;
 	}
 
+	public List<Game> getMyGames(int id) {
+		return gd.getAllGamesWithId(id);
+	}
+
 	
 }

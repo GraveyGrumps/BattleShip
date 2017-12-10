@@ -34,12 +34,12 @@ public class UserService {
 	private ValidationUtil vu;
 
 	public User login(User user) {
-		User u = ud.getUserByUsernameAndPassword(user.getUsername(), user.getPassword());
+		User u = ud.getUserByUsernameAndPassword(user.getUsername(), eu.Encrypt(user.getPassword()));
 		return u;
 	}
 
 	public User create(User user) {
-		log.trace("Creating user");
+		log.trace("Creating user: " + user);
 		log.trace("Spinning up a new winloss");
 		wl = wld.addWinLoss(wl);
 		s = sd.addSettings(s);
@@ -80,11 +80,16 @@ public class UserService {
 		User foundUser = ud.getUserById(id);
 
 		// Return if access permitted
-		if (vu.validateAccess(u, foundUser)) {
+		//if (vu.validateAccess(u, foundUser)) {
 			return foundUser;
-		} else {
-			return null;
-		}
+		//} else {
+		//	return null;
+		//}
+	}
+
+	public User getUserByWinlossId(int id) {
+		
+		return ud.getUserByWinlossId(id);
 	}
 
 }
