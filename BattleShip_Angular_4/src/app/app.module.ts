@@ -18,6 +18,7 @@ import { HomeComponent } from './users/home/home.component';
 import { NewGameComponent } from './games/newgame/newgame.component';
 import { TopTenComponent } from './top-ten/top-ten.component';
 import { GametileComponent } from './gametile/gametile.component';
+import { TestPannelComponent } from './games/battleship/testpannel/testpannel.component';
 
 @NgModule({
   imports: [
@@ -37,7 +38,8 @@ import { GametileComponent } from './gametile/gametile.component';
     HomeComponent,
     NewGameComponent,
     TopTenComponent,
-    GametileComponent
+    GametileComponent,
+    TestPannelComponent
   ],
   providers: [],
   bootstrap: [AppComponent]

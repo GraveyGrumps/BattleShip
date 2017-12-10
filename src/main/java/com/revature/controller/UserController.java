@@ -68,17 +68,4 @@ public class UserController {
     public User getUserById(@PathVariable int id, HttpServletRequest request) {
 	return us.getUserById(id, (User) request.getAttribute("user"));
     }
-
-    // TODO Get the settings Id of the current user
-    // Search UserDaoHIbernate for "session"
-    @GetMapping("{id}/settings")
-    @ResponseBody
-    public User getSettingsByUserId(@PathVariable int id, HttpServletRequest request) {
-	// return us.getUserById(id, (User) request.getAttribute("user"));
-	// us.getUserById(id, us.ge)
-
-	// return ss.findById(us.set, currentUser)
-	// request.getSession().getAttribute(arg0)
-    }
-
 }

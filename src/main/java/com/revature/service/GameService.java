@@ -53,8 +53,10 @@ public class GameService {
     }
 
     public Game startGame(Game game) {
-
 	return null;
     }
 
+    public Game loadGame(int id) {
+	return gd.getGameById(id);
+    }
 }
