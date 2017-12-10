@@ -17,6 +17,5 @@ export class Boardstate {
                 }
             }
         }
-        console.log(JSON.stringify(this.tiles));
     }
 }

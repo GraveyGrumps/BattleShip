@@ -16,19 +16,14 @@ export class Shipstate {
         // Player 1
         // Ship 1 - Carrier
         // Peg 1
-        console.log(this.details);
         this.details[0][0][0] = false;
         // Peg 2
-        console.log('2');
         this.details[0][0][1] = false;
         // Peg 3
-        console.log('1');
         this.details[0][0][2] = false;
         // Peg 4
-        console.log('1');
         this.details[0][0][3] = false;
         // Peg 5
-        console.log('1');
         this.details[0][0][4] = false;
 
         // Ship 2 - Battleship

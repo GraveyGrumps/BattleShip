@@ -22,11 +22,18 @@ export class NewGameComponent implements OnInit {
   }
 
   ngOnInit() {
+    // let p1 = new User;
+    // p1 = JSON.parse((sessionStorage.getItem('user')));
+    // this.newGame.player1Id = p1.id;
+    // this.newGame.player2Id = p1.id;
+    this.newGame.player1Id = 2;
+    this.newGame.player2Id = 2;
     this.newGame.turnLength = 10;
   }
 
   createGame() {
-    this.http.post('http://localhost:8080/ERS/users/new', JSON.stringify(this.newGame), { withCredentials: true }).subscribe(
+    console.log(JSON.stringify(this.newGame));
+    this.http.post('http://localhost:8080/Battleship/game/new', (this.newGame), { withCredentials: true }).subscribe(
       (successResp) => {
         alert('Creating new game');
       },
