@@ -154,5 +154,14 @@ public class GameDaoHibernate implements GameDao {
 		criteria.add(Restrictions.ilike("status", "pending"));
 		return (List<Game>) criteria.list();
 	}
+	
+	@Override
+	@Transactional
+	public Game modifyGameViaGame(Game game) {
+		log.trace("merging game via game: " + game);
+		Session session = sf.getCurrentSession();
+		session.merge(game);
+		return game;
+	}
 
 }
