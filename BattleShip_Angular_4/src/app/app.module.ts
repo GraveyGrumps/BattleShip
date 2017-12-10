@@ -15,6 +15,7 @@ import { GlobalChatService } from './global-chat.service';
 import { BattleshipComponent } from './games/battleship/battleship.component';
 import { UsersComponent } from './users/users.component';
 import { HomeComponent } from './users/home/home.component';
+import { NewGameComponent } from './games/newgame/newgame.component';
 import { TopTenComponent } from './top-ten/top-ten.component';
 import { GametileComponent } from './gametile/gametile.component';
 
@@ -34,6 +35,7 @@ import { GametileComponent } from './gametile/gametile.component';
     BattleshipComponent,
     UsersComponent,
     HomeComponent,
+    NewGameComponent,
     TopTenComponent,
     GametileComponent
   ],
