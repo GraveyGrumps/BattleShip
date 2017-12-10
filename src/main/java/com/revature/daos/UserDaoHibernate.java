@@ -48,6 +48,15 @@ public class UserDaoHibernate implements UserDao {
 		criteria.add(Restrictions.eq("id", id));
 		return (User) criteria.uniqueResult();
 	}
+	@Override
+	@Transactional
+	public User getUserByWinlossId(int id) {
+		log.trace("Getting user by winloss id: " + id);
+		Session session = sf.getCurrentSession();
+		Criteria criteria = session.createCriteria(User.class);
+		criteria.add(Restrictions.eq("winLossId", id));
+		return (User) criteria.uniqueResult();
+	}
 
 	@SuppressWarnings("unchecked")
 	@Override

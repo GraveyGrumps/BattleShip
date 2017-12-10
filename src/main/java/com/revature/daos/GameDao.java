@@ -11,6 +11,7 @@ public interface GameDao {
 	Game getGameById(int id);
 	List<Game> getAllGames();
 	List<Game> getAllPendingGames();
+	List<Game> getAllGamesWithId(int id);
 	//PUT
 	Game modifyGameViaGame(Game game);
 	boolean modifyGameStatusById(int id, String status);

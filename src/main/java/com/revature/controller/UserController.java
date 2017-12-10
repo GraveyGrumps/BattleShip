@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.PutMapping;
 
 import com.revature.entities.User;
-import com.revature.service.SettingsService;
 import com.revature.service.UserService;
 
 @Controller
@@ -32,41 +31,52 @@ public class UserController {
     @Autowired
     private SettingsService ss;
 
-    @PostMapping("login")
-    @ResponseBody
-    public User login(@RequestBody User user, HttpServletRequest request) {
-	User u = us.login(user);
-	if (u == null) {
-	    log.trace("Invalid credentials");
-	    return null;
-	} else {
-	    log.trace("Valid credentials");
-	    request.getSession().setAttribute("user", u);
-	    return u;
+
+	@PostMapping("login")
+	@ResponseBody
+	public User login(@RequestBody User user, HttpServletRequest request) {
+		User u = us.login(user);
+		if (u == null) {
+			log.trace("Invalid credentials");
+			return null;
+		} else {
+			log.trace("Valid credentials");
+			log.trace("adding user");
+			log.trace(u);
+			request.getSession().setAttribute("user", u);
+			return u;
+		}
 	}
-    }
 
-    @PostMapping("new")
-    @ResponseBody
-    public User createUser(@RequestBody User user, HttpServletRequest request) {
-	return us.create(user);
-    }
+	@PostMapping("new")
+	@ResponseBody
+	public User createUser(@RequestBody User user, HttpServletRequest request) {
+		return us.create(user);
 
-    @GetMapping("all")
-    @ResponseBody
-    public List<User> getAll(HttpServletRequest request) {
-	return us.getAllUsers((User) request.getAttribute("user"));
-    }
 
-    @PutMapping("modify")
-    @ResponseBody
-    public User modifyUser(@RequestBody User user, HttpServletRequest request) {
-	return us.modifyUser(user, (User) request.getAttribute("user"));
-    }
 
-    @GetMapping("{id}")
-    @ResponseBody
-    public User getUserById(@PathVariable int id, HttpServletRequest request) {
-	return us.getUserById(id, (User) request.getAttribute("user"));
-    }
+	@GetMapping("all")
+	@ResponseBody
+	public List<User> getAll(HttpServletRequest request) {
+		return us.getAllUsers((User) request.getAttribute("user"));
+	}
+
+	@PutMapping("modify")
+	@ResponseBody
+	public User modifyUser(@RequestBody User user, HttpServletRequest request) {
+		return us.modifyUser(user, (User) request.getAttribute("user"));
+	}
+
+	@GetMapping("{id}")
+	@ResponseBody
+	public User getUserById(@PathVariable int id, HttpServletRequest request) {
+		return us.getUserById(id, (User) request.getAttribute("user"));
+	}
+	@GetMapping("winloss/{id}")
+	@ResponseBody
+	public User getUserByWinlossId(@PathVariable int id) {
+		log.info("Getting user by Winloss id");
+		log.trace("id is: " + id);
+		return us.getUserByWinlossId(id);
+	}
 }

@@ -31,30 +31,31 @@ public class UserService {
     @Autowired
     private EncryptionUtil eu;
 
-    public User login(User user) {
-	User u = ud.getUserByUsernameAndPassword(user.getUsername(), user.getPassword());
-	return u;
-    }
 
-    public User create(User user) {
-	log.trace("Creating user");
-	log.trace("Spinning up a new winloss");
-	wl = wld.addWinLoss(wl);
-	s = sd.addSettings(s);
-	user.setSettingsId(s.getId());
-	user.setWinLossId(wl.getId());
-	user.setPassword(eu.Encrypt(user.getPassword()));
-	user.setHash(eu.Encrypt(user.getUsername()));
-	try {
-	    ud.addUser(user);
-	} catch (Exception e) {
-	    log.trace("Invalid User.  Cannot Create");
-	    wld.deleteWinLossById(wl.getId());
-	    sd.deleteSettingsById(s.getId());
-	    return null;
+	public User login(User user) {
+		User u = ud.getUserByUsernameAndPassword(user.getUsername(), eu.Encrypt(user.getPassword()));
+		return u;
 	}
-	return user;
-    }
+
+	public User create(User user) {
+		log.trace("Creating user: " + user);
+		log.trace("Spinning up a new winloss");
+		wl = wld.addWinLoss(wl);
+		s = sd.addSettings(s);
+		user.setSettingsId(s.getId());
+		user.setWinLossId(wl.getId());
+		user.setPassword(eu.Encrypt(user.getPassword()));
+		user.setHash(eu.Encrypt(user.getUsername()));
+		try {
+			ud.addUser(user);
+		} catch (Exception e) {
+			log.trace("Invalid User.  Cannot Create");
+			wld.deleteWinLossById(wl.getId());
+			sd.deleteSettingsById(s.getId());
+			return null;
+		}
+		return user;
+  }
 
     public List<User> getAllUsers(User u) {
 	if (u.getAdmin() == 1) {
@@ -62,7 +63,6 @@ public class UserService {
 	} else {
 	    return null;
 	}
-    }
 
     public User modifyUser(User user, User u) {
 	if (ValidationUtil.validateAccess(u, user)) {
@@ -76,13 +76,18 @@ public class UserService {
     public User getUserById(int id, User u) {
 	// Find user
 	User foundUser = ud.getUserById(id);
-
-	// Return if access permitted
-	if (ValidationUtil.validateAccess(u, foundUser)) {
-	    return foundUser;
-	} else {
-	    return null;
+		// Return if access permitted
+		//if (vu.validateAccess(u, foundUser)) {
+			return foundUser;
+		//} else {
+		//	return null;
+		//}
 	}
-    }
+
+	public User getUserByWinlossId(int id) {
+		
+		return ud.getUserByWinlossId(id);
+  }
+
 
 }

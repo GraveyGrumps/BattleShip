@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.revature.daos.ClanDao;
 import com.revature.entities.Clan;
-import com.revature.entities.User;
 
 @Controller
 @RequestMapping("clan")

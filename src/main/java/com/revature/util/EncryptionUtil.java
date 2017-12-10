@@ -3,8 +3,6 @@ package com.revature.util;
 import java.security.NoSuchAlgorithmException;
 
 import org.apache.log4j.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -13,6 +11,7 @@ public class EncryptionUtil {
 	private Logger log = Logger.getRootLogger();
 	
 	public String Encrypt(String string) {
+		log.trace("encrypting password: " + string);
 		java.security.MessageDigest md;
 		try {
 			md = java.security.MessageDigest.getInstance("MD5");

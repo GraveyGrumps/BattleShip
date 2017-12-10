@@ -5,17 +5,32 @@
 
 <div class="container">
   <form class="form-signin" (submit)="submit()">
-    <label for="inputEmail" class="sr-only">Email address</label>
-    <input [(ngModel)]="credential.email" name="email" type="email" id="inputEmail" class="form-control" placeholder="Email address"
+    <label for="inputUsername" class="sr-only">UserName</label>
+    <input [(ngModel)]="credential.username" name="email" type="email" id="inputUsername" class="form-control" placeholder="Username"
       required autofocus>
     <label for="inputPassword" class="sr-only">Password</label>
     <input [(ngModel)]="credential.password" name="password" type="password" id="inputPassword" class="form-control" placeholder="Password"
       required>
-    <!-- <div class="checkbox">
-      <label>
-        <input type="checkbox" value="remember-me"> Remember me
-      </label>
-    </div> -->
     <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+    <button class="btn btn-lg btn-secondary btn-block" (click)="showModal(content)" type="button">Create User</button>
   </form>
 </div>
+
+<ng-template #content let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title">Modal title</h4>
+    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="container">
+      <div class = "row">
+
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" (click)="c('Close click')">Close</button>
+  </div>
+</ng-template>

@@ -46,6 +46,7 @@ public class GameController {
 		log.info("Loading Game " + id);		
 		return gs.loadGame(id);
 	}
+
 	
 	@PostMapping("new")
 	@ResponseBody

@@ -8,7 +8,7 @@
     height: auto;
     margin: 10px;
 }
-#gameName{
+#gameName, #oponentName{
     text-align:center;
 }
 .col-centered{
