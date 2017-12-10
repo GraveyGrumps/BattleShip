@@ -53,7 +53,7 @@ public class GameController {
 		return gs.addNewGame(game);
 	}
 	
-	@PostMapping("start")
+	@PutMapping("start")
 	@ResponseBody
 	public Game startGame(@RequestBody Game game) {
 		log.info("Starting a game");
@@ -66,7 +66,7 @@ public class GameController {
 		log.info("Getting games with id: " + id);
 		return gs.getMyGames(id);
 	}
-	@PostMapping("modify")
+	@PutMapping("modify")
 	@ResponseBody
 	public Game modifyGame(@RequestBody Game game) {
 		log.info("Modifying a game");
