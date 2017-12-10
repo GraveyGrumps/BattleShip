@@ -1,5 +1,13 @@
-<div class="container" *ngIf="!this.currGame.turn">
-  <div class="card card-container">
+<div class="container">
+  <div class="card card-container" *ngIf="this.currGame.status == 'complete'">
+    <div *ngIf="!this.currGame.turn">
+      Player 1 Wins!!!!!!!!!!!!!!!!!!!!!!!!!
+    </div>
+    <div *ngIf="this.currGame.turn">
+      Player 2 Wins!!!!!!!!!!!!!!!!!!!!!!!!!
+    </div>
+  </div>
+  <div class="card card-container" *ngIf="!this.currGame.turn">
     <button class="btn btn-lg btn-primary btn-block btn-signin" (click)="setup()" *ngIf="this.currGame.status == 'setup1'">
       P1 Finishes Setup
     </button>
@@ -15,23 +23,30 @@
       </button>
     </div>
   </div>
-</div>
-
-<div class="container">
-  <div class="card card-container" *ngIf="this.currGame.turn">
-    <button class="btn btn-lg btn-primary btn-block btn-signin" (click)="setup()" *ngIf="this.currGame.status == 'setup1'">
-      P2 Finishes Setup
-    </button>
-    <div *ngIf="this.currGame.status == 'inprogress'">
-      <button class="btn btn-lg btn-primary btn-block btn-signin" (click)="hit()">
-        P2 Hit
-      </button>
-      <button class="btn btn-lg btn-primary btn-block btn-signin" (click)="turnSwap()">
-        P2 Miss
-      </button>
-      <button class="btn btn-lg btn-primary btn-block btn-signin" (click)="concede()">
-        P2 Concede
-      </button>
+  <div class="container">
+    <div class="card card-container" *ngIf="this.currGame.turn && this.currGame.status == 'inprogress'">
+      It's Player 2's turn
     </div>
   </div>
-</div>
+
+  <div class="container" *ngIf="this.currGame.status == 'setup1' || this.currGame.status == 'inprogress'">
+    <div class="card card-container" *ngIf="this.currGame.turn">
+      <button class="btn btn-lg btn-primary btn-block btn-signin" (click)="setup()" *ngIf="this.currGame.status == 'setup1'">
+        P2 Finishes Setup
+      </button>
+      <div *ngIf="this.currGame.status == 'inprogress'">
+        <button class="btn btn-lg btn-primary btn-block btn-signin" (click)="hit()">
+          P2 Hit
+        </button>
+        <button class="btn btn-lg btn-primary btn-block btn-signin" (click)="turnSwap()">
+          P2 Miss
+        </button>
+        <button class="btn btn-lg btn-primary btn-block btn-signin" (click)="concede()">
+          P2 Concede
+        </button>
+      </div>
+    </div>
+    <div class="card card-container" *ngIf="!this.currGame.turn && this.currGame.status == 'inprogress'">
+      It's Player 1's turn
+    </div>
+  </div>
