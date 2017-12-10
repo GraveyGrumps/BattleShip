@@ -59,4 +59,15 @@ public class GameService {
     public Game loadGame(int id) {
 	return gd.getGameById(id);
     }
+		public List<Game> getMyGames(int id) {
+		return gd.getAllGamesWithId(id);
+	}
+
+	public List<Game> getAllGames() {
+		return gd.getAllGames();
+	}
+	public Game modifyGame(Game game) {
+		game = gd.modifyGameViaGame(game);
+		return game;
+	}
 }
