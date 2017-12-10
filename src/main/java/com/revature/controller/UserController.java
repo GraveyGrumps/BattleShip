@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.PutMapping;
 
 import com.revature.entities.User;
 import com.revature.service.SettingsService;
@@ -51,13 +52,13 @@ public class UserController {
 	return us.create(user);
     }
 
-    @PostMapping("all")
+    @GetMapping("all")
     @ResponseBody
     public List<User> getAll(HttpServletRequest request) {
 	return us.getAllUsers((User) request.getAttribute("user"));
     }
 
-    @PostMapping("modify")
+    @PutMapping("modify")
     @ResponseBody
     public User modifyUser(@RequestBody User user, HttpServletRequest request) {
 	return us.modifyUser(user, (User) request.getAttribute("user"));
