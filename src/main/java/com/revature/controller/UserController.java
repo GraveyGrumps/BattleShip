@@ -37,6 +37,8 @@ public class UserController {
 			return null;
 		} else {
 			log.trace("Valid credentials");
+			log.trace("adding user");
+			log.trace(u);
 			request.getSession().setAttribute("user", u);
 			return u;
 		}
@@ -48,13 +50,13 @@ public class UserController {
 		return us.create(user);
 	}
 
-	@PostMapping("all")
+	@GetMapping("all")
 	@ResponseBody
 	public List<User> getAll(HttpServletRequest request) {
 		return us.getAllUsers((User) request.getAttribute("user"));
 	}
 
-	@PostMapping("modify")
+	@PutMapping("modify")
 	@ResponseBody
 	public User modifyUser(@RequestBody User user, HttpServletRequest request) {
 		return us.modifyUser(user, (User) request.getAttribute("user"));

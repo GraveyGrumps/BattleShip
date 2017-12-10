@@ -31,6 +31,12 @@ public class GameController {
 		log.info("Getting Pending Games");
 		return gs.getPendingGames();
 	}
+	@GetMapping("all")
+	@ResponseBody
+	public List<Game> getAllGames(){
+		log.info("Getting all Games");
+		return gs.getAllGames();
+	}
 	
 	@PostMapping("new")
 	@ResponseBody
@@ -39,7 +45,7 @@ public class GameController {
 		return gs.addNewGame(game);
 	}
 	
-	@PostMapping("start")
+	@PutMapping("start")
 	@ResponseBody
 	public Game startGame(@RequestBody Game game) {
 		log.info("Starting a game");
@@ -49,7 +55,14 @@ public class GameController {
 	@GetMapping("{id}")
 	@ResponseBody
 	public List<Game> getMyGames(@PathVariable int id) {
+		log.info("Getting games with id: " + id);
 		return gs.getMyGames(id);
+	}
+	@PutMapping("modify")
+	@ResponseBody
+	public Game modifyGame(@RequestBody Game game) {
+		log.info("Modifying a game");
+		return gs.modifyGame(game);
 	}
 
 }

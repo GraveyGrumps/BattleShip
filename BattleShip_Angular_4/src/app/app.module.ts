@@ -17,6 +17,8 @@ import { UsersComponent } from './users/users.component';
 import { HomeComponent } from './users/home/home.component';
 import { TopTenComponent } from './top-ten/top-ten.component';
 import { GametileComponent } from './gametile/gametile.component';
+import { GameServiceService } from './services/game-service.service';
+
 
 @NgModule({
   imports: [
@@ -37,7 +39,7 @@ import { GametileComponent } from './gametile/gametile.component';
     TopTenComponent,
     GametileComponent
   ],
-  providers: [],
+  providers: [GameServiceService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -52,12 +52,22 @@ public class GameService {
 	}
 
 	public Game startGame(Game game) {
+		game.setStatus("inprogress");
+		game = gd.modifyGameViaGame(game);
 		
-		return null;
+		return game;
 	}
 
 	public List<Game> getMyGames(int id) {
 		return gd.getAllGamesWithId(id);
+	}
+
+	public List<Game> getAllGames() {
+		return gd.getAllGames();
+	}
+	public Game modifyGame(Game game) {
+		game = gd.modifyGameViaGame(game);
+		return game;
 	}
 
 	

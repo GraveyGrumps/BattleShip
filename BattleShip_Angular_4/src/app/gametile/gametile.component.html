@@ -10,16 +10,20 @@
       <label class="badge badge-primary">Turn Length</label>
       <p>{{game?.turnLength}} Minutes</p>
     </div>
-    <div *ngIf="!gamePending" class="col-xs col-centered">
+    <div *ngIf="gameRunning" class="col-xs col-centered">
       <label class="badge badge-warning">Time till end of Turn</label>
       <p>{{game?.turnDeadline | date: 'medium'}}</p>
       <label class="badge badge-primary">Who's Turn</label>
       <p>{{game?.turn}}</p>
 
     </div>
-    <div class="col-xs col-centered">
+    <div class="col-xs col-centered" *ngIf="gamePending">
       <img class="Img" src="assets/img/devil.jpg">
-      <p id="oponentName">{{user?.username}}</p>
+      <p id="oponentName">{{gameUser?.username}}</p>
+    </div>
+    <div class="col-xs col-centered" *ngIf="!gamePending">
+      <label class = "badge badge-primary">Game Status </label>
+      <p id="gameStatus">{{game.status}}</p>
     </div>
   </div>
 </div>
@@ -39,7 +43,7 @@
           <img class="Img" src="assets/img/battleshipcover.jpg">
         </div>
         <div class="col">
-          <div *ngIf="!gamePending">
+          <div *ngIf="gameRunning">
             <label class="badge badge-warning">Time till Turn over</label>
             <p> {{game.turnDeadline | date: 'medium'}}</p>
             <label class="badge badge-primary">Who's Turn</label>
@@ -51,7 +55,7 @@
         </div>
         <div class="col">
           <img class="Img" src="assets/img/devil.jpg">
-          <p id="oponentName">{{user.username}}</p>
+          <p id="oponentName">{{gameUser.username}}</p>
           <label class="badge badge-danger"> Win / Losses</label>
           <p> {{winloss.wins}} / {{winloss.losses}}</p>
         </div>
@@ -62,6 +66,7 @@
   </div>
   <div class="modal-footer">
     <button type="button" class="btn btn-secondary" (click)="c('Close click')">Close</button>
-    <button type="button" class="btn btn-primary">Start Game</button>
+    <button  *ngIf="gamePending" type="button" class="btn btn-primary" (click) = "startGame(c)">Start Game</button>
+    <button *ngIf="!gamePending" type="button" class="btn btn-primary">Enter Game</button>
   </div>
 </ng-template>
