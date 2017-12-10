@@ -21,4 +21,5 @@ public interface GameDao {
 	boolean modifyGameTurnLengthById(int id, int turnLength);
 	//DELETE
 	boolean deleteGameById(int id);
+	List<Game> getAllGamesWithId(int id);
 }

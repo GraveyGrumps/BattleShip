@@ -163,5 +163,17 @@ public class GameDaoHibernate implements GameDao {
 		session.merge(game);
 		return game;
 	}
+	@SuppressWarnings("unchecked")
+	@Override
+	@Transactional
+	public List<Game> getAllGamesWithId(int id) {
+		log.trace("Getting all games with id: " + id);
+		Session session = sf.getCurrentSession();
+		Criteria criteria = session.createCriteria(Game.class);
+		criteria.add(Restrictions.disjunction()
+				.add(Restrictions.eq("player1Id",id))
+				.add(Restrictions.eq("player2Id", id)));
+		return (List<Game>) criteria.list();
+	}
 
 }
