@@ -17,74 +17,72 @@ import com.revature.util.ValidationUtil;
 
 @Service
 public class UserService {
-	private Logger log = Logger.getRootLogger();
-	@Autowired
-	private UserDao ud;
-	@Autowired
-	private WinLossDao wld;
-	@Autowired
-	private SettingsDao sd;
-	@Autowired
-	private WinLoss wl;
-	@Autowired
-	private Settings s;
-	@Autowired
-	private EncryptionUtil eu;
-	@Autowired
-	private ValidationUtil vu;
+    private Logger log = Logger.getRootLogger();
+    @Autowired
+    private UserDao ud;
+    @Autowired
+    private WinLossDao wld;
+    @Autowired
+    private SettingsDao sd;
+    @Autowired
+    private WinLoss wl;
+    @Autowired
+    private Settings s;
+    @Autowired
+    private EncryptionUtil eu;
 
-	public User login(User user) {
-		User u = ud.getUserByUsernameAndPassword(user.getUsername(), user.getPassword());
-		return u;
+    public User login(User user) {
+	User u = ud.getUserByUsernameAndPassword(user.getUsername(), user.getPassword());
+	return u;
+    }
+
+    public User create(User user) {
+	log.trace("Creating user");
+	log.trace("Spinning up a new winloss");
+	wl = wld.addWinLoss(wl);
+	s = sd.addSettings(s);
+	user.setSettingsId(s.getId());
+	user.setWinLossId(wl.getId());
+	user.setPassword(eu.Encrypt(user.getPassword()));
+	user.setHash(eu.Encrypt(user.getUsername()));
+	try {
+	    ud.addUser(user);
+	} catch (Exception e) {
+	    log.trace("Invalid User.  Cannot Create");
+	    wld.deleteWinLossById(wl.getId());
+	    sd.deleteSettingsById(s.getId());
+	    return null;
+	}
+	return user;
+    }
+
+    public List<User> getAllUsers(User u) {
+	if (u.getAdmin() == 1) {
+	    return ud.getAllUsers();
+	} else {
+	    return null;
+	}
+    }
+
+    public User modifyUser(User user, User u) {
+	if (ValidationUtil.validateAccess(u, user)) {
+	    return ud.modifyWholeUser(user);
+	} else {
+	    return null;
 	}
 
-	public User create(User user) {
-		log.trace("Creating user");
-		log.trace("Spinning up a new winloss");
-		wl = wld.addWinLoss(wl);
-		s = sd.addSettings(s);
-		user.setSettingsId(s.getId());
-		user.setWinLossId(wl.getId());
-		user.setPassword(eu.Encrypt(user.getPassword()));
-		user.setHash(eu.Encrypt(user.getUsername()));
-		try {
-			ud.addUser(user);
-		} catch (Exception e) {
-			log.trace("Invalid User.  Cannot Create");
-			wld.deleteWinLossById(wl.getId());
-			sd.deleteSettingsById(s.getId());
-			return null;
-		}
-		return user;
+    }
+
+    public User getUserById(int id, User u) {
+	// Find user
+	User foundUser = ud.getUserById(id);
+
+	// Return if access permitted
+	if (ValidationUtil.validateAccess(u, foundUser)) {
+	    return foundUser;
+	} else {
+	    return null;
 	}
-
-	public List<User> getAllUsers(User u) {
-		if (u.getAdmin() == 1) {
-			return ud.getAllUsers();
-		} else {
-			return null;
-		}
-	}
-
-	public User modifyUser(User user, User u) {
-		if (vu.validateAccess(u, user)) {
-			return ud.modifyWholeUser(user);
-		} else {
-			return null;
-		}
-
-	}
-
-	public User getUserById(int id, User u) {
-		// Find user
-		User foundUser = ud.getUserById(id);
-
-		// Return if access permitted
-		if (vu.validateAccess(u, foundUser)) {
-			return foundUser;
-		} else {
-			return null;
-		}
-	}
+    }
 
 }
