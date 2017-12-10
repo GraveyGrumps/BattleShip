@@ -31,4 +31,26 @@ export class TestPannelComponent implements OnInit {
     );
   }
 
+  setup() {
+    if (this.currGame.turn) {
+      this.currGame.status = 'inprogress';
+    }
+
+    this.turnSwap();
+  }
+
+  hit() {
+
+
+    this.turnSwap();
+  }
+
+  turnSwap() {
+    if (this.currGame.turn) {
+      this.currGame.turn = 0;
+    } else {
+      this.currGame.turn = 1;
+    }
+  }
+
 }

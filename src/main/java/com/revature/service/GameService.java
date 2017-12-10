@@ -59,4 +59,12 @@ public class GameService {
     public Game loadGame(int id) {
 	return gd.getGameById(id);
     }
+
+	public Game updateGame(Game game) {
+		gd.modifyGameBoardStateById(game.getId(), game.getBoardState());
+		gd.modifyGameShipStateById(game.getId(), game.getShipState());
+		gd.modifyGameStatusById(game.getId(), game.getStatus());
+		gd.modifyGameTurnById(game.getId(), game.getTurn());
+		return gd.getGameById(game.getId());
+	}
 }
