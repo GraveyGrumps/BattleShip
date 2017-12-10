@@ -70,6 +70,7 @@ public class UserController {
     }
 
     // TODO Get the settings Id of the current user
+    // Search UserDaoHIbernate for "session"
     @GetMapping("{id}/settings")
     @ResponseBody
     public User getSettingsByUserId(@PathVariable int id, HttpServletRequest request) {
@@ -77,6 +78,7 @@ public class UserController {
 	// us.getUserById(id, us.ge)
 
 	// return ss.findById(us.set, currentUser)
+	// request.getSession().getAttribute(arg0)
     }
 
 }
