@@ -6,9 +6,9 @@ export class Shipstate {
     constructor() {
         this.details = [];
 
-        for (let i: 0; i < 2; i++) {
+        for (let i = 0; i < 2; i++) {
             this.details[i] = [];
-            for (let j: 0; j < 5; j++) {
+            for (let j = 0; j < 5; j++) {
                 this.details[i][j] = [];
             }
         }

@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.PutMapping;
 
 import com.revature.entities.User;
 import com.revature.service.UserService;
@@ -24,9 +25,12 @@ import com.revature.service.UserService;
 @CrossOrigin(allowCredentials = "true", origins = "http://localhost:4200")
 public class UserController {
 
-	private Logger log = Logger.getRootLogger();
-	@Autowired
-	private UserService us;
+    private Logger log = Logger.getRootLogger();
+    @Autowired
+    private UserService us;
+    @Autowired
+    private SettingsService ss;
+
 
 	@PostMapping("login")
 	@ResponseBody
@@ -48,7 +52,8 @@ public class UserController {
 	@ResponseBody
 	public User createUser(@RequestBody User user, HttpServletRequest request) {
 		return us.create(user);
-	}
+
+
 
 	@GetMapping("all")
 	@ResponseBody

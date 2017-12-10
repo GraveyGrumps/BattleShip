@@ -17,21 +17,20 @@ import com.revature.util.ValidationUtil;
 
 @Service
 public class UserService {
-	private Logger log = Logger.getRootLogger();
-	@Autowired
-	private UserDao ud;
-	@Autowired
-	private WinLossDao wld;
-	@Autowired
-	private SettingsDao sd;
-	@Autowired
-	private WinLoss wl;
-	@Autowired
-	private Settings s;
-	@Autowired
-	private EncryptionUtil eu;
-	@Autowired
-	private ValidationUtil vu;
+    private Logger log = Logger.getRootLogger();
+    @Autowired
+    private UserDao ud;
+    @Autowired
+    private WinLossDao wld;
+    @Autowired
+    private SettingsDao sd;
+    @Autowired
+    private WinLoss wl;
+    @Autowired
+    private Settings s;
+    @Autowired
+    private EncryptionUtil eu;
+
 
 	public User login(User user) {
 		User u = ud.getUserByUsernameAndPassword(user.getUsername(), eu.Encrypt(user.getPassword()));
@@ -56,29 +55,27 @@ public class UserService {
 			return null;
 		}
 		return user;
+  }
+
+    public List<User> getAllUsers(User u) {
+	if (u.getAdmin() == 1) {
+	    return ud.getAllUsers();
+	} else {
+	    return null;
 	}
 
-	public List<User> getAllUsers(User u) {
-		if (u.getAdmin() == 1) {
-			return ud.getAllUsers();
-		} else {
-			return null;
-		}
+    public User modifyUser(User user, User u) {
+	if (ValidationUtil.validateAccess(u, user)) {
+	    return ud.modifyWholeUser(user);
+	} else {
+	    return null;
 	}
 
-	public User modifyUser(User user, User u) {
-		if (vu.validateAccess(u, user)) {
-			return ud.modifyWholeUser(user);
-		} else {
-			return null;
-		}
+    }
 
-	}
-
-	public User getUserById(int id, User u) {
-		// Find user
-		User foundUser = ud.getUserById(id);
-
+    public User getUserById(int id, User u) {
+	// Find user
+	User foundUser = ud.getUserById(id);
 		// Return if access permitted
 		//if (vu.validateAccess(u, foundUser)) {
 			return foundUser;
@@ -90,6 +87,7 @@ public class UserService {
 	public User getUserByWinlossId(int id) {
 		
 		return ud.getUserByWinlossId(id);
-	}
+  }
+
 
 }

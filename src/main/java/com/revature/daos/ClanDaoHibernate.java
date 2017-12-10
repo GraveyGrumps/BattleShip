@@ -48,7 +48,7 @@ public class ClanDaoHibernate implements ClanDao {
 
 	@Override
 	@Transactional
-	public boolean modfiyClanNameById(int id, String clanName) {
+	public boolean modifyClanNameById(int id, String clanName) {
 		log.trace("Modifying Clanname: " + clanName + " where id: " + id);
 		Session session = sf.getCurrentSession();
 		Clan clan = getClanById(id);

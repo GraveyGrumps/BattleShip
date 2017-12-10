@@ -1,15 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 
 export class Report {
-    id: Number;
-    gameId: Number;
-    winner: Number;
+    id: number;
+    gameId: number;
+    winner: number;
     chatLog: String;
     reportDate: Date;
-    claimant: Number;
-    defendant: Number;
+    claimant: number;
+    defendant: number;
     reportNotes: String;
-    flag: Number;
+    flag: number;
 
     constructor() {
         this.flag = 0;

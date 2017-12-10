@@ -11,8 +11,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-
+import org.springframework.web.bind.annotation.PutMapping;
 import com.revature.entities.Game;
 import com.revature.service.GameService;
 
@@ -25,6 +26,7 @@ public class GameController {
 	@Autowired
 	private GameService gs;
 	private Logger log = Logger.getRootLogger();
+	
 	@GetMapping("pending")
 	@ResponseBody
 	public List<Game> getPendingGames(){
@@ -37,6 +39,14 @@ public class GameController {
 		log.info("Getting all Games");
 		return gs.getAllGames();
 	}
+	
+	@GetMapping("load")
+	@ResponseBody
+	public Game loadGame(@RequestParam("id") int id) {
+		log.info("Loading Game " + id);		
+		return gs.loadGame(id);
+	}
+
 	
 	@PostMapping("new")
 	@ResponseBody

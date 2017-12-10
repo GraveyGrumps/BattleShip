@@ -17,46 +17,41 @@ import com.revature.entities.Report;
 @Service
 public class GameService {
 
-	@Autowired
-	private GameDao gd;
-	@Autowired
-	private Report report;
-	@Autowired
-	private ReportDao rd;
-	private Random random = new Random();
-	private Logger log = Logger.getRootLogger();
-	
-	public List<Game> getPendingGames() {
-		log.info("Service is calling dao to get all pending games");
-		return gd.getAllPendingGames();
-	}
+    @Autowired
+    private GameDao gd;
+    @Autowired
+    private Report report;
+    @Autowired
+    private ReportDao rd;
+    private Random random = new Random();
+    private Logger log = Logger.getRootLogger();
 
-	/* On game init the client sends: p1id, p2id, boardstate, shipstate,
-	 * and turn length;
-	 * The server will handle setting: status, turn, postdate, and turn deadline
-	 */
-	public Game addNewGame(Game game) {
-		game.setPostDate(Timestamp.valueOf(LocalDateTime.now()));
-		game.setStatus("pending");
-		game.setTurn(random.nextInt(2));
-		game.setTurnDeadline(new Timestamp(0));
-		log.info("service has finished setting up game: " + game);
-		log.info("service is sending game to dao");
-		game = gd.addGame(game);
-		log.info("service is creating a report for the game via gameid: " + game.getId());
-		report.setGameId(game.getId());
-		log.info("service is sending report to dao");
-		rd.addReport(report);
-		log.info("service is completed and returning game: " + game);
-		return game;
-	}
+    public List<Game> getPendingGames() {
+	log.info("Service is calling dao to get all pending games");
+	return gd.getAllPendingGames();
+    }
 
-	public Game startGame(Game game) {
-		game.setStatus("inprogress");
-		game = gd.modifyGameViaGame(game);
-		
-		return game;
-	}
+    /**
+     * On game init the client sends: p1id, p2id, boardstate, shipstate, and turn
+     * length; The server will handle setting: status, turn, postdate, and turn
+     * deadline
+     */
+    public Game addNewGame(Game game) {
+	game.setPostDate(Timestamp.valueOf(LocalDateTime.now()));
+	game.setStatus("pending");
+	game.setTurn(random.nextInt(2));
+	game.setTurnDeadline(new Timestamp(0));
+	log.info("service has finished setting up game: " + game);
+	log.info("service is sending game to dao");
+	game = gd.addGame(game);
+	log.info("service is creating a report for the game via gameid: " + game.getId());
+	report.setGameId(game.getId());
+	log.info("service is sending report to dao");
+	rd.addReport(report);
+	log.info("service is completed and returning game: " + game);
+	return game;
+    }
+
 
 	public List<Game> getMyGames(int id) {
 		return gd.getAllGamesWithId(id);
@@ -68,7 +63,13 @@ public class GameService {
 	public Game modifyGame(Game game) {
 		game = gd.modifyGameViaGame(game);
 		return game;
-	}
 
-	
+ public Game startGame(Game game) {
+	return null;
+    }
+
+ public Game loadGame(int id) {
+	  return gd.getGameById(id);
+    }
+
 }

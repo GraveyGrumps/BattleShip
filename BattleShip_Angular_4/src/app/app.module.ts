@@ -15,9 +15,13 @@ import { GlobalChatService } from './global-chat.service';
 import { BattleshipComponent } from './games/battleship/battleship.component';
 import { UsersComponent } from './users/users.component';
 import { HomeComponent } from './users/home/home.component';
+import { NewGameComponent } from './games/newgame/newgame.component';
 import { TopTenComponent } from './top-ten/top-ten.component';
 import { GametileComponent } from './gametile/gametile.component';
+
 import { GameServiceService } from './services/game-service.service';
+
+import { TestPannelComponent } from './games/battleship/testpannel/testpannel.component';
 
 
 @NgModule({
@@ -36,8 +40,10 @@ import { GameServiceService } from './services/game-service.service';
     BattleshipComponent,
     UsersComponent,
     HomeComponent,
+    NewGameComponent,
     TopTenComponent,
-    GametileComponent
+    GametileComponent,
+    TestPannelComponent
   ],
   providers: [GameServiceService],
   bootstrap: [AppComponent]

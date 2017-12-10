@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 
 export class Settings {
-    id: Number;
-    globalChat: Number;
-    inGameChat: Number;
-    acceptFriendship: Number;
-    allowChallenges: Number;
+    id: number;
+    globalChat: number;
+    inGameChat: number;
+    acceptFriendship: number;
+    allowChallenges: number;
     viewable: number;
 
     constructor() {
