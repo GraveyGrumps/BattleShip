@@ -1,5 +1,5 @@
 export class Tile {
-    shipPart: Number[];
+    shipPart: number[];
     firedOn: Boolean;
     hit: Boolean;
 

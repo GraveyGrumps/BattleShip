@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 export class Ban {
-    userId: Number;
+    userId: number;
     banStatus: String;
     banLiftDate: Date;
     record: String;

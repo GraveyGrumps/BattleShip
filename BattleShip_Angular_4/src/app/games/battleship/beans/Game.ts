@@ -3,18 +3,18 @@ import { Boardstate } from './Boardstate';
 import { Shipstate } from './Shipstate';
 
 export class Game {
-    id: Number;
+    id: number;
     status: String;
-    player1Id: Number;
-    player2Id: Number;
-    turn: Number;
+    player1Id: number;
+    player2Id: number;
+    turn: number;
     Board_State: Boardstate;
     boardState: String;
     Ship_State: Shipstate;
     shipState: String;
     postDate: Date;
     turnDeadline: Date;
-    turnLength: Number;
+    turnLength: number;
 
     constructor() {
         this.status = '';
