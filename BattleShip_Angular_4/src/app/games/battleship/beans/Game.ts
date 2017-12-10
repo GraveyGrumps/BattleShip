@@ -17,11 +17,12 @@ export class Game {
     turnLength: Number;
 
     constructor() {
-        this.status = 'Pending';
-        this.turn = 1;
-        this.Board_State = new Boardstate();
-        this.Ship_State = new Shipstate();
-        this.boardState = JSON.stringify(this.Board_State);
-        this.shipState = JSON.stringify(this.Ship_State);
+        this.status = '';
+        this.turn = 0;
+        this.boardState = JSON.stringify(new Boardstate());
+        this.shipState = JSON.stringify(new Shipstate());
+        this.postDate = new Date();
+        this.turnDeadline = new Date();
+        this.turnLength = 10;
     }
 }
