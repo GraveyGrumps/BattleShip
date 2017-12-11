@@ -19,7 +19,7 @@ import com.revature.service.WinLossService;
 
 @Controller
 @RequestMapping("winloss")
-//need allowCredentials, but won't need origins after bundling
+// need allowCredentials, but won't need origins after bundling
 @CrossOrigin(allowCredentials = "true", origins = "http://localhost:4200")
 public class WinLossController {
 	private Logger log = Logger.getRootLogger();
@@ -46,3 +46,4 @@ public class WinLossController {
 		return wls.updateWL(WL);
 	}
 }
+

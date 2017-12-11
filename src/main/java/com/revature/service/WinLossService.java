@@ -14,7 +14,6 @@ import com.revature.util.ValidationUtil;
 
 @Service
 public class WinLossService {
-
 	@Autowired
 	private WinLossDao wld;
 	private Logger log = Logger.getRootLogger();
@@ -27,6 +26,5 @@ public class WinLossService {
 	public WinLoss updateWL(WinLoss wL) {
 		return wld.modify(wL);
 	}
-	
-	
+
 }

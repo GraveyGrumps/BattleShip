@@ -17,36 +17,35 @@ import com.revature.util.ValidationUtil;
 public class BanService {
     private Logger log = Logger.getRootLogger();
     @Autowired
-    private BanDao bDao;
+    private BanDao banDao;
 
-    public Ban unBan(User currentUser, User userToUnban) {
+    public Ban unban(User currentUser, User userToUnban) {
 	// Retrieving ban first prevents redundant null return statements
 	int userId = userToUnban.getId();
-	Ban ban = bDao.getBanById(userId);
+	Ban ban = banDao.getBanById(userId);
 
 	if (ValidationUtil.validateAdmin(currentUser) && !ValidationUtil.validateAdmin(userToUnban) && ban != null) {
-	    bDao.modifyBanStatusById(userId, "not banned");
-	    bDao.modifyBannedUntilById(userId, Timestamp.valueOf(LocalDateTime.now()));
-	    return ban;
+	    banDao.modifyBanStatusById(userId, "not banned");
+	    banDao.modifyBannedUntilById(userId, Timestamp.valueOf(LocalDateTime.now()));
+	    return banDao.getBanById(userId);
 	} else {
 	    return null;
 	}
-
     }
 
     public Ban banPermanently(User currentUser, User userToBan, String record) {
 	// Ensure current user is an admin and user to ban is not
 	if (ValidationUtil.validateAdmin(currentUser) && !ValidationUtil.validateAdmin(userToBan)) {
 	    int userId = userToBan.getId();
-	    Ban ban = bDao.getBanById(userId);
+	    Ban ban = banDao.getBanById(userId);
 
 	    if (ban == null) {
-		ban = bDao.addBan(ban);
+		ban = banDao.addBan(ban);
 	    }
-	    bDao.modifyBanStatusById(userId, "permanently banned");
-	    bDao.modifyBanRecordById(userId, record);
-	    bDao.modifyBannedUntilById(userId, Timestamp.valueOf(LocalDateTime.of(2100, 1, 1, 1, 1, 1, 1)));
-	    return ban;
+	    banDao.modifyBanStatusById(userId, "permanently banned");
+	    banDao.modifyBanRecordById(userId, record);
+	    banDao.modifyBannedUntilById(userId, Timestamp.valueOf(LocalDateTime.now().plusDays(36500)));
+	    return banDao.getBanById(userId);
 	} else {
 	    return null;
 	}
@@ -56,15 +55,15 @@ public class BanService {
 	// Ensure current user is an admin and user to ban is not
 	if (ValidationUtil.validateAdmin(currentUser) && !ValidationUtil.validateAdmin(userToBan)) {
 	    int banId = userToBan.getId();
-	    Ban ban = bDao.getBanById(banId);
+	    Ban ban = banDao.getBanById(banId);
 
 	    if (ban == null) {
-		ban = bDao.addBan(ban);
+		ban = banDao.addBan(ban);
 	    }
-	    bDao.modifyBanStatusById(banId, "temporarily banned");
-	    bDao.modifyBanRecordById(banId, record);
-	    bDao.modifyBannedUntilById(banId, Timestamp.valueOf(LocalDateTime.now().plusDays(daysToBan)));
-	    return ban;
+	    banDao.modifyBanStatusById(banId, "temporarily banned");
+	    banDao.modifyBanRecordById(banId, record);
+	    banDao.modifyBannedUntilById(banId, Timestamp.valueOf(LocalDateTime.now().plusDays(daysToBan)));
+	    return banDao.getBanById(banId);
 	} else {
 	    return null;
 	}
@@ -72,14 +71,14 @@ public class BanService {
 
     public List<Ban> getAllBans(User currentUser) {
 	if (ValidationUtil.validateAdmin(currentUser)) {
-	    return bDao.getAllBans();
+	    return banDao.getAllBans();
 	} else {
 	    return null;
 	}
     }
 
     public Ban findById(int banId, User currentUser) {
-	Ban ban = bDao.getBanById(banId);
+	Ban ban = banDao.getBanById(banId);
 	log.trace("finding ban by id");
 	if (ValidationUtil.validateAccess(currentUser, ban)) {
 	    return ban;

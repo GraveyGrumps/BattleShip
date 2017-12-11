@@ -11,15 +11,13 @@ import com.revature.util.ValidationUtil;
 @Service
 public class SettingsService {
     @Autowired
-    private SettingsDao stDao;
-    @Autowired
-    private Settings st;
+    private SettingsDao setDao;
 
     public Settings modifyAllowGlobalChat(Settings settings, int value, User currentUser) {
 	int settingsId = settings.getId();
 
 	if (ValidationUtil.validateAccess(currentUser, settings)) {
-	    stDao.modifyAllowGlobalChatById(settingsId, value);
+	    setDao.modifyAllowGlobalChatById(settingsId, value);
 	    return settings;
 	} else {
 	    return null;
@@ -30,7 +28,7 @@ public class SettingsService {
 	int settingsId = settings.getId();
 
 	if (ValidationUtil.validateAccess(currentUser, settings)) {
-	    stDao.modifyAllowInGameChatById(settingsId, value);
+	    setDao.modifyAllowInGameChatById(settingsId, value);
 	    return settings;
 	} else {
 	    return null;
@@ -41,7 +39,7 @@ public class SettingsService {
 	int settingsId = settings.getId();
 
 	if (ValidationUtil.validateAccess(currentUser, settings)) {
-	    stDao.modifyAllowFriendRequestsById(settingsId, value);
+	    setDao.modifyAllowFriendRequestsById(settingsId, value);
 	    return settings;
 	} else {
 	    return null;
@@ -52,7 +50,7 @@ public class SettingsService {
 	int settingsId = settings.getId();
 
 	if (ValidationUtil.validateAccess(currentUser, settings)) {
-	    stDao.modifyViewableProfileById(settingsId, value);
+	    setDao.modifyViewableProfileById(settingsId, value);
 	    return settings;
 	} else {
 	    return null;
@@ -63,7 +61,7 @@ public class SettingsService {
 	int settingsId = settings.getId();
 
 	if (ValidationUtil.validateAccess(currentUser, settings)) {
-	    stDao.modifyAllowChallengesById(settingsId, value);
+	    setDao.modifyAllowChallengesById(settingsId, value);
 	    return settings;
 	} else {
 	    return null;
@@ -71,9 +69,9 @@ public class SettingsService {
     }
 
     public Settings findById(int settingsId, User currentUser) {
-	st = stDao.getSettingsById(settingsId);
-	if (ValidationUtil.validateAccess(currentUser, st)) {
-	    return st;
+	Settings set = setDao.getSettingsById(settingsId);
+	if (ValidationUtil.validateAccess(currentUser, set)) {
+	    return set;
 	} else {
 	    return null;
 	}

@@ -172,12 +172,23 @@ export class TestPannelComponent implements OnInit {
       this.currWL.seasonWins += 1;
       this.saveWL();
 
+      // Loser
       this.getWL(this.currGame.player1Id);
       this.currWL.losses += 1;
       this.currWL.seasonLosses += 1;
       this.saveWL();
     } else {
+      // Winner
+      this.getWL(this.currGame.player1Id);
+      this.currWL.wins += 1;
+      this.currWL.seasonWins += 1;
+      this.saveWL();
 
+      // Loser
+      this.getWL(this.currGame.player2Id);
+      this.currWL.losses += 1;
+      this.currWL.seasonLosses += 1;
+      this.saveWL();
     }
   }
 
