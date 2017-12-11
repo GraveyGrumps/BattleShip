@@ -59,7 +59,6 @@ public class WinLossDaoHibernate implements WinLossDao {
 			return false;
 		winloss.incrementWins(win);
 		session.merge(winloss);
-		session.close();
 		return true;
 	}
 
@@ -73,7 +72,6 @@ public class WinLossDaoHibernate implements WinLossDao {
 			return false;
 		winloss.incrementLosses(loss);
 		session.merge(winloss);
-		session.close();
 		return true;
 	}
 
@@ -87,7 +85,6 @@ public class WinLossDaoHibernate implements WinLossDao {
 			return false;
 		winloss.incrementSeasonalWins(win);
 		session.merge(winloss);
-		session.close();
 		return true;
 	}
 
@@ -101,7 +98,6 @@ public class WinLossDaoHibernate implements WinLossDao {
 			return false;
 		winloss.incrementSeasonalLosses(loss);
 		session.merge(winloss);
-		session.close();
 		return true;
 	}
 
@@ -116,7 +112,6 @@ public class WinLossDaoHibernate implements WinLossDao {
 		winloss.setSeasonLosses(0);
 		winloss.setSeasonWins(0);
 		session.merge(winloss);
-		session.close();
 		return true;
 	}
 
@@ -129,7 +124,6 @@ public class WinLossDaoHibernate implements WinLossDao {
 		if(winloss == null)
 			return false;
 		session.delete(winloss);
-		session.close();
 		return true;
 	}
 

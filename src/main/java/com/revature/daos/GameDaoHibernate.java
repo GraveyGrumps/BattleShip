@@ -57,7 +57,6 @@ public class GameDaoHibernate implements GameDao {
 			return false;
 		game.setStatus(status);
 		session.merge(game);
-		session.close();
 		return true;
 	}
 
@@ -71,7 +70,6 @@ public class GameDaoHibernate implements GameDao {
 			return false;
 		game.setPlayer2Id(p2Id);
 		session.merge(game);
-		session.close();
 		return true;
 	}
 
@@ -85,7 +83,6 @@ public class GameDaoHibernate implements GameDao {
 			return false;
 		game.setTurn(turn);
 		session.merge(game);
-		session.close();
 		return true;
 	}
 
@@ -99,7 +96,6 @@ public class GameDaoHibernate implements GameDao {
 			return false;
 		game.setBoardState(boardState);
 		session.merge(game);
-		session.close();
 		return true;
 	}
 
@@ -113,7 +109,6 @@ public class GameDaoHibernate implements GameDao {
 			return false;
 		game.setShipState(shipState);
 		session.merge(game);
-		session.close();
 		return true;
 	}
 
@@ -126,7 +121,6 @@ public class GameDaoHibernate implements GameDao {
 		if(game == null)
 			return false;
 		session.delete(game);
-		session.close();
 		return true;
 	}
 
@@ -140,7 +134,6 @@ public class GameDaoHibernate implements GameDao {
 			return false;
 		game.setTurnLength(turnLength);
 		session.merge(game);
-		session.close();
 		return false;
 	}
 

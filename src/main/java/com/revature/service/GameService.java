@@ -52,17 +52,10 @@ public class GameService {
 		return game;
 	}
 
-	public Game startGame(Game game) {
-		return null;
-	}
-
-	public Game loadGame(int id) {
-		return gd.getGameById(id);
-	}
-
 	public Game updateGame(Game game) {
 		return gd.modifyGameViaGame(game);
 	}
+
 
 	public List<Game> getMyGames(int id) {
 		return gd.getAllGamesWithId(id);
@@ -72,8 +65,12 @@ public class GameService {
 		return gd.getAllGames();
 	}
 
-	public Game modifyGame(Game game) {
-		game = gd.modifyGameViaGame(game);
-		return game;
-	}
+ public Game startGame(Game game) {
+	return null;
+    }
+
+ public Game loadGame(int id) {
+	  return gd.getGameById(id);
+    }
+
 }

@@ -48,6 +48,15 @@ public class UserDaoHibernate implements UserDao {
 		criteria.add(Restrictions.eq("id", id));
 		return (User) criteria.uniqueResult();
 	}
+	@Override
+	@Transactional
+	public User getUserByWinlossId(int id) {
+		log.trace("Getting user by winloss id: " + id);
+		Session session = sf.getCurrentSession();
+		Criteria criteria = session.createCriteria(User.class);
+		criteria.add(Restrictions.eq("winLossId", id));
+		return (User) criteria.uniqueResult();
+	}
 
 	@SuppressWarnings("unchecked")
 	@Override
@@ -68,7 +77,6 @@ public class UserDaoHibernate implements UserDao {
 			return false;
 		user.setUsername(username);
 		session.merge(user);
-		session.close();
 		return true;
 	}
 
@@ -82,7 +90,6 @@ public class UserDaoHibernate implements UserDao {
 			return false;
 		user.setPassword(password);
 		session.merge(user);
-		session.close();
 		return true;
 	}
 
@@ -96,7 +103,6 @@ public class UserDaoHibernate implements UserDao {
 			return false;
 		user.setEmail(email);
 		session.merge(user);
-		session.close();
 		return true;
 	}
 
@@ -110,7 +116,6 @@ public class UserDaoHibernate implements UserDao {
 			return false;
 		user.setAdmin(isAdmin);
 		session.merge(user);
-		session.close();
 		return true;
 	}
 
@@ -124,7 +129,6 @@ public class UserDaoHibernate implements UserDao {
 			return false;
 		user.setProfilePic(picturePath);
 		session.merge(user);
-		session.close();
 		return true;
 	}
 
@@ -138,7 +142,6 @@ public class UserDaoHibernate implements UserDao {
 			return false;
 		user.setIsOfficer(isOfficer);
 		session.merge(user);
-		session.close();
 		return true;
 	}
 
@@ -152,7 +155,6 @@ public class UserDaoHibernate implements UserDao {
 			return false;
 		user.setAdminNotes(adminNotes);
 		session.merge(user);
-		session.close();
 		return true;
 	}
 
@@ -166,7 +168,6 @@ public class UserDaoHibernate implements UserDao {
 			return false;
 		user.setVerified(verified);
 		session.merge(user);
-		session.close();
 		return true;
 	}
 
@@ -179,7 +180,6 @@ public class UserDaoHibernate implements UserDao {
 		if(user == null)
 			return false;
 		session.delete(user);
-		session.close();
 		return true;
 	}
 
@@ -193,7 +193,6 @@ public class UserDaoHibernate implements UserDao {
 			return false;
 		user.appendAdminNotes(adminNotes);
 		session.merge(user);
-		session.close();
 		return true;
 	}
 
