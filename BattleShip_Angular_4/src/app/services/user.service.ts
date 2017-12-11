@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
-import { Subject } from 'rxjs/Subject';
+import { BehaviorSubject } from 'rxjs/Rx';
 import { User } from '../beans/User';
 import { Http } from '@angular/http';
 import { environment } from '../../environments/environment';
 
 @Injectable()
 export class UserService {
-  subject: Subject<Array<User>> = new Subject();
+  subject:  BehaviorSubject<Array<User>> = new BehaviorSubject([]);
   private flag = true;
   constructor(private http: Http) { }
   // only update once

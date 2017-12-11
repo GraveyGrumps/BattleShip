@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
-import { Subject } from 'rxjs/Subject';
+import { BehaviorSubject } from 'rxjs/Rx';
 import { Game } from '../games/battleship/beans/Game';
 import { Http } from '@angular/http';
 import { environment } from '../../environments/environment';
 
 @Injectable()
 export class GameServiceService {
-  subject: Subject<Array<Game>> = new Subject();
+  subject: BehaviorSubject<Array<Game>> = new BehaviorSubject([]);
   constructor( private http: Http) { }
   public getSubject() {
     this.updateSubject();
