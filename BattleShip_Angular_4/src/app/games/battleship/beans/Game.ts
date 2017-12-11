@@ -4,14 +4,14 @@ import { Shipstate } from './Shipstate';
 
 export class Game {
     id: number;
-    status: String;
+    status: string;
     player1Id: number;
     player2Id: number;
     turn: number;
     Board_State: Boardstate;
-    boardState: String;
+    boardState: string;
     Ship_State: Shipstate;
-    shipState: String;
+    shipState: string;
     postDate: Date;
     turnDeadline: Date;
     turnLength: number;

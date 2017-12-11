@@ -3,12 +3,14 @@ package com.revature.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.revature.daos.ReportDao;
 import com.revature.entities.Report;
 import com.revature.entities.User;
 import com.revature.util.ValidationUtil;
 
+@Service
 public class ReportService {
     @Autowired
     private ReportDao rpDao;
@@ -68,4 +70,9 @@ public class ReportService {
 	    rpDao.deleteReportById(report.getId());
 	}
     }
+
+	public Report loadgameReport(int id) {
+		// TODO Auto-generated method stub
+		return rpDao.getReportByGameId(id);
+	}
 }
