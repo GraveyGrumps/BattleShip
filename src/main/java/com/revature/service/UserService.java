@@ -61,11 +61,11 @@ public class UserService {
 	}
 
 	public List<User> getAllUsers(User u) {
-		//if (u.getAdmin() == 1) {
-		return ud.getAllUsers();
-		//} else {
-		//	return null;
-		//}
+		if (u.getAdmin() == 1) {
+			return ud.getAllUsers();
+		} else {
+			return null;
+		}
 	}
 
 	public User modifyUser(User user, User u) {
