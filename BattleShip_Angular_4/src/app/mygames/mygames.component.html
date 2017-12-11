@@ -1,0 +1,12 @@
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <h3>Pending</h3>
+      <app-gametile [game]="game" [user]="user" *ngFor="let game of pendingGames"></app-gametile>
+    </div>
+    <div class="col">
+      <h3>All</h3>
+      <app-gametile [game]="game" [user]="user" *ngFor="let game of games"></app-gametile>
+    </div>
+  </div>
+</div>

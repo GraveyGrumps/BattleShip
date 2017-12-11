@@ -3,6 +3,7 @@ import { Http } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import { User } from '../../beans/User';
 import { Game } from '../battleship/beans/Game';
+import { GameServiceService } from '../../services/game-service.service';
 
 
 @Component({
@@ -17,7 +18,7 @@ export class NewGameComponent implements OnInit {
 
 
 
-  constructor( @Inject(Http) public http: Http) {
+  constructor( @Inject(Http) public http: Http, private gs: GameServiceService) {
 
   }
 
@@ -34,6 +35,7 @@ export class NewGameComponent implements OnInit {
     this.http.post('http://localhost:8080/Battleship/game/new', (this.newGame), { withCredentials: true }).subscribe(
       (successResp) => {
         alert('Creating new game');
+        this.gs.updateSubject();
       },
       (failResp) => {
         alert('Failed Create new game');
