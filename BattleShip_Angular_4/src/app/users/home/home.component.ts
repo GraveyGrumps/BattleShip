@@ -8,6 +8,7 @@ import { Subscription } from 'rxjs/Subscription';
 import { Router } from '@angular/router';
 import { WinlossService } from '../../services/winloss.service';
 import { WinLoss } from '../../beans/WinLoss';
+import { UserService } from '../../services/user.service';
 
 @Component({
   selector: 'app-home',
@@ -15,6 +16,7 @@ import { WinLoss } from '../../beans/WinLoss';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
+  global = true;
   games: Array<Game>;
   mygames: Array<Game>;
   pendinggames: Array<Game>;
@@ -23,9 +25,11 @@ export class HomeComponent implements OnInit {
   users: Array<User> = [];
   gameSubscription: Subscription;
   winlossSubscription: Subscription;
+  userSubscription: Subscription;
   range: Array<number> = [];
   title: String;
-  constructor(private http: Http, private gss: GameServiceService, private router: Router, private wls: WinlossService) { }
+  constructor(private http: Http, private gss: GameServiceService, private router: Router,
+     private wls: WinlossService, private us: UserService) { }
 
   ngOnInit() {
     this.title = 'Top Ten';
@@ -54,19 +58,16 @@ export class HomeComponent implements OnInit {
           this.winlosses = listWinLosses;
           this.getTopTen();
           this.populateRange();
-          for (let wl of this.winlosses) {
-            console.log(wl);
-            this.http.get('http://localhost:8080/Battleship/user/winloss/' + wl.id).subscribe(
-              (respbody2) => {
-                if (respbody2.text() !== '') {
-                  this.users.push(respbody2.json());
-                }
-              });
-          }
         }
       }
     );
-
+    this.userSubscription = this.us.getSubject().subscribe(
+      (userArray) => {
+        if (userArray !== null) {
+          this.users = userArray;
+        }
+      }
+    );
   }
   currentlyRunningGames() {
     this.mygames = this.games.filter(i => i.status === 'inprogress' && i.turn === this.user.id);
