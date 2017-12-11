@@ -22,12 +22,10 @@ export class NewGameComponent implements OnInit {
   }
 
   ngOnInit() {
-    // let p1 = new User;
-    // p1 = JSON.parse((sessionStorage.getItem('user')));
-    // this.newGame.player1Id = p1.id;
-    // this.newGame.player2Id = p1.id;
-    this.newGame.player1Id = 2;
-    this.newGame.player2Id = 2;
+    let p1 = new User;
+    p1 = JSON.parse((sessionStorage.getItem('user')));
+    this.newGame.player1Id = p1.id;
+    this.newGame.player2Id = p1.id;
     this.newGame.turnLength = 10;
   }
 
