@@ -32,7 +32,7 @@ import com.revature.service.ClanService;
 public class ClanController {
     Logger log = Logger.getRootLogger();
     @Autowired
-    ClanDao cd;
+    ClanDao clanDao;
     @Autowired
     ClanService clnSvc;
     @Autowired

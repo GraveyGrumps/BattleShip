@@ -15,10 +15,10 @@ public class ReportService {
     @Autowired
     private ReportDao rpDao;
     @Autowired
-    private Report rp;
+    private Report rep;
 
     public Report sendReport() {
-	return rp;
+	return rep;
     }
 
     public Report changeWinner(User currentUser, Report report, User winner) {

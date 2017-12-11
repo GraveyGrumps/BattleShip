@@ -61,11 +61,11 @@ public class UserService {
     }
 
     public List<User> getAllUsers(User u) {
-	//if (u.getAdmin() == 1) {
-	    return ud.getAllUsers();
-	//} else {
-	//    return null;
-	//}
+	// if (u.getAdmin() == 1) {
+	return ud.getAllUsers();
+	// } else {
+	// return null;
+	// }
     }
 
     public User modifyUser(User user, User u) {
@@ -93,9 +93,9 @@ public class UserService {
 	return ud.getUserByWinlossId(id);
     }
 
-	public int getWL(int id) {
-		// TODO Auto-generated method stub
-		return ud.getUserById(id).getWinLossId();
-	}
+    public int getWL(int id) {
+	// TODO Auto-generated method stub
+	return ud.getUserById(id).getWinLossId();
+    }
 
 }
