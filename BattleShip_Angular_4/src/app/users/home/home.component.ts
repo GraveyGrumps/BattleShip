@@ -70,15 +70,16 @@ export class HomeComponent implements OnInit {
     );
   }
   currentlyRunningGames() {
-    this.mygames = this.games.filter(i => i.status === 'inprogress' && i.turn === this.user.id);
+    this.mygames = this.games.filter(i => i.status === 'inprogress' &&
+     ((i.turn === 0 && i.player1Id === this.user.id) || (i.turn === 1 && i.player2Id === this.user.id)));
     if (this.mygames.length > 3) {
       this.mygames = this.mygames.slice(0, 3);
     }
   }
   getPending() {
-    this.pendinggames = this.games.filter(i => i.status === 'pending');
+    this.pendinggames = this.games.filter(i => i.status === 'pending' && i.player1Id !== this.user.id);
     if (this.pendinggames.length > 5) {
-      this.pendinggames = this.pendinggames.slice(0, 3);
+      this.pendinggames = this.pendinggames.slice(0, 5);
     }
   }
   private getTopTen() {

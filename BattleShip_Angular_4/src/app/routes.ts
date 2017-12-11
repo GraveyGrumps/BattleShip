@@ -6,6 +6,7 @@ import { NewGameComponent } from './games/newgame/newgame.component';
 import { TestPannelComponent } from './games/battleship/testpannel/testpannel.component';
 import { LeaderboardsComponent } from './leaderboards/leaderboards.component';
 import { MygamesComponent } from './mygames/mygames.component';
+import { LobbyComponent } from './lobby/lobby.component';
 
 export const appRoutes: Routes = [
   {
@@ -42,6 +43,10 @@ export const appRoutes: Routes = [
   {
     path: 'test',
     component: TestPannelComponent
+  },
+  {
+    path: 'lobby',
+    component: LobbyComponent
   },
   {
     path: '**',
