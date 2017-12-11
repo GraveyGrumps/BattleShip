@@ -13,11 +13,5 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit()  {
-    // called after the constructor and called  after the first ngOnChanges()
-    this.yup = 'yes';
-  }
-
-  change() {
-    this.yup = 'no';
   }
 }
