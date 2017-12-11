@@ -40,8 +40,7 @@ public class ClanService {
 	int clanId = clan.getId();
 	if ((currentUser.getClanId() == clanId && currentUser.getIsOfficer() == 1)
 		|| ValidationUtil.validateAdmin(currentUser)) {
-	    clDao.modifyClanNameById(clanId, newClanName);
-	    return clan;
+	    return clDao.modifyClanNameById(clanId, newClanName);
 	} else {
 	    return null;
 	}
@@ -49,9 +48,9 @@ public class ClanService {
 
     public Clan changeClanLogo(User currentUser, Clan clan, String newLogoPath) {
 	int clanId = clan.getId();
-	if (currentUser.getClanId() == clanId && currentUser.getIsOfficer() == 1) {
-	    clDao.modifyClanLogoById(clanId, newLogoPath);
-	    return clan;
+	if ((currentUser.getClanId() == clanId && currentUser.getIsOfficer() == 1)
+		|| ValidationUtil.validateAdmin(currentUser)) {
+	    return clDao.modifyClanLogoById(clanId, newLogoPath);
 	} else {
 	    return null;
 	}

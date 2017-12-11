@@ -74,15 +74,15 @@ public class ClanDaoHibernate implements ClanDao {
 
     @Override
     @Transactional
-    public boolean modifyClanLogoById(int id, String logoPath) {
+    public Clan modifyClanLogoById(int id, String logoPath) {
 	log.trace("Modifying Clan Logo: " + logoPath + " where id: " + id);
 	Session session = sf.getCurrentSession();
 	Clan clan = getClanById(id);
 	if (clan == null)
-	    return false;
+	    return null;
 	clan.setLogo(logoPath);
 	session.merge(clan);
-	return true;
+	return clan;
     }
 
     @Override

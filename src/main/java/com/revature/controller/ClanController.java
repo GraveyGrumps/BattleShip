@@ -6,9 +6,13 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -18,11 +22,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.revature.daos.ClanDao;
 import com.revature.daos.UserDao;
 import com.revature.entities.Clan;
-<<<<<<< HEAD
 import com.revature.entities.User;
 import com.revature.service.ClanService;
-=======
->>>>>>> 943d85138f0e3a7e2fd3622f57e0a352857160f1
 
 @Controller
 @RequestMapping("clan")
@@ -54,7 +55,7 @@ public class ClanController {
     }
 
     /**
-     * @param clan
+     * @param inputClan
      *            The clan object passed in through the request body. The ID is the
      *            ID of the clan being renamed. The name is the new name of the
      *            clan.
@@ -63,25 +64,60 @@ public class ClanController {
      */
     @PutMapping("edit-name")
     @ResponseBody
-    public Clan editClanName(@RequestBody Clan clan, HttpServletRequest request) {
+    public Clan editClanName(@RequestBody Clan inputClan, HttpServletRequest request) {
 	User currentUser = usrDao.getUserById(2); // admin
 	// User currentUser = request.getParameter("user");
-	Clan clanToRename = clnSvc.getClan(clan.getId());
-
+	Clan clanToRename = clnSvc.getClan(inputClan.getId());
 	if (clanToRename != null) {
-	    return clnSvc.changeClanName(currentUser, clanToRename, clan.getName());
-	    // return new Clan(99, "success", "", "");
+	    return clnSvc.changeClanName(currentUser, clanToRename, inputClan.getName());
 	} else {
-	    // return null;
-	    return new Clan(99, "failed", "", "");
+	    return null;
 	}
     }
 
-    @GetMapping("test")
+    /**
+     * @param inputClan
+     *            The clan object passed in through the request body. The ID is the
+     *            ID of the clan being renamed. The logo is the new logo of the
+     *            clan.
+     * @param request
+     * @return The clan if successfully renamed. Null if unsuccessful.
+     */
+    @PutMapping("edit-logo")
     @ResponseBody
-    public String getTest() {
-	log.trace("in /clan/test method");
-	return "test successful";
+    public Clan editClanLogo(@RequestBody Clan inputClan, HttpServletRequest request) {
+	User currentUser = usrDao.getUserById(2); // admin
+	// User currentUser = request.getParameter("user");
+	Clan clanToEdit = clnSvc.getClan(inputClan.getId());
+	if (clanToEdit != null) {
+	    return clnSvc.changeClanLogo(currentUser, clanToEdit, inputClan.getLogo());
+	} else {
+	    return new Clan(0, "clan id not found", "", "");
+	}
     }
 
+    @DeleteMapping("delete/{clanId}")
+    @ResponseBody
+    public ResponseEntity<Object> deleteClan(@PathVariable int clanId, HttpServletRequest request) {
+	User currentUser = usrDao.getUserById(2); // admin
+	// User currentUser = request.getParameter("user");
+	Clan clanToDelete = clnSvc.getClan(clanId);
+	if (clanToDelete != null) {
+	    clnSvc.deleteClan(currentUser, clanToDelete);
+	    return new ResponseEntity<>(HttpStatus.OK);
+	} else {
+	    return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+	}
+    }
+
+    @GetMapping("{clanId}")
+    @ResponseBody
+    public Clan getClan(@PathVariable int clanId) {
+	Clan clanToFind = clnSvc.getClan(clanId);
+	if (clanToFind != null) {
+	    return clanToFind;
+	} else {
+	    return null;
+	}
+    }
 }

@@ -18,7 +18,7 @@ public interface ClanDao {
 
     String modifyClanChatLogById(int id, String chatLog);
 
-    boolean modifyClanLogoById(int id, String logoPath);
+    Clan modifyClanLogoById(int id, String logoPath);
 
     boolean clearClanChatById(int id);
 
