@@ -23,63 +23,65 @@ import com.revature.service.GameService;
 // need allowCredentials, but won't need origins after bundling
 @CrossOrigin(allowCredentials = "true", origins = "http://localhost:4200")
 public class GameController {
-	
-	@Autowired
-	private GameService gs;
-	private Logger log = Logger.getRootLogger();
-	
-	@GetMapping("pending")
-	@ResponseBody
-	public List<Game> getPendingGames(){
-		log.info("Getting Pending Games");
-		return gs.getPendingGames();
-	}
-	@GetMapping("all")
-	@ResponseBody
-	public List<Game> getAllGames(){
-		log.info("Getting all Games");
-		return gs.getAllGames();
-	}
-	
-	@GetMapping("load")
-	@ResponseBody
-	public Game loadGame(@RequestParam("id") int id) {
-		log.info("Loading Game " + id);		
-		return gs.loadGame(id);
-	}
 
-	
-	@PostMapping("new")
-	@ResponseBody
-	public Game addNewGame(@RequestBody Game game) {
-		log.info("Adding a new Game");
-		return gs.addNewGame(game);
-	}
-	
-	@PutMapping("start")
-	@ResponseBody
-	public Game startGame(@RequestBody Game game) {
-		log.info("Starting a game");
-		log.trace("Game is: " + game);
-		return gs.startGame(game);
-	}
-	@GetMapping("{id}")
-	@ResponseBody
-	public List<Game> getMyGames(@PathVariable int id) {
-		log.info("Getting games with id: " + id);
-		return gs.getMyGames(id);
-	}
-	@PutMapping("modify")
-	@ResponseBody
-	public Game modifyGame(@RequestBody Game game) {
-		log.info("Modifying a game");
-		return gs.updateGame(game);
-	}
+    @Autowired
+    private GameService gs;
+    private Logger log = Logger.getRootLogger();
 
-	@PutMapping("update")
-	public Game updateGame(@RequestBody Game game) {
-		log.info("Updating a game");
-		log.trace("Game is: " + game);
-		return gs.updateGame(game);
-	}
+    @GetMapping("pending")
+    @ResponseBody
+    public List<Game> getPendingGames() {
+	log.info("Getting Pending Games");
+	return gs.getPendingGames();
+    }
+
+    @GetMapping("all")
+    @ResponseBody
+    public List<Game> getAllGames() {
+	log.info("Getting all Games");
+	return gs.getAllGames();
+    }
+
+    @GetMapping("load")
+    @ResponseBody
+    public Game loadGame(@RequestParam("id") int id) {
+	log.info("Loading Game " + id);
+	return gs.loadGame(id);
+    }
+
+    @PostMapping("new")
+    @ResponseBody
+    public Game addNewGame(@RequestBody Game game) {
+	log.info("Adding a new Game");
+	return gs.addNewGame(game);
+    }
+
+    @PutMapping("start")
+    @ResponseBody
+    public Game startGame(@RequestBody Game game) {
+	log.info("Starting a game");
+	log.trace("Game is: " + game);
+	return gs.startGame(game);
+    }
+
+    @GetMapping("{id}")
+    @ResponseBody
+    public List<Game> getMyGames(@PathVariable int id) {
+	log.info("Getting games with id: " + id);
+	return gs.getMyGames(id);
+    }
+
+    @PutMapping("modify")
+    @ResponseBody
+    public Game modifyGame(@RequestBody Game game) {
+	log.info("Modifying a game");
+	return gs.updateGame(game);
+    }
+
+    @PutMapping("update")
+    public Game updateGame(@RequestBody Game game) {
+	log.info("Updating a game");
+	log.trace("Game is: " + game);
+	return gs.updateGame(game);
+    }
 }

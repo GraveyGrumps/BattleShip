@@ -16,24 +16,25 @@ import com.revature.service.WinLossService;
 
 @Controller
 @RequestMapping("winloss")
-//need allowCredentials, but won't need origins after bundling
+// need allowCredentials, but won't need origins after bundling
 @CrossOrigin(allowCredentials = "true", origins = "http://localhost:4200")
 public class WinLossController {
-	private Logger log = Logger.getRootLogger();
-	@Autowired
-	private WinLossService wls;
-	
-	@GetMapping
-	@ResponseBody
-	public List<WinLoss> getAllWinLosses(){
-		log.info("Getting all winLosses");
-		return wls.getAllWinLosses();
-	}
-	@GetMapping("{id}")
-	@ResponseBody
-	public WinLoss getWinLossById(@PathVariable int id) {
-		log.info("Getting winloss by id");
-		log.trace("id is: " + id);
-		return wls.getWinLossById(id);
-	}
+    private Logger log = Logger.getRootLogger();
+    @Autowired
+    private WinLossService wls;
+
+    @GetMapping
+    @ResponseBody
+    public List<WinLoss> getAllWinLosses() {
+	log.info("Getting all winLosses");
+	return wls.getAllWinLosses();
+    }
+
+    @GetMapping("{id}")
+    @ResponseBody
+    public WinLoss getWinLossById(@PathVariable int id) {
+	log.info("Getting winloss by id");
+	log.trace("id is: " + id);
+	return wls.getWinLossById(id);
+    }
 }

@@ -16,138 +16,138 @@ import org.springframework.stereotype.Component;
 @Scope(value = ConfigurableBeanFactory.SCOPE_PROTOTYPE)
 public class Settings {
 
-	@Id
-	@Column(name = "S_ID")
-	@SequenceGenerator(name = "S_seq", sequenceName = "S_seq")
-	@GeneratedValue(generator = "S_seq", strategy = GenerationType.AUTO)
-	private int id;
+    @Id
+    @Column(name = "S_ID")
+    @SequenceGenerator(name = "S_seq", sequenceName = "S_seq")
+    @GeneratedValue(generator = "S_seq", strategy = GenerationType.AUTO)
+    private int id;
 
-	// Allow global chat?
-	@Column(name = "Global_Chat")
-	private int globalChat;
+    // Allow global chat?
+    @Column(name = "Global_Chat")
+    private int globalChat;
 
-	// Allow in-game chat?
-	@Column(name = "In_Game_Chat")
-	private int inGameChat;
+    // Allow in-game chat?
+    @Column(name = "In_Game_Chat")
+    private int inGameChat;
 
-	// what does this field signify? A: wither or not they can receive friend requests
-	@Column(name = "Accept_Friendship")
-	private int acceptFriendship;
+    // what does this field signify? A: wither or not they can receive friend
+    // requests
+    @Column(name = "Accept_Friendship")
+    private int acceptFriendship;
 
-	// Allow global chat?
-	@Column(name = "Allow_Challenges")
-	private int allowChallenges;
+    // Allow global chat?
+    @Column(name = "Allow_Challenges")
+    private int allowChallenges;
 
-	// Is profile visible to others?
-	@Column(name = "Viewable")
-	private int viewable;
+    // Is profile visible to others?
+    @Column(name = "Viewable")
+    private int viewable;
 
-	public Settings(int id, int globalChat, int inGameChat, int acceptFriendship, int allowChallenges, int viewable) {
-		super();
-		this.id = id;
-		this.globalChat = globalChat;
-		this.inGameChat = inGameChat;
-		this.acceptFriendship = acceptFriendship;
-		this.allowChallenges = allowChallenges;
-		this.viewable = viewable;
-	}
+    public Settings(int id, int globalChat, int inGameChat, int acceptFriendship, int allowChallenges, int viewable) {
+	super();
+	this.id = id;
+	this.globalChat = globalChat;
+	this.inGameChat = inGameChat;
+	this.acceptFriendship = acceptFriendship;
+	this.allowChallenges = allowChallenges;
+	this.viewable = viewable;
+    }
 
-	public Settings() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
+    public Settings() {
+	super();
+	// TODO Auto-generated constructor stub
+    }
 
-	public int getId() {
-		return id;
-	}
+    public int getId() {
+	return id;
+    }
 
-	public void setId(int id) {
-		this.id = id;
-	}
+    public void setId(int id) {
+	this.id = id;
+    }
 
-	public int getGlobalChat() {
-		return globalChat;
-	}
+    public int getGlobalChat() {
+	return globalChat;
+    }
 
-	public void setGlobalChat(int globalChat) {
-		this.globalChat = globalChat;
-	}
+    public void setGlobalChat(int globalChat) {
+	this.globalChat = globalChat;
+    }
 
-	public int getInGameChat() {
-		return inGameChat;
-	}
+    public int getInGameChat() {
+	return inGameChat;
+    }
 
-	public void setInGameChat(int inGameChat) {
-		this.inGameChat = inGameChat;
-	}
+    public void setInGameChat(int inGameChat) {
+	this.inGameChat = inGameChat;
+    }
 
-	public int getAcceptFriendship() {
-		return acceptFriendship;
-	}
+    public int getAcceptFriendship() {
+	return acceptFriendship;
+    }
 
-	public void setAcceptFriendship(int acceptFriendship) {
-		this.acceptFriendship = acceptFriendship;
-	}
+    public void setAcceptFriendship(int acceptFriendship) {
+	this.acceptFriendship = acceptFriendship;
+    }
 
-	public int getAllowChallenges() {
-		return allowChallenges;
-	}
+    public int getAllowChallenges() {
+	return allowChallenges;
+    }
 
-	public void setAllowChallenges(int allowChallenges) {
-		this.allowChallenges = allowChallenges;
-	}
+    public void setAllowChallenges(int allowChallenges) {
+	this.allowChallenges = allowChallenges;
+    }
 
-	public int getViewable() {
-		return viewable;
-	}
+    public int getViewable() {
+	return viewable;
+    }
 
-	public void setViewable(int viewable) {
-		this.viewable = viewable;
-	}
+    public void setViewable(int viewable) {
+	this.viewable = viewable;
+    }
 
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + acceptFriendship;
-		result = prime * result + allowChallenges;
-		result = prime * result + globalChat;
-		result = prime * result + id;
-		result = prime * result + inGameChat;
-		result = prime * result + viewable;
-		return result;
-	}
+    @Override
+    public int hashCode() {
+	final int prime = 31;
+	int result = 1;
+	result = prime * result + acceptFriendship;
+	result = prime * result + allowChallenges;
+	result = prime * result + globalChat;
+	result = prime * result + id;
+	result = prime * result + inGameChat;
+	result = prime * result + viewable;
+	return result;
+    }
 
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Settings other = (Settings) obj;
-		if (acceptFriendship != other.acceptFriendship)
-			return false;
-		if (allowChallenges != other.allowChallenges)
-			return false;
-		if (globalChat != other.globalChat)
-			return false;
-		if (id != other.id)
-			return false;
-		if (inGameChat != other.inGameChat)
-			return false;
-		if (viewable != other.viewable)
-			return false;
-		return true;
-	}
+    @Override
+    public boolean equals(Object obj) {
+	if (this == obj)
+	    return true;
+	if (obj == null)
+	    return false;
+	if (getClass() != obj.getClass())
+	    return false;
+	Settings other = (Settings) obj;
+	if (acceptFriendship != other.acceptFriendship)
+	    return false;
+	if (allowChallenges != other.allowChallenges)
+	    return false;
+	if (globalChat != other.globalChat)
+	    return false;
+	if (id != other.id)
+	    return false;
+	if (inGameChat != other.inGameChat)
+	    return false;
+	if (viewable != other.viewable)
+	    return false;
+	return true;
+    }
 
-	@Override
-	public String toString() {
-		return "Settings [id=" + id + ", globalChat=" + globalChat + ", inGameChat=" + inGameChat
-				+ ", acceptFriendship=" + acceptFriendship + ", allowChallenges=" + allowChallenges + ", viewable="
-				+ viewable + "]";
-	}
-	
-	
+    @Override
+    public String toString() {
+	return "Settings [id=" + id + ", globalChat=" + globalChat + ", inGameChat=" + inGameChat
+		+ ", acceptFriendship=" + acceptFriendship + ", allowChallenges=" + allowChallenges + ", viewable="
+		+ viewable + "]";
+    }
+
 }

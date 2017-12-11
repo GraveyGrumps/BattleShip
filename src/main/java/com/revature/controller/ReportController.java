@@ -17,15 +17,15 @@ import com.revature.service.ReportService;
 // need allowCredentials, but won't need origins after bundling
 @CrossOrigin(allowCredentials = "true", origins = "http://localhost:4200")
 public class ReportController {
-	
-	@Autowired
-	private ReportService rs;
-	private Logger log = Logger.getRootLogger();
-	
-	@GetMapping("loadbygame")
-	@ResponseBody
-	public Report loadReport(@RequestParam("id") int id) {
-		log.info("Loading Game Report " + id);		
-		return rs.loadgameReport(id);
-	}
+
+    @Autowired
+    private ReportService rs;
+    private Logger log = Logger.getRootLogger();
+
+    @GetMapping("loadbygame")
+    @ResponseBody
+    public Report loadReport(@RequestParam("id") int id) {
+	log.info("Loading Game Report " + id);
+	return rs.loadgameReport(id);
+    }
 }
