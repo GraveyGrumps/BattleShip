@@ -5,6 +5,7 @@ import { HomeComponent } from './users/home/home.component';
 import { NewGameComponent } from './games/newgame/newgame.component';
 import { TestPannelComponent } from './games/battleship/testpannel/testpannel.component';
 import { LeaderboardsComponent } from './leaderboards/leaderboards.component';
+import { MygamesComponent } from './mygames/mygames.component';
 
 export const appRoutes: Routes = [
   {
@@ -30,13 +31,17 @@ export const appRoutes: Routes = [
       },
       {
         path: 'my',
-        component: TestPannelComponent
+        component: MygamesComponent
       },
     ]
   },
   {
     path: 'leaderboard',
     component: LeaderboardsComponent
+  },
+  {
+    path: 'test',
+    component: TestPannelComponent
   },
   {
     path: '**',

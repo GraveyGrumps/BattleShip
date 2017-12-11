@@ -25,6 +25,7 @@ import { TestPannelComponent } from './games/battleship/testpannel/testpannel.co
 import { WinlossService } from './services/winloss.service';
 import { LeaderboardsComponent } from './leaderboards/leaderboards.component';
 import { UserService } from './services/user.service';
+import { MygamesComponent } from './mygames/mygames.component';
 
 
 @NgModule({
@@ -47,7 +48,8 @@ import { UserService } from './services/user.service';
     LeaderBoardComponent,
     GametileComponent,
     TestPannelComponent,
-    LeaderboardsComponent
+    LeaderboardsComponent,
+    MygamesComponent
   ],
   providers: [GameServiceService,
   WinlossService,

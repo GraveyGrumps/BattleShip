@@ -3,6 +3,7 @@ import { BehaviorSubject } from 'rxjs/Rx';
 import { Game } from '../games/battleship/beans/Game';
 import { Http } from '@angular/http';
 import { environment } from '../../environments/environment';
+import { Subject } from 'rxjs/Subject';
 
 @Injectable()
 export class GameServiceService {
@@ -21,7 +22,6 @@ export class GameServiceService {
       }
     );
   }
-
 
 
 }

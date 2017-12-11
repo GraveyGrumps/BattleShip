@@ -1,5 +1,5 @@
 <nav class="navbar navbar-expand-md navbar-dark bg-dark justify-content-between navbar-static-top">
-  <a class="navbar-brand" href="#">BattleBlip</a>
+  <a class="navbar-brand active" href="#">BattleBlip</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample04" aria-controls="navbarsExample04"
     aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
@@ -17,8 +17,11 @@
           <a class="nav-link" (click)= "routeTo('leaderboard')">Leaderboards</a>
         </li>
         <li class="nav-item active">
-          <a class="nav-link" (click)="routeTo('#')">Lobby</a>
+          <a class="nav-link" (click)="routeTo('lobby')">Lobby</a>
         </li>
+        <li class="nav-item active">
+            <a class="nav-link" (click)="routeTo('test')">Test</a>
+          </li>
         <li class="nav-item active">
           <a class="nav-link" (click)="routeTo('game/new')">Create New Game</a>
         </li>
