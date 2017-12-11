@@ -1,12 +1,14 @@
 package com.revature.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.revature.daos.FriendshipDao;
 import com.revature.entities.Friendship;
 import com.revature.entities.User;
 import com.revature.util.ValidationUtil;
 
+@Service
 public class FriendshipService {
     @Autowired
     private FriendshipDao fsDao;

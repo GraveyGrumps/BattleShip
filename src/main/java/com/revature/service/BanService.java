@@ -6,12 +6,14 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.revature.daos.BanDao;
 import com.revature.entities.Ban;
 import com.revature.entities.User;
 import com.revature.util.ValidationUtil;
 
+@Service
 public class BanService {
     private Logger log = Logger.getRootLogger();
     @Autowired

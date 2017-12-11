@@ -3,6 +3,7 @@ package com.revature.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.revature.daos.ClanDao;
 import com.revature.daos.UserDao;
@@ -10,6 +11,7 @@ import com.revature.entities.Clan;
 import com.revature.entities.User;
 import com.revature.util.ValidationUtil;
 
+@Service
 public class ClanService {
     @Autowired
     private UserDao usDao;
@@ -26,6 +28,12 @@ public class ClanService {
 	return cl;
     }
 
+    public Clan createClan(String clanName) {
+	cl.setName(clanName);
+	clDao.addClan(cl);
+	return cl;
+    }
+
     // Anyone can view all clans
     public List<Clan> getAllClans() {
 	return clDao.getAllClans();
@@ -33,7 +41,8 @@ public class ClanService {
 
     public Clan changeClanName(User currentUser, Clan clan, String newClanName) {
 	int clanId = clan.getId();
-	if (currentUser.getClanId() == clanId && currentUser.getIsOfficer() == 1) {
+	if ((currentUser.getClanId() == clanId && currentUser.getIsOfficer() == 1)
+		|| ValidationUtil.validateAdmin(currentUser)) {
 	    clDao.modifyClanNameById(clanId, newClanName);
 	    return clan;
 	} else {
@@ -56,5 +65,9 @@ public class ClanService {
 	if (ValidationUtil.validateAdmin(currentUser)) {
 	    clDao.deleteClanById(clan.getId());
 	}
+    }
+
+    public Clan getClan(int clanId) {
+	return clDao.getClanById(clanId);
     }
 }

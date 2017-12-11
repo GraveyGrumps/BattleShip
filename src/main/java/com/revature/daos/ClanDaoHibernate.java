@@ -15,98 +15,98 @@ import com.revature.entities.Clan;
 
 @Repository
 public class ClanDaoHibernate implements ClanDao {
-	private Logger log = Logger.getRootLogger();
-	@Autowired
-	SessionFactory sf;
-	
-	@Override
-	@Transactional
-	public Clan addClan(Clan clan) {
-		log.trace("Adding a clan to the database");
-		sf.getCurrentSession().save(clan);
-		return clan;
-	}
+    private Logger log = Logger.getRootLogger();
+    @Autowired
+    SessionFactory sf;
 
-	@Override
-	@Transactional
-	public Clan getClanById(int id) {
-		log.trace("Getting Clan by Id: " + id);
-		Session session = sf.getCurrentSession();
-		Criteria criteria = session.createCriteria(Clan.class);
-		criteria.add(Restrictions.eq("id", id));
-		return (Clan) criteria.uniqueResult();
-	}
+    @Override
+    @Transactional
+    public Clan addClan(Clan clan) {
+	log.trace("Adding a clan to the database");
+	sf.getCurrentSession().save(clan);
+	return clan;
+    }
 
-	@SuppressWarnings("unchecked")
-	@Override
-	@Transactional
-	public List<Clan> getAllClans() {
-		log.trace("Getting all Clans");
-		Session session = sf.getCurrentSession();
-		return (List<Clan>) session.createCriteria(Clan.class).list();
-	}
+    @Override
+    @Transactional
+    public Clan getClanById(int id) {
+	log.trace("Getting Clan by Id: " + id);
+	Session session = sf.getCurrentSession();
+	Criteria criteria = session.createCriteria(Clan.class);
+	criteria.add(Restrictions.eq("id", id));
+	return (Clan) criteria.uniqueResult();
+    }
 
-	@Override
-	@Transactional
-	public boolean modifyClanNameById(int id, String clanName) {
-		log.trace("Modifying Clanname: " + clanName + " where id: " + id);
-		Session session = sf.getCurrentSession();
-		Clan clan = getClanById(id);
-		if(clan == null)
-			return false;
-		clan.setName(clanName);
-		session.merge(clan);
-		return true;
-	}
+    @SuppressWarnings("unchecked")
+    @Override
+    @Transactional
+    public List<Clan> getAllClans() {
+	log.trace("Getting all Clans");
+	Session session = sf.getCurrentSession();
+	return (List<Clan>) session.createCriteria(Clan.class).list();
+    }
 
-	@Override
-	@Transactional
-	public String modifyClanChatLogById(int id, String chatLog) {
-		log.trace("Adding to clan ChatLog: " + chatLog + " where id: " + id);
-		Session session = sf.getCurrentSession();
-		Clan clan = getClanById(id);
-		if(clan == null)
-			return "";
-		clan.addToChatLog(chatLog);
-		session.merge(clan);
-		return clan.getChatLog();
-	}
+    @Override
+    @Transactional
+    public Clan modifyClanNameById(int id, String clanName) {
+	log.trace("Modifying Clanname: " + clanName + " where id: " + id);
+	Session session = sf.getCurrentSession();
+	Clan clan = getClanById(id);
+	if (clan == null)
+	    return null;
+	clan.setName(clanName);
+	session.merge(clan);
+	return clan;
+    }
 
-	@Override
-	@Transactional
-	public boolean modifyClanLogoById(int id, String logoPath) {
-		log.trace("Modifying Clan Logo: " + logoPath + " where id: " + id);
-		Session session = sf.getCurrentSession();
-		Clan clan = getClanById(id);
-		if(clan == null)
-			return false;
-		clan.setLogo(logoPath);
-		session.merge(clan);
-		return true;
-	}
+    @Override
+    @Transactional
+    public String modifyClanChatLogById(int id, String chatLog) {
+	log.trace("Adding to clan ChatLog: " + chatLog + " where id: " + id);
+	Session session = sf.getCurrentSession();
+	Clan clan = getClanById(id);
+	if (clan == null)
+	    return "";
+	clan.addToChatLog(chatLog);
+	session.merge(clan);
+	return clan.getChatLog();
+    }
 
-	@Override
-	@Transactional
-	public boolean deleteClanById(int id) {
-		log.trace("Deleting Clan with id: " + id);
-		Session session = sf.getCurrentSession();
-		Clan clan = getClanById(id);
-		if(clan == null)
-			return false;
-		session.delete(clan);
-		return true;
-	}
+    @Override
+    @Transactional
+    public boolean modifyClanLogoById(int id, String logoPath) {
+	log.trace("Modifying Clan Logo: " + logoPath + " where id: " + id);
+	Session session = sf.getCurrentSession();
+	Clan clan = getClanById(id);
+	if (clan == null)
+	    return false;
+	clan.setLogo(logoPath);
+	session.merge(clan);
+	return true;
+    }
 
-	@Override
-	public boolean clearClanChatById(int id) {
-		log.trace("Clearing chat log of clan with id: " + id);
-		Session session = sf.getCurrentSession();
-		Clan clan = getClanById(id);
-		if(clan == null)
-			return false;
-		clan.setChatLog("");
-		session.merge(clan);
-		return true;
-	}
+    @Override
+    @Transactional
+    public boolean deleteClanById(int id) {
+	log.trace("Deleting Clan with id: " + id);
+	Session session = sf.getCurrentSession();
+	Clan clan = getClanById(id);
+	if (clan == null)
+	    return false;
+	session.delete(clan);
+	return true;
+    }
+
+    @Override
+    public boolean clearClanChatById(int id) {
+	log.trace("Clearing chat log of clan with id: " + id);
+	Session session = sf.getCurrentSession();
+	Clan clan = getClanById(id);
+	if (clan == null)
+	    return false;
+	clan.setChatLog("");
+	session.merge(clan);
+	return true;
+    }
 
 }
