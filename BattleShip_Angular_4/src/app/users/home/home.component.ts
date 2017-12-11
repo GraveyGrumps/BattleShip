@@ -5,6 +5,7 @@ import { environment } from '../../../environments/environment';
 import { User } from '../../beans/User';
 import { GameServiceService } from '../../services/game-service.service';
 import { Subscription } from 'rxjs/Subscription';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -13,15 +14,16 @@ import { Subscription } from 'rxjs/Subscription';
 })
 export class HomeComponent implements OnInit {
   games: Array<Game>;
-  constructor(private http: Http, private gss: GameServiceService) { }
+  constructor(private http: Http, private gss: GameServiceService, private router: Router) { }
   mygames: Array<Game>;
   pendinggames: Array<Game>;
   user: User;
   subscription: Subscription;
   ngOnInit() {
-    console.log('user is:');
-    console.log(JSON.parse(sessionStorage.getItem('user')));
     this.user = JSON.parse(sessionStorage.getItem('user'));
+    if (this.user === null) {
+      this.router.navigateByUrl('/login');
+    }
     this.subscription = this.gss.getSubject().subscribe(
       (listGames) => {
         if (listGames !== null) {

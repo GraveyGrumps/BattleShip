@@ -13,7 +13,7 @@ export class TopTenComponent implements OnInit {
   constructor(private http: Http) { }
   users: Array<User> = [];
   range: Array<Number> = [];
-    ngOnInit() {
+  ngOnInit() {
     this.http.get('http://localhost:8080/Battleship/winloss').subscribe(
       (respbody) => {
         if (respbody.text() !== '') {
@@ -35,15 +35,10 @@ export class TopTenComponent implements OnInit {
   }
   private getTopTen() {
     this.winlosses.sort(this.compare);
-    for (let i = 0; i < this.winlosses.length; i++) {
-      console.log(this.winlosses[i]);
-      if (this.winlosses[i].wins + this.winlosses[i].losses < 10) {
-        console.log('splicing');
-        this.winlosses.splice(i, 1);
-        console.log(this.winlosses);
-      }
+    this.winlosses = this.winlosses.filter( i => i.wins + i.losses > 10);
+    if (this.winlosses.length > 10) {
+      this.winlosses = this.winlosses.slice(0, 10);
     }
-    this.winlosses = this.winlosses.slice(0, 10);
   }
   private compare(a, b) {
     if ((a.wins / a.losses) < (b.wins / b.losses)) {
@@ -55,14 +50,14 @@ export class TopTenComponent implements OnInit {
     return 0;
   }
   private populateRange() {
-    for (let i = 0; i < this.winlosses.length ; i++) {
+    for (let i = 0; i < this.winlosses.length; i++) {
       this.range.push(i);
     }
   }
   public convertToUsername(winloss) {
     try {
       return this.users.filter(i => i.winLossId === winloss.id)[0].username;
-    }catch (TypeError) {
+    } catch (TypeError) {
       return null;
     }
   }
