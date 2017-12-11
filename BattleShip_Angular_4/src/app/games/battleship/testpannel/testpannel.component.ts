@@ -17,13 +17,13 @@ export class TestPannelComponent implements OnInit {
   currReport = new Report();
   currShipState = new Shipstate();
 
-  constructor(@Inject(Http) public http: Http) {
+  constructor( @Inject(Http) public http: Http) {
 
   }
 
   ngOnInit() {
     let x = 'http://localhost:8080/Battleship/game/load';
-    x += '?id=' + 45;
+    x += '?id=' + 66;
     this.http.get(x, { withCredentials: true }).subscribe(
       (successResp) => {
         this.currGame = successResp.json();
@@ -35,7 +35,7 @@ export class TestPannelComponent implements OnInit {
     );
 
     let y = 'http://localhost:8080/Battleship/report/loadbygame';
-    y += '?id=' + 45;
+    y += '?id=' + 66;
     this.http.get(y, { withCredentials: true }).subscribe(
       (successResp) => {
         this.currReport = successResp.json();
@@ -76,6 +76,7 @@ export class TestPannelComponent implements OnInit {
     if (this.currGame.turn) {
       this.currGame.status = 'inprogress';
     }
+    this.update();
 
     this.turnSwap();
   }
@@ -106,7 +107,7 @@ export class TestPannelComponent implements OnInit {
     }
 
     if (done) {
-      this.currGame.status = 'complete';
+      this.finish();
     } else {
       this.turnSwap();
     }
@@ -118,12 +119,31 @@ export class TestPannelComponent implements OnInit {
     } else {
       this.currGame.turn = 1;
     }
+    this.update();
   }
 
   concede() {
     this.turnSwap();
-    this.currGame.status = 'complete';
-    console.log(this.currGame);
+    this.finish();
   }
 
+  update() {
+    this.http.put('http://localhost:8080/Battleship/game/modify', (this.currGame), { withCredentials: true }).subscribe(
+      (successResp) => {
+      },
+      (failResp) => {
+        alert('Failed Update Game :`(');
+      }
+    );
+  }
+
+  finish() {
+    this.currGame.status = 'complete';
+    this.update();
+    if (this.currGame.turn) {
+      this.currReport.winner = this.currGame.player2Id;
+    } else {
+      this.currGame.turn = this.currGame.player1Id;
+    }
+  }
 }
