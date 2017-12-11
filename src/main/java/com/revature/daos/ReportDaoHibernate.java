@@ -80,7 +80,6 @@ public class ReportDaoHibernate implements ReportDao {
 			return false;
 		report.setWinner(winner);
 		session.merge(report);
-		session.close();
 		return true;
 	}
 
@@ -107,7 +106,6 @@ public class ReportDaoHibernate implements ReportDao {
 			return false;
 		report.setReportDate(time);
 		session.merge(report);
-		session.close();
 		return true;
 	}
 
@@ -121,7 +119,6 @@ public class ReportDaoHibernate implements ReportDao {
 			return false;
 		report.setClaimant(claimant);
 		session.merge(report);
-		session.close();
 		return true;
 	}
 
@@ -135,7 +132,6 @@ public class ReportDaoHibernate implements ReportDao {
 			return false;
 		report.setDefendant(defendant);
 		session.merge(report);
-		session.close();
 		return true;
 	}
 
@@ -149,7 +145,6 @@ public class ReportDaoHibernate implements ReportDao {
 			return false;
 		report.setReportNotes(reportNotes);
 		session.merge(report);
-		session.close();
 		return true;
 	}
 
@@ -163,7 +158,6 @@ public class ReportDaoHibernate implements ReportDao {
 			return false;
 		report.setFlag(flag);
 		session.merge(report);
-		session.close();
 		return true;
 	}
 
@@ -176,7 +170,6 @@ public class ReportDaoHibernate implements ReportDao {
 		if(report == null)
 			return false;
 		session.delete(report);
-		session.close();
 		return true;
 	}
 

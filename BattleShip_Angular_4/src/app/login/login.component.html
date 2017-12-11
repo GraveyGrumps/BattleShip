@@ -5,17 +5,111 @@
 
 <div class="container">
   <form class="form-signin" (submit)="submit()">
-    <label for="inputEmail" class="sr-only">Email address</label>
-    <input [(ngModel)]="credential.email" name="email" type="email" id="inputEmail" class="form-control" placeholder="Email address"
+    <label for="inputUsername" class="sr-only">UserName</label>
+    <input [(ngModel)]="credential.username" name="email" type="email" id="inputUsername" class="form-control" placeholder="Username"
       required autofocus>
     <label for="inputPassword" class="sr-only">Password</label>
     <input [(ngModel)]="credential.password" name="password" type="password" id="inputPassword" class="form-control" placeholder="Password"
       required>
-    <!-- <div class="checkbox">
-      <label>
-        <input type="checkbox" value="remember-me"> Remember me
-      </label>
-    </div> -->
     <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+    <button class="btn btn-lg btn-secondary btn-block" (click)="showModal(content)" type="button">Create User</button>
   </form>
 </div>
+
+<ng-template #content let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title">Create User</h4>
+    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="container">
+      <form class="modal-form">
+        <div class="form-row">
+          <div class="col">
+            <label class="badge badge-primary">UserName</label>
+            <input [(ngModel)]="user.username" name="username" type="text" id="usernameinput" placeholder="Username">
+          </div>
+          <div class="col">
+            <label class="badge badge-primary">Password</label>
+            <input [(ngModel)]="user.password" name="password" type="password" id="passwordinput" placeholder="Password">
+          </div>
+          <div class="col">
+            <label class="badge badge-primary">Email</label>
+            <input [(ngModel)]="user.email" name="email" type="text" id="emailinput" placeholder="Email">
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="col">
+            <label class="badge badge-primary">Pic a Profile Picture</label>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="col">
+            <img src="assets/img/profilepics/1.jpg" class="formimg">
+            <label class="form-check-label">
+              <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="assets/img/profilepics/1.jpg"
+                [(ngModel)]="user.profilePic" checked> 1
+            </label>
+          </div>
+          <div class="col">
+            <img src="assets/img/profilepics/2.jpg" class="formimg">
+            <label class="form-check-label">
+              <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="assets/img/profilepics/2.jpg"
+                [(ngModel)]="user.profilePic"> 2
+            </label>
+          </div>
+          <div class="col">
+            <img src="assets/img/profilepics/3.jpg" class="formimg">
+            <label class="form-check-label">
+              <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3" value="assets/img/profilepics/3.jpg"
+                [(ngModel)]="user.profilePic"> 3
+            </label>
+          </div>
+          <div class="col">
+            <img src="assets/img/profilepics/4.jpg" class="formimg">
+            <label class="form-check-label">
+              <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio4" value="assets/img/profilepics/4.jpg"
+                [(ngModel)]="user.profilePic"> 4
+            </label>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="col">
+            <img src="assets/img/profilepics/5.jpg" class="formimg">
+            <label class="form-check-label">
+              <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio5" value="assets/img/profilepics/5.jpg"
+                [(ngModel)]="user.profilePic"> 5
+            </label>
+          </div>
+          <div class="col">
+            <img src="assets/img/profilepics/6.jpg" class="formimg">
+            <label class="form-check-label">
+              <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio6" value="assets/img/profilepics/6.jpg"
+                [(ngModel)]="user.profilePic"> 6
+            </label>
+          </div>
+          <div class="col">
+            <img src="assets/img/profilepics/7.jpg" class="formimg">
+            <label class="form-check-label">
+              <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio7" value="assets/img/profilepics/7.jpg"
+                [(ngModel)]="user.profilePic"> 7
+            </label>
+          </div>
+          <div class="col">
+            <img src="assets/img/profilepics/8.jpg" class="formimg">
+            <label class="form-check-label">
+              <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio8" value="assets/img/profilepics/8.jpg"
+                [(ngModel)]="user.profilePic"> 8
+            </label>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" (click)="c('Close click')">Close</button>
+    <button type="button" class="btn btn-primary" (click)="createUser(c)">Create</button>
+  </div>
+</ng-template>

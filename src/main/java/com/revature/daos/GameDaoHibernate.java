@@ -57,7 +57,6 @@ public class GameDaoHibernate implements GameDao {
 			return false;
 		game.setStatus(status);
 		session.merge(game);
-		session.close();
 		return true;
 	}
 
@@ -71,7 +70,6 @@ public class GameDaoHibernate implements GameDao {
 			return false;
 		game.setPlayer2Id(p2Id);
 		session.merge(game);
-		session.close();
 		return true;
 	}
 
@@ -85,7 +83,6 @@ public class GameDaoHibernate implements GameDao {
 			return false;
 		game.setTurn(turn);
 		session.merge(game);
-		session.close();
 		return true;
 	}
 
@@ -99,7 +96,6 @@ public class GameDaoHibernate implements GameDao {
 			return false;
 		game.setBoardState(boardState);
 		session.merge(game);
-		session.close();
 		return true;
 	}
 
@@ -113,7 +109,6 @@ public class GameDaoHibernate implements GameDao {
 			return false;
 		game.setShipState(shipState);
 		session.merge(game);
-		session.close();
 		return true;
 	}
 
@@ -126,7 +121,6 @@ public class GameDaoHibernate implements GameDao {
 		if(game == null)
 			return false;
 		session.delete(game);
-		session.close();
 		return true;
 	}
 
@@ -140,7 +134,6 @@ public class GameDaoHibernate implements GameDao {
 			return false;
 		game.setTurnLength(turnLength);
 		session.merge(game);
-		session.close();
 		return false;
 	}
 
@@ -152,6 +145,27 @@ public class GameDaoHibernate implements GameDao {
 		Session session = sf.getCurrentSession();
 		Criteria criteria = session.createCriteria(Game.class);
 		criteria.add(Restrictions.ilike("status", "pending"));
+		return (List<Game>) criteria.list();
+	}
+	
+	@Override
+	@Transactional
+	public Game modifyGameViaGame(Game game) {
+		log.trace("merging game via game: " + game);
+		Session session = sf.getCurrentSession();
+		session.merge(game);
+		return game;
+	}
+	@SuppressWarnings("unchecked")
+	@Override
+	@Transactional
+	public List<Game> getAllGamesWithId(int id) {
+		log.trace("Getting all games with id: " + id);
+		Session session = sf.getCurrentSession();
+		Criteria criteria = session.createCriteria(Game.class);
+		criteria.add(Restrictions.disjunction()
+				.add(Restrictions.eq("player1Id",id))
+				.add(Restrictions.eq("player2Id", id)));
 		return (List<Game>) criteria.list();
 	}
 

@@ -7,7 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -27,9 +29,16 @@ public class GameController {
 	private Logger log = Logger.getRootLogger();
 	
 	@GetMapping("pending")
+	@ResponseBody
 	public List<Game> getPendingGames(){
 		log.info("Getting Pending Games");
 		return gs.getPendingGames();
+	}
+	@GetMapping("all")
+	@ResponseBody
+	public List<Game> getAllGames(){
+		log.info("Getting all Games");
+		return gs.getAllGames();
 	}
 	
 	@GetMapping("load")
@@ -38,6 +47,7 @@ public class GameController {
 		log.info("Loading Game " + id);		
 		return gs.loadGame(id);
 	}
+
 	
 	@PostMapping("new")
 	@ResponseBody
@@ -46,11 +56,30 @@ public class GameController {
 		return gs.addNewGame(game);
 	}
 	
-	@PostMapping("start")
+	@PutMapping("start")
+	@ResponseBody
 	public Game startGame(@RequestBody Game game) {
 		log.info("Starting a game");
 		log.trace("Game is: " + game);
 		return gs.startGame(game);
 	}
+	@GetMapping("{id}")
+	@ResponseBody
+	public List<Game> getMyGames(@PathVariable int id) {
+		log.info("Getting games with id: " + id);
+		return gs.getMyGames(id);
+	}
+	@PutMapping("modify")
+	@ResponseBody
+	public Game modifyGame(@RequestBody Game game) {
+		log.info("Modifying a game");
+		return gs.updateGame(game);
+	}
 
+	@PutMapping("update")
+	public Game updateGame(@RequestBody Game game) {
+		log.info("Updating a game");
+		log.trace("Game is: " + game);
+		return gs.updateGame(game);
+	}
 }

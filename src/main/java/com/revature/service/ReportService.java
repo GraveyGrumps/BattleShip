@@ -70,4 +70,9 @@ public class ReportService {
 	    rpDao.deleteReportById(report.getId());
 	}
     }
+
+	public Report loadgameReport(int id) {
+		// TODO Auto-generated method stub
+		return rpDao.getReportByGameId(id);
+	}
 }

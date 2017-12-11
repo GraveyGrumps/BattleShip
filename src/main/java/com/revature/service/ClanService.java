@@ -6,15 +6,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.revature.daos.ClanDao;
-import com.revature.daos.UserDao;
 import com.revature.entities.Clan;
 import com.revature.entities.User;
 import com.revature.util.ValidationUtil;
 
 @Service
 public class ClanService {
-    @Autowired
-    private UserDao usDao;
     @Autowired
     private ClanDao clDao;
     @Autowired

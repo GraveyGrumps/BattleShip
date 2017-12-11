@@ -18,8 +18,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.revature.daos.ClanDao;
 import com.revature.daos.UserDao;
 import com.revature.entities.Clan;
+<<<<<<< HEAD
 import com.revature.entities.User;
 import com.revature.service.ClanService;
+=======
+>>>>>>> 943d85138f0e3a7e2fd3622f57e0a352857160f1
 
 @Controller
 @RequestMapping("clan")
