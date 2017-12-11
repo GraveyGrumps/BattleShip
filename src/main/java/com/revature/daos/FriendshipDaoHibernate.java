@@ -63,7 +63,6 @@ public class FriendshipDaoHibernate implements FriendshipDao {
 	friendship.setUser2Id(pending);
 	friendship.setPending(0);
 	session.merge(friendship);
-	session.close();
 	return true;
     }
 
@@ -89,7 +88,6 @@ public class FriendshipDaoHibernate implements FriendshipDao {
 	if (friendship == null)
 	    return false;
 	session.delete(friendship);
-	session.close();
 	return true;
     }
 
@@ -102,7 +100,6 @@ public class FriendshipDaoHibernate implements FriendshipDao {
 	if (friendship == null)
 	    return false;
 	session.delete(friendship);
-	session.close();
 	return true;
     }
 

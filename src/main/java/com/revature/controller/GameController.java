@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.PutMapping;
+
 import com.revature.entities.Game;
 import com.revature.service.GameService;
 
@@ -47,6 +47,7 @@ public class GameController {
 		log.info("Loading Game " + id);		
 		return gs.loadGame(id);
 	}
+
 	
 	@PostMapping("new")
 	@ResponseBody
@@ -72,7 +73,7 @@ public class GameController {
 	@ResponseBody
 	public Game modifyGame(@RequestBody Game game) {
 		log.info("Modifying a game");
-		return gs.modifyGame(game);
+		return gs.updateGame(game);
 	}
 
 	@PutMapping("update")
