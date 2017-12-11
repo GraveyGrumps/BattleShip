@@ -14,16 +14,16 @@
           </a>
         </li>
         <li class="nav-item active">
-          <a class="nav-link" href="#">Leaderboards</a>
+          <a class="nav-link" (click)= "routeTo('#')">Leaderboards</a>
         </li>
         <li class="nav-item active">
-          <a class="nav-link" href="#">Lobby</a>
+          <a class="nav-link" (click)="routeTo('#')">Lobby</a>
         </li>
         <li class="nav-item active">
-          <a class="nav-link" href="game/new">Create New Game</a>
+          <a class="nav-link" (click)="routeTo('game/new')">Create New Game</a>
         </li>
         <li class="nav-item active">
-          <a class="nav-link" href="game/my">My Games</a>
+          <a class="nav-link" (click)="routeTo('game/my')">My Games</a>
         </li>
         <li ngbDropdown class="d-inline-block">
           <a class="nav-link active dropdown-toggle" id="dropdownBasic1" ngbDropdownToggle>My Profile</a>
@@ -39,7 +39,7 @@
           <img *ngIf = "user !== null" id="profile-img" class="profile-img-card" src = {{user.profilePic}} />
         </li>
         <li class = "nav-item active">
-          <a class = "nav-link" href="/login">Logout</a>
+          <a class = "nav-link" (click) = "routeTo('/login')">Logout</a>
         </li>
       </ul>
     </div>
