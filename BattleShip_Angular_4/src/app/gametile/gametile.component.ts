@@ -26,24 +26,31 @@ export class GametileComponent implements OnInit {
   user: User;
   gameUser: User;
   winloss: WinLoss;
+  usernames: Array<String> = [];
   constructor(private router: Router, private modalService: NgbModal, private http: Http, private gss: GameServiceService) {
   }
 
   ngOnInit() {
-    console.log(this.user);
-    console.log(this.game);
     this.gameRunning = (this.game.status === 'inprogress');
     this.gamePending = (this.game.status === 'pending');
     this.http.get(environment.context + '/user/' + this.game.player1Id).subscribe(
       (respbody) => {
         if (respbody.text() !== '') {
           this.gameUser = respbody.json();
+          if (this.game.player1Id === this.user.id) {
+            this.usernames.push(this.user.username);
+            this.usernames.push(this.gameUser.username);
+          } else {
+            this.usernames.push(this.gameUser.username);
+            this.usernames.push(this.user.username);
+          }
           this.http.get(environment.context + '/winloss/' + this.gameUser.winLossId).subscribe(
             (respbody2) => {
               if (respbody2.text() !== '') { this.winloss = respbody2.json(); }
             });
         }
       });
+
   }
   showModal(content) {
     this.modalService.open(content);
@@ -51,7 +58,6 @@ export class GametileComponent implements OnInit {
 
   startGame(c) {
     if (this.game.player1Id == this.user.id) {
-      console.log('Player is the same as started player');
       c('Close click');
       alert('cannot start a game with yourself');
       return;
@@ -63,9 +69,11 @@ export class GametileComponent implements OnInit {
         if (respbody.text() !== '') {
           c('Close click');
           this.gss.updateSubject();
-          console.log(respbody.json());
         }
       }
     );
+  }
+  getUsername(num) {
+    return this.usernames[num];
   }
 }

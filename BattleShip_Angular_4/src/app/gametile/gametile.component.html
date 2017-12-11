@@ -14,7 +14,8 @@
       <label class="badge badge-warning">Time till end of Turn</label>
       <p>{{game?.turnDeadline | date: 'medium'}}</p>
       <label class="badge badge-primary">Who's Turn</label>
-      <p>{{game?.turn}}</p>
+      <!-- <p>{{usernames[0]}}</p> -->
+      <p>{{getUsername(game.turn)}}<p>
 
     </div>
     <div class="col-xs col-centered" *ngIf="gamePending">
@@ -47,7 +48,7 @@
             <label class="badge badge-warning">Time till Turn over</label>
             <p> {{game.turnDeadline | date: 'medium'}}</p>
             <label class="badge badge-primary">Who's Turn</label>
-            <p> {{game.turn}}</p>
+            <p> {{usernames[game.turn]}}</p>
           </div>
           <label class="badge badge-primary">Turn Length</label>
           <p> {{game.turnLength}} Minutes</p>

@@ -3,10 +3,11 @@ import { BehaviorSubject } from 'rxjs/Rx';
 import { WinLoss } from '../beans/WinLoss';
 import { Http } from '@angular/http';
 import { environment } from '../../environments/environment';
+import { Subject } from 'rxjs/Subject';
 
 @Injectable()
 export class WinlossService {
-  subject: BehaviorSubject<Array<WinLoss>> = new BehaviorSubject([]);
+  subject: Subject<Array<WinLoss>> = new Subject();
   constructor(private http: Http) { }
   public getSubject() {
     this.updateSubject();
