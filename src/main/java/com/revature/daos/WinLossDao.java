@@ -18,4 +18,5 @@ public interface WinLossDao {
 	boolean clearWinLossSeasonById(int id);
 	//DELETE
 	boolean deleteWinLossById(int id);
+	WinLoss modify(WinLoss wL);
 }

@@ -8,9 +8,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.revature.entities.Game;
 import com.revature.entities.WinLoss;
 import com.revature.service.WinLossService;
 
@@ -35,5 +38,11 @@ public class WinLossController {
 		log.info("Getting winloss by id");
 		log.trace("id is: " + id);
 		return wls.getWinLossById(id);
+	}
+	@PutMapping("modify")
+	@ResponseBody
+	public WinLoss modifyGame(@RequestBody WinLoss WL) {
+		log.info("Modifying a W/L");
+		return wls.updateWL(WL);
 	}
 }

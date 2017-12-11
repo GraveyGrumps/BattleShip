@@ -7,7 +7,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.revature.daos.WinLossDao;
+import com.revature.entities.Game;
+import com.revature.entities.User;
 import com.revature.entities.WinLoss;
+import com.revature.util.ValidationUtil;
 
 @Service
 public class WinLossService {
@@ -20,6 +23,9 @@ public class WinLossService {
 	}
 	public WinLoss getWinLossById(int id) {
 		return wld.getWinLossById(id);
+	}
+	public WinLoss updateWL(WinLoss wL) {
+		return wld.modify(wL);
 	}
 	
 	

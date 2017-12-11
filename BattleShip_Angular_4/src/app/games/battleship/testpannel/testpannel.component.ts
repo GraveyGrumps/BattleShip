@@ -5,6 +5,7 @@ import { Game } from '../beans/Game';
 import { Shipstate } from '../beans/Shipstate';
 import { Report } from '../../../beans/Report';
 import { User } from '../../../beans/User';
+import { WinLoss } from '../../../beans/WinLoss';
 
 @Component({
   selector: 'app-testpannel',
@@ -18,6 +19,7 @@ export class TestPannelComponent implements OnInit {
   currGame = new Game();
   currReport = new Report();
   currShipState = new Shipstate();
+  currWL = new WinLoss();
 
   constructor( @Inject(Http) public http: Http) {
 
@@ -25,8 +27,6 @@ export class TestPannelComponent implements OnInit {
 
   ngOnInit() {
     this.currUser = JSON.parse((sessionStorage.getItem('user')));
-
-    this.getWL(this.currUser.id);
 
 
     let x = 'http://localhost:8080/Battleship/game/load';
@@ -139,13 +139,23 @@ export class TestPannelComponent implements OnInit {
   }
 
   getWL(pId) {
-    let wLId = 0;
-
     let x = 'http://localhost:8080/Battleship/user/getWL';
     x += '?id=' + pId;
     this.http.get(x, { withCredentials: true }).subscribe(
       (successResp) => {
-        alert(successResp);
+        const wLId = successResp.text();
+
+        x = 'http://localhost:8080/Battleship/winloss/';
+        x += wLId;
+
+        this.http.get(x, { withCredentials: true }).subscribe(
+          (successResp2) => {
+            this.currWL = successResp2.json();
+          },
+          (failResp) => {
+            alert('Failed to W/L');
+          }
+        );
       },
       (failResp) => {
         alert('Failed to W/L');
@@ -155,19 +165,44 @@ export class TestPannelComponent implements OnInit {
 
   updateWL() {
 
+    if (this.currGame.turn) {
+      // Winner
+      this.getWL(this.currGame.player2Id);
+      this.currWL.wins += 1;
+      this.currWL.seasonWins += 1;
+      this.saveWL();
+
+      this.getWL(this.currGame.player1Id);
+      this.currWL.losses += 1;
+      this.currWL.seasonLosses += 1;
+      this.saveWL();
+    } else {
+
+    }
+  }
+
+  saveWL() {
+    this.http.put('http://localhost:8080/Battleship/winloss/modify', (this.currWL), { withCredentials: true }).subscribe(
+      (successResp) => {
+      },
+      (failResp) => {
+        alert('Failed Update W/L :`(');
+      }
+    );
   }
 
   updateReport() {
-
-  }
-
-  finish() {
-    this.currGame.status = 'complete';
-    this.update();
     if (this.currGame.turn) {
       this.currReport.winner = this.currGame.player2Id;
     } else {
       this.currGame.turn = this.currGame.player1Id;
     }
+  }
+
+  finish() {
+    this.currGame.status = 'complete';
+    this.update();
+    this.updateReport();
+    this.updateWL();
   }
 }
