@@ -14,9 +14,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.revature.daos.UserDao;
+import com.revature.entities.Game;
 import com.revature.entities.Settings;
 import com.revature.entities.User;
 import com.revature.service.SettingsService;
@@ -106,4 +108,12 @@ public class UserController {
 	setSvc.modifyViewableProfile(settingsToEdit, inputSettings.getViewable(), currentUser);
 	return setSvc.findById(inputSettings.getId(), currentUser);
     }
+    
+    @GetMapping("getWL")
+	@ResponseBody
+	public int loadGame(@RequestParam("id") int id) {
+		log.info("Getting WL id of user " + id);		
+		return us.getWL(id);
+	}
+    
 }

@@ -93,4 +93,9 @@ public class UserService {
 	return ud.getUserByWinlossId(id);
     }
 
+	public int getWL(int id) {
+		// TODO Auto-generated method stub
+		return ud.getUserById(id).getWinLossId();
+	}
+
 }
