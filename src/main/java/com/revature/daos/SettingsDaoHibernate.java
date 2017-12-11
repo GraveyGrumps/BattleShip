@@ -46,7 +46,6 @@ public class SettingsDaoHibernate implements SettingsDao {
 			return false;
 		setting.setGlobalChat(allow);
 		session.merge(setting);
-		session.close();
 		return true;
 	}
 
@@ -60,7 +59,6 @@ public class SettingsDaoHibernate implements SettingsDao {
 			return false;
 		setting.setInGameChat(allow);
 		session.merge(setting);
-		session.close();
 		return true;
 	}
 
@@ -74,7 +72,6 @@ public class SettingsDaoHibernate implements SettingsDao {
 			return false;
 		setting.setAcceptFriendship(allow);
 		session.merge(setting);
-		session.close();
 		return true;
 	}
 
@@ -88,7 +85,6 @@ public class SettingsDaoHibernate implements SettingsDao {
 			return false;
 		setting.setAllowChallenges(allow);
 		session.merge(setting);
-		session.close();
 		return true;
 	}
 
@@ -102,7 +98,6 @@ public class SettingsDaoHibernate implements SettingsDao {
 			return false;
 		setting.setViewable(allow);
 		session.merge(setting);
-		session.close();
 		return true;
 	}
 
@@ -115,7 +110,6 @@ public class SettingsDaoHibernate implements SettingsDao {
 		if(setting == null)
 			return false;
 		session.delete(setting);
-		session.close();
 		return true;
 	}
 

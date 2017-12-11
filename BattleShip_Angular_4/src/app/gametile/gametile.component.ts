@@ -56,7 +56,8 @@ export class GametileComponent implements OnInit {
       c('Close click');
     }
     this.game.player2Id = this.user.id;
-    this.http.post(environment.context + '/game/start', this.game).subscribe(
+    this.game.status = 'setup1';
+    this.http.put(environment.context + '/game/modify', this.game).subscribe(
       (respbody) => {
         if (respbody.text() !== '') {
           c('Close click');
