@@ -1,5 +1,5 @@
 <div class="container">
-  <h3>TOP TEN</h3>
+  <h3>{{title}}</h3>
   <table class="table table-sm">
     <thead>
       <tr>
@@ -8,14 +8,15 @@
         <th>Win/Loss</th>
       </tr>
     </thead>
-    <tbody>
+    <tbody *ngIf = "range !== undefined"> 
       <tr *ngFor = "let i of range" >
         <td *ngIf = "i == 0"> <img src = "assets/img/trophies/goldTrophy.png" class = "image">  </td>
         <td *ngIf = "i == 1"> <img src = "assets/img/trophies/silverTrophy.png" class = "image"></td>
         <td *ngIf = "i == 2"> <img src = "assets/img/trophies/bronzeTrophy.png" class = "image"></td>
         <td *ngIf = "i > 2"> <img src = "assets/img/trophies/noTrophy.png" class = "image"></td>
         <td>{{convertToUsername(winlosses[i])}}</td>
-        <td>{{winlosses[i].wins / winlosses[i].losses | number }}</td>
+        <td *ngIf = "global">{{winlosses[i].wins / winlosses[i].losses | number }}</td>
+        <td *ngIf = "!global">{{winlosses[i].seasonWins / winlosses[i].seasonLosses | number }}</td>
       </tr>
     </tbody>
   </table>

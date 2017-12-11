@@ -5,7 +5,7 @@
       <app-gametile [game] = "game" [user] = "user" *ngFor = "let game of pendinggames"></app-gametile>
     </div>
     <div class = "col-5">
-      <app-top-ten></app-top-ten>
+      <app-leader-board [winlosses] = "winlosses" [range] = "range" [users] = "users" [title] = "title"></app-leader-board>
       <h4 id = "yourTurnHeader"> Your In-progress Games</h4>
       <app-gametile [game] = "game" [user] = "user" *ngFor = "let game of mygames"></app-gametile>
     </div>
