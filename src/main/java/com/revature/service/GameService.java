@@ -63,6 +63,7 @@ public class GameService {
 	public Game modifyGame(Game game) {
 		game = gd.modifyGameViaGame(game);
 		return game;
+	}
 
  public Game startGame(Game game) {
 	return null;

@@ -15,6 +15,12 @@ export class LoginComponent implements OnInit {
     username: '',
     password: '',
   };
+  user = {
+    username: '',
+    password: '',
+    email: '',
+    profilePic: '',
+  };
 
   constructor(private router: Router, private http: Http, private modalService: NgbModal) { }
 
@@ -37,5 +43,23 @@ export class LoginComponent implements OnInit {
   }
   showModal(content) {
     this.modalService.open(content);
+  }
+  createUser(c) {
+    console.log('creating user');
+    console.log(this.user);
+    if (this.user.username === '' || this.user.password === '' || this.user.email === '' || this.user.profilePic === '') {
+      alert('cannot have any empty fields');
+      return;
+    } else {
+      this.http.post(environment.context + '/user/new', this.user, { withCredentials: true })
+      .subscribe((succResp) => {
+        if (succResp.text() !== '') {
+          alert('successfully made user');
+          c('close');
+        } else {
+          alert('failed to create user');
+        }
+       });
+    }
   }
 }

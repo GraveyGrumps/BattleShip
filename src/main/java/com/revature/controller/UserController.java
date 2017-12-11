@@ -28,8 +28,6 @@ public class UserController {
     private Logger log = Logger.getRootLogger();
     @Autowired
     private UserService us;
-    @Autowired
-    private SettingsService ss;
 
 
 	@PostMapping("login")
@@ -52,6 +50,7 @@ public class UserController {
 	@ResponseBody
 	public User createUser(@RequestBody User user, HttpServletRequest request) {
 		return us.create(user);
+	}
 
 
 
