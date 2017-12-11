@@ -3,12 +3,14 @@ package com.revature.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.revature.daos.ClanDao;
 import com.revature.entities.Clan;
 import com.revature.entities.User;
 import com.revature.util.ValidationUtil;
 
+@Service
 public class ClanService {
     @Autowired
     private ClanDao clDao;
@@ -23,6 +25,12 @@ public class ClanService {
 	return cl;
     }
 
+    public Clan createClan(String clanName) {
+	cl.setName(clanName);
+	clDao.addClan(cl);
+	return cl;
+    }
+
     // Anyone can view all clans
     public List<Clan> getAllClans() {
 	return clDao.getAllClans();
@@ -30,9 +38,9 @@ public class ClanService {
 
     public Clan changeClanName(User currentUser, Clan clan, String newClanName) {
 	int clanId = clan.getId();
-	if (currentUser.getClanId() == clanId && currentUser.getIsOfficer() == 1) {
-	    clDao.modifyClanNameById(clanId, newClanName);
-	    return clan;
+	if ((currentUser.getClanId() == clanId && currentUser.getIsOfficer() == 1)
+		|| ValidationUtil.validateAdmin(currentUser)) {
+	    return clDao.modifyClanNameById(clanId, newClanName);
 	} else {
 	    return null;
 	}
@@ -40,9 +48,9 @@ public class ClanService {
 
     public Clan changeClanLogo(User currentUser, Clan clan, String newLogoPath) {
 	int clanId = clan.getId();
-	if (currentUser.getClanId() == clanId && currentUser.getIsOfficer() == 1) {
-	    clDao.modifyClanLogoById(clanId, newLogoPath);
-	    return clan;
+	if ((currentUser.getClanId() == clanId && currentUser.getIsOfficer() == 1)
+		|| ValidationUtil.validateAdmin(currentUser)) {
+	    return clDao.modifyClanLogoById(clanId, newLogoPath);
 	} else {
 	    return null;
 	}
@@ -53,5 +61,9 @@ public class ClanService {
 	if (ValidationUtil.validateAdmin(currentUser)) {
 	    clDao.deleteClanById(clan.getId());
 	}
+    }
+
+    public Clan getClan(int clanId) {
+	return clDao.getClanById(clanId);
     }
 }
