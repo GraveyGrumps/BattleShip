@@ -56,6 +56,10 @@ export class LoginComponent implements OnInit {
       .subscribe((succResp) => {
         if (succResp.text() !== '') {
           alert('successfully made user');
+          this.user.username = '';
+          this.user.email = '';
+          this.user.password = '';
+          this.user.profilePic = '';
           c('close');
         } else {
           alert('failed to create user');

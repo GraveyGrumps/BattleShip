@@ -30,6 +30,8 @@ export class GametileComponent implements OnInit {
   }
 
   ngOnInit() {
+    console.log(this.user);
+    console.log(this.game);
     this.gameRunning = (this.game.status === 'inprogress');
     this.gamePending = (this.game.status === 'pending');
     this.http.get(environment.context + '/user/' + this.game.player1Id).subscribe(
@@ -48,12 +50,11 @@ export class GametileComponent implements OnInit {
   }
 
   startGame(c) {
-    console.log('Starting game');
-    console.log('user');
-    console.log(this.user);
-    if (this.game.player1Id === this.user.id) {
+    if (this.game.player1Id == this.user.id) {
       console.log('Player is the same as started player');
       c('Close click');
+      alert('cannot start a game with yourself');
+      return;
     }
     this.game.player2Id = this.user.id;
     this.game.status = 'setup1';

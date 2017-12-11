@@ -16,12 +16,15 @@ import { BattleshipComponent } from './games/battleship/battleship.component';
 import { UsersComponent } from './users/users.component';
 import { HomeComponent } from './users/home/home.component';
 import { NewGameComponent } from './games/newgame/newgame.component';
-import { TopTenComponent } from './top-ten/top-ten.component';
+import { LeaderBoardComponent } from './leaderBoard/leaderBoard.component';
 import { GametileComponent } from './gametile/gametile.component';
 
 import { GameServiceService } from './services/game-service.service';
 
 import { TestPannelComponent } from './games/battleship/testpannel/testpannel.component';
+import { WinlossService } from './services/winloss.service';
+import { LeaderboardsComponent } from './leaderboards/leaderboards.component';
+import { UserService } from './services/user.service';
 
 
 @NgModule({
@@ -41,11 +44,14 @@ import { TestPannelComponent } from './games/battleship/testpannel/testpannel.co
     UsersComponent,
     HomeComponent,
     NewGameComponent,
-    TopTenComponent,
+    LeaderBoardComponent,
     GametileComponent,
-    TestPannelComponent
+    TestPannelComponent,
+    LeaderboardsComponent
   ],
-  providers: [GameServiceService],
+  providers: [GameServiceService,
+  WinlossService,
+  UserService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

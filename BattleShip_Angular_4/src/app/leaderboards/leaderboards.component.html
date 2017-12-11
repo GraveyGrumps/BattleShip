@@ -1,0 +1,30 @@
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <h1>Global Stats</h1>
+    </div>
+    <div class="col">
+      <h1>Seasonal Stats</h1>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      <h4>Top 20 Global</h4>
+      <app-leader-board [winlosses] = "top20GlobalWinLoss" [range] = "globalrange" [users] = "users" [global] = "global"></app-leader-board>
+    </div>
+    <div class="col">
+      <h4>Top 20 Seasonal</h4>
+      <app-leader-board [winlosses] = "top20SeaonalWinLoss" [range] = "seasonalrange" [users] = "users" [global] = "!global"></app-leader-board>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      <h4>Your Ranking</h4>
+      <app-leader-board></app-leader-board>
+    </div>
+    <div class = "col">
+      <h4>Your Ranking</h4>
+      <app-leader-board></app-leader-board>
+    </div>
+  </div>
+</div>
