@@ -18,7 +18,7 @@
 
     </div>
     <div class="col-xs col-centered" *ngIf="gamePending">
-      <img class="Img" src="assets/img/devil.jpg">
+      <img class="Img" src= {{user?.profilePic}}>
       <p id="oponentName">{{gameUser?.username}}</p>
     </div>
     <div class="col-xs col-centered" *ngIf="!gamePending">
