@@ -26,17 +26,33 @@
   <div class="modal-body">
     <div class="container">
       <form class="modal-form">
-        <div class="form-row">
+        <div class="row">
           <div class="col">
             <label class="badge badge-primary">UserName</label>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="col">
             <input [(ngModel)]="user.username" name="username" type="text" id="usernameinput" placeholder="Username">
           </div>
+        </div>
+        <div class="form-row">
           <div class="col">
             <label class="badge badge-primary">Password</label>
+          </div>
+        </div>
+        <div class="form row">
+          <div class="col">
             <input [(ngModel)]="user.password" name="password" type="password" id="passwordinput" placeholder="Password">
           </div>
+        </div>
+        <div class="form-row">
           <div class="col">
             <label class="badge badge-primary">Email</label>
+            </div>
+            </div>
+            <div class = "form-row">
+              <div class = "col">
             <input [(ngModel)]="user.email" name="email" type="text" id="emailinput" placeholder="Email">
           </div>
         </div>
