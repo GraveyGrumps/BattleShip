@@ -35,6 +35,7 @@ export class LoginComponent implements OnInit {
         if (succResp.text() !== '') {
           sessionStorage.setItem('user', succResp.text());
           console.log(JSON.parse(sessionStorage.getItem('user')));
+          console.log(sessionStorage.length);
           this.router.navigateByUrl('/users/home');
         } else {
           alert('failed to login');
