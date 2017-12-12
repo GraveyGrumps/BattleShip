@@ -43,7 +43,6 @@ public class Friendship implements Serializable {
 
     public Friendship() {
 	super();
-	// TODO Auto-generated constructor stub
     }
 
     public int getUser1Id() {
