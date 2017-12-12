@@ -27,6 +27,7 @@ import { UserService } from './services/user.service';
 import { MygamesComponent } from './mygames/mygames.component';
 import { LobbyComponent } from './lobby/lobby.component';
 import { MyspaceComponent } from './myspace/myspace.component';
+import { GridComponent } from './games/battleship/grid/grid.component';
 import { ProfileComponent } from './myspace/profile/profile.component';
 import { MyspaceboxComponent } from './myspace/myspacebox/myspacebox.component';
 import { GlobalchatService } from './services/globalchat.service';
@@ -57,7 +58,9 @@ import { GlobalchatService } from './services/globalchat.service';
     LobbyComponent,
     MyspaceComponent,
     ProfileComponent,
-    MyspaceboxComponent
+    MyspaceboxComponent,
+    GridComponent,
+    ProfileComponent
   ],
   providers: [GameServiceService,
   WinlossService,

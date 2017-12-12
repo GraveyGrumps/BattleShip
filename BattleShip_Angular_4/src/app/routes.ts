@@ -50,6 +50,10 @@ export const appRoutes: Routes = [
     component: TestPannelComponent
   },
   {
+    path: 'grid',
+    component: GridComponet
+    },
+  {
     path: 'lobby',
     component: LobbyComponent
   },

@@ -86,6 +86,7 @@ public class FriendshipController {
 	// User currentUser = request.getParameter("user");
 	Friendship fs = frSvc.getFriendshipByIds(currentUser.getId(), userId);
 	if (fs != null) {
+	    fs.setPending(0);
 	    return frSvc.acceptFriendRequest(currentUser, usrSvc.getUserById(userId, currentUser));
 	} else {
 	    return null;
@@ -94,29 +95,30 @@ public class FriendshipController {
 
     @PutMapping("decline/{userId}")
     @ResponseBody
-    public Friendship declineFriendRequest(@PathVariable int userId) {
-	// User currentUser = usrDao.getUserById(2); // admin
-	// // User currentUser = request.getParameter("user");
-	// Friendship newFs = frSvc.sendFriendRequest(currentUser,
-	// usrSvc.getUserById(userId, currentUser));
-	// return newFs;
-
-	return null;
+    public ResponseEntity<Object> declineFriendRequest(@PathVariable int userId) {
+	User currentUser = usrDao.getUserById(2); // admin
+	// User currentUser = request.getParameter("user");
+	Friendship fs = frSvc.getFriendshipByIds(currentUser.getId(), userId);
+	if (fs != null) {
+	    frSvc.declineFriendRequest(currentUser, usrSvc.getUserById(userId, currentUser));
+	    return new ResponseEntity<>(HttpStatus.OK);
+	} else {
+	    return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+	}
     }
 
     @DeleteMapping("remove/{userId}")
     @ResponseBody
-    public ResponseEntity<Object> removeFriend(@RequestBody Friendship inputFs) {
-	// User currentUser = usrDao.getUserById(2); // admin
-	// // User currentUser = request.getParameter("user");
-	// Friendship fsToDelete = frSvc.adminDestroyFriendship(currentUser,
-	// usrSvc.getUserById(inputFs.getUser1Id(), currentUser),
-	// usrSvc.getUserById(inputFs.getUser2Id(), currentUser));
-	// if (fsToDelete != null)
-	// return new ResponseEntity<>(HttpStatus.OK);
-	// else {
-	return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-	// }
+    public ResponseEntity<Object> removeFriend(@PathVariable int userId) {
+	User currentUser = usrDao.getUserById(2); // admin
+	// User currentUser = request.getParameter("user");
+	Friendship fs = frSvc.getFriendshipByIds(currentUser.getId(), userId);
+	if (fs != null) {
+	    frSvc.removeFriend(currentUser, usrSvc.getUserById(userId, currentUser));
+	    return new ResponseEntity<>(HttpStatus.OK);
+	} else {
+	    return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+	}
     }
 
 }

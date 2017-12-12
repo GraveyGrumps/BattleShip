@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 import com.revature.daos.ClanDao;
 import com.revature.entities.Clan;
 import com.revature.entities.User;
-import com.revature.util.ValidationUtil;
 
 @Service
 public class ClanService {
@@ -39,7 +38,7 @@ public class ClanService {
     public Clan changeClanName(User currentUser, Clan clan, String newClanName) {
 	int clanId = clan.getId();
 	if ((currentUser.getClanId() == clanId && currentUser.getIsOfficer() == 1)
-		|| ValidationUtil.validateAdmin(currentUser)) {
+	/* || ValidationUtil.validateAdmin(currentUser) */) {
 	    return clanDao.modifyClanNameById(clanId, newClanName);
 	} else {
 	    return null;
@@ -49,7 +48,7 @@ public class ClanService {
     public Clan changeClanLogo(User currentUser, Clan clan, String newLogoPath) {
 	int clanId = clan.getId();
 	if ((currentUser.getClanId() == clanId && currentUser.getIsOfficer() == 1)
-		|| ValidationUtil.validateAdmin(currentUser)) {
+	/* || ValidationUtil.validateAdmin(currentUser) */) {
 	    return clanDao.modifyClanLogoById(clanId, newLogoPath);
 	} else {
 	    return null;
@@ -58,9 +57,8 @@ public class ClanService {
 
     // For now, only admins can delete a clan
     public void deleteClan(User currentUser, Clan clan) {
-	if (ValidationUtil.validateAdmin(currentUser)) {
-	    clanDao.deleteClanById(clan.getId());
-	}
+	// if (ValidationUtil.validateAdmin(currentUser))
+	clanDao.deleteClanById(clan.getId());
     }
 
     public Clan getClan(int clanId) {
