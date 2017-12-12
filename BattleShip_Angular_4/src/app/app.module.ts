@@ -28,6 +28,7 @@ import { UserService } from './services/user.service';
 import { MygamesComponent } from './mygames/mygames.component';
 import { LobbyComponent } from './lobby/lobby.component';
 import { MyspaceComponent } from './myspace/myspace.component';
+import { ProfileComponent } from './myspace/profile/profile.component';
 
 
 @NgModule({
@@ -53,7 +54,8 @@ import { MyspaceComponent } from './myspace/myspace.component';
     LeaderboardsComponent,
     MygamesComponent,
     LobbyComponent,
-    MyspaceComponent
+    MyspaceComponent,
+    ProfileComponent
   ],
   providers: [GameServiceService,
   WinlossService,
