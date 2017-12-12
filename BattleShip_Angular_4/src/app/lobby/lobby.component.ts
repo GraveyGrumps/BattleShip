@@ -14,7 +14,6 @@ import { IntervalObservable } from 'rxjs/observable/IntervalObservable';
 export class LobbyComponent implements OnInit, OnDestroy {
   user: User;
   games: Array<Game>;
-  gameSubscription: Subscription;
   alive = true;
   constructor(private router: Router, private gss: GameServiceService) { }
 
@@ -23,7 +22,7 @@ export class LobbyComponent implements OnInit, OnDestroy {
     if (this.user === null) {
       this.router.navigateByUrl('login');
     }
-    IntervalObservable.create(1000)
+    IntervalObservable.create(500)
     .takeWhile(() => this.alive)
     .subscribe(() => {
       this.gss.getSubject().subscribe(
