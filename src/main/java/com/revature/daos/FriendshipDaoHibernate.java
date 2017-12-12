@@ -22,6 +22,9 @@ public class FriendshipDaoHibernate implements FriendshipDao {
     private SessionFactory sf;
 
     // TODO Add function that modifies the value of "pending"
+    // @Override
+    // @Transactional
+    // public boolean changePending
 
     @Override
     @Transactional

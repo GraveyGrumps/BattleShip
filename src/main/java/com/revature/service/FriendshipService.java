@@ -122,4 +122,6 @@ public class FriendshipService {
     public Friendship getFriendshipByIds(int user1Id, int user2Id) {
 	return frDao.getFriendshipByIds(user1Id, user2Id);
     }
+
+    // public
 }
