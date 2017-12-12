@@ -28,6 +28,7 @@ import { UserService } from './services/user.service';
 import { MygamesComponent } from './mygames/mygames.component';
 import { LobbyComponent } from './lobby/lobby.component';
 import { MyspaceComponent } from './myspace/myspace.component';
+import { GridComponent } from './games/battleship/grid/grid.component';
 import { ProfileComponent } from './myspace/profile/profile.component';
 
 
@@ -55,6 +56,7 @@ import { ProfileComponent } from './myspace/profile/profile.component';
     MygamesComponent,
     LobbyComponent,
     MyspaceComponent,
+    GridComponent,
     ProfileComponent
   ],
   providers: [GameServiceService,
