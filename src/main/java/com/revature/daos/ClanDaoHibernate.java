@@ -109,4 +109,12 @@ public class ClanDaoHibernate implements ClanDao {
 	return true;
     }
 
+	@Override
+	@Transactional
+	public Clan modifyClanViaClan(Clan clan) {
+		log.trace("modifying clan via clan");
+		sf.getCurrentSession().merge(clan);
+		return clan;
+	}
+
 }

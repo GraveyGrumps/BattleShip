@@ -24,7 +24,7 @@ public class WinLossService {
 		return wld.getWinLossById(id);
 	}
 	public WinLoss updateWL(WinLoss wL) {
-		return wld.modify(wL);
+		return wld.modifyWinlossViaWinloss(wL);
 	}
 
 }
