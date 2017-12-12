@@ -67,7 +67,7 @@
   </div>
   <div class="modal-footer">
     <button type="button" class="btn btn-secondary" (click)="c('Close click')">Close</button>
-    <button  *ngIf="gamePending" type="button" class="btn btn-primary" (click) = "startGame(c)">Start Game</button>
+    <button  *ngIf="gamePending && !myGame" type="button" class="btn btn-primary" (click) = "startGame(c)">Start Game</button>
     <button *ngIf="!gamePending" type="button" class="btn btn-primary">Enter Game</button>
   </div>
 </ng-template>

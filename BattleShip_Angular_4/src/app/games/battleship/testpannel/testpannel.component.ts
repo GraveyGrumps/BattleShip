@@ -4,7 +4,6 @@ import { Observable } from 'rxjs/Observable';
 import { Game } from '../beans/Game';
 import { Shipstate } from '../beans/Shipstate';
 import { Report } from '../../../beans/Report';
-import { User } from '../../../beans/User';
 
 @Component({
   selector: 'app-testpannel',
@@ -14,7 +13,6 @@ import { User } from '../../../beans/User';
 
 export class TestPannelComponent implements OnInit {
 
-  currUser = new User();
   currGame = new Game();
   currReport = new Report();
   currShipState = new Shipstate();
@@ -24,11 +22,6 @@ export class TestPannelComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.currUser = JSON.parse((sessionStorage.getItem('user')));
-
-    this.getWL(this.currUser.id);
-
-
     let x = 'http://localhost:8080/Battleship/game/load';
     x += '?id=' + 66;
     this.http.get(x, { withCredentials: true }).subscribe(
@@ -88,21 +81,27 @@ export class TestPannelComponent implements OnInit {
     this.turnSwap();
   }
 
-  forcehit() {
+  hit() {
     this.currShipState = JSON.parse(this.currGame.shipState);
     let done = true;
     if (this.currGame.turn) {
       for (let i = 0; i < this.currShipState.details[0].length; i++) {
-        if (!(this.currShipState.details[0][i] === 0) && done) {
-          this.currShipState.details[0][i] -= 1;
-          done = false;
+        for (let j = 0; j < this.currShipState.details[0][i].length; j++) {
+          if (!this.currShipState.details[0][i][j] && done) {
+            this.currShipState.details[0][i][j] = true;
+            done = false;
+            this.currGame.shipState = JSON.stringify(this.currShipState);
+          }
         }
       }
     } else {
       for (let i = 0; i < this.currShipState.details[1].length; i++) {
-        if (!(this.currShipState.details[1][i] === 0) && done) {
-          this.currShipState.details[1][i] -= 1;
-          done = false;
+        for (let j = 0; j < this.currShipState.details[1][i].length; j++) {
+          if (!this.currShipState.details[1][i][j] && done) {
+            this.currShipState.details[1][i][j] = true;
+            done = false;
+            this.currGame.shipState = JSON.stringify(this.currShipState);
+          }
         }
       }
     }
@@ -136,29 +135,6 @@ export class TestPannelComponent implements OnInit {
         alert('Failed Update Game :`(');
       }
     );
-  }
-
-  getWL(pId) {
-    let wLId = 0;
-
-    let x = 'http://localhost:8080/Battleship/user/getWL';
-    x += '?id=' + pId;
-    this.http.get(x, { withCredentials: true }).subscribe(
-      (successResp) => {
-        alert(successResp);
-      },
-      (failResp) => {
-        alert('Failed to W/L');
-      }
-    );
-  }
-
-  updateWL() {
-
-  }
-
-  updateReport() {
-
   }
 
   finish() {
