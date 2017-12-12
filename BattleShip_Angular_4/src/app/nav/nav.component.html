@@ -40,7 +40,7 @@
         </li>
         <li>
           <img *ngIf= "user === null" id="profile-img" class="profile-img-card" src="//ssl.gstatic.com/accounts/ui/avatar_2x.png" />
-          <img *ngIf = "user !== null" id="profile-img" class="profile-img-card" src = {{user.profilePic}} />
+          <img *ngIf = "user !== null" id="profile-img" class="profile-img-card" (click)="routeTo('users/myspace')"  src = {{user.profilePic}} />
         </li>
         <li class = "nav-item active">
           <a class = "nav-link" (click) = "routeTo('/login')">Logout</a>
