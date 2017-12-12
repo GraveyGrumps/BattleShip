@@ -106,7 +106,6 @@ export class TestPannelComponent implements OnInit {
     if (this.currGame.turn) {
       this.currGame.status = 'inprogress';
     }
-    
     this.turnSwap();
     this.update();
   }
