@@ -8,6 +8,7 @@ import { LeaderboardsComponent } from './leaderboards/leaderboards.component';
 import { MygamesComponent } from './mygames/mygames.component';
 import { LobbyComponent } from './lobby/lobby.component';
 import { MyspaceComponent } from './myspace/myspace.component';
+import { GridComponent } from './games/battleship/grid/grid.component';
 
 export const appRoutes: Routes = [
   {
@@ -51,7 +52,7 @@ export const appRoutes: Routes = [
   },
   {
     path: 'grid',
-    component: GridComponet
+    component: GridComponent
     },
   {
     path: 'lobby',
