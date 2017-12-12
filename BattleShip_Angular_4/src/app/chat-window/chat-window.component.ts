@@ -45,7 +45,6 @@ export class ChatWindowComponent implements OnInit, OnDestroy {
     }
   }
   ngOnDestroy() {
-    this.sub.unsubscribe();
     this.alive = false;
   }
 }
