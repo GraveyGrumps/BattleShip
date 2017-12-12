@@ -29,7 +29,8 @@
           <a class="nav-link" (click)="routeTo('game/my')">My Games</a>
         </li>
         <li ngbDropdown class="d-inline-block">
-          <a class="nav-link active dropdown-toggle" id="dropdownBasic1" ngbDropdownToggle>My Profile</a>
+          <a *ngIf="!hasUser" class="nav-link active dropdown-toggle" id="dropdownBasic1" ngbDropdownToggle>{{user.username}}</a>
+          <a *ngIf="hasUser" class="nav-link active dropdown-toggle" id="dropdownBasic1" ngbDropdownToggle>My Profile</a>
           <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
             <button class="dropdown-item">Friends</button>
             <button class="dropdown-item">Private Messages</button>

@@ -9,14 +9,16 @@ import { Router } from '@angular/router';
 })
 export class NavComponent implements OnInit, DoCheck {
   private user: User;
-
+  private hasUser: boolean;
   constructor(private router: Router) {}
   ngOnInit() {
     this.user = JSON.parse(sessionStorage.getItem('user'));
-    console.log(this.user);
+    this.hasUser = this.user === null;
+    console.log(this.hasUser);
   }
   ngDoCheck () {
     this.user = JSON.parse(sessionStorage.getItem('user'));
+    this.hasUser = this.user === null;
   }
 
   routeTo (location) {
