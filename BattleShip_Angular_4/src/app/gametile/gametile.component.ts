@@ -22,6 +22,7 @@ export class GametileComponent implements OnInit {
   game: Game;
   gameRunning: boolean;
   gamePending: boolean;
+  myGame: boolean;
   @Input()
   user: User;
   gameUser: User;
@@ -33,6 +34,7 @@ export class GametileComponent implements OnInit {
   ngOnInit() {
     this.gameRunning = (this.game.status === 'inprogress');
     this.gamePending = (this.game.status === 'pending');
+    this.myGame = (this.game.player1Id === this.user.id);
     this.http.get(environment.context + '/user/' + this.game.player1Id).subscribe(
       (respbody) => {
         if (respbody.text() !== '') {

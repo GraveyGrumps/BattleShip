@@ -12,7 +12,7 @@
       P1 Finishes Setup
     </button>
     <div *ngIf="this.currGame.status == 'inprogress'">
-      <button class="btn btn-lg btn-primary btn-block btn-signin" (click)="forcehit()">
+      <button class="btn btn-lg btn-primary btn-block btn-signin" (click)="hit()">
         P1 Hit
       </button>
       <button class="btn btn-lg btn-primary btn-block btn-signin" (click)="turnSwap()">
@@ -35,7 +35,7 @@
         P2 Finishes Setup
       </button>
       <div *ngIf="this.currGame.status == 'inprogress'">
-        <button class="btn btn-lg btn-primary btn-block btn-signin" (click)="forcehit()">
+        <button class="btn btn-lg btn-primary btn-block btn-signin" (click)="hit()">
           P2 Hit
         </button>
         <button class="btn btn-lg btn-primary btn-block btn-signin" (click)="turnSwap()">
