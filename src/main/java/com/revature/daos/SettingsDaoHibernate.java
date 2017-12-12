@@ -114,4 +114,11 @@ public class SettingsDaoHibernate implements SettingsDao {
 	return true;
     }
 
+	@Override
+	public Settings modifySettingsViaSettings(Settings setting) {
+		log.trace("modifying settings via setting");
+		sf.getCurrentSession().merge(setting);
+		return setting;
+	}
+
 }

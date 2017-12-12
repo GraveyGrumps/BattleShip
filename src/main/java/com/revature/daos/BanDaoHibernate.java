@@ -99,4 +99,12 @@ public class BanDaoHibernate implements BanDao {
 	return true;
     }
 
+	@Override
+	@Transactional
+	public Ban modifyBanViaBan(Ban ban) {
+		log.trace("modifying ban by another ban object");
+		sf.getCurrentSession().merge(ban);
+		return ban;
+	}
+
 }

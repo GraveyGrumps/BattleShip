@@ -129,11 +129,12 @@ public class WinLossDaoHibernate implements WinLossDao {
 
 	@Override
 	@Transactional
-	public WinLoss modify(WinLoss wL) {
+	public WinLoss modifyWinlossViaWinloss(WinLoss wL) {
 		log.trace("merging game via W/L: " + wL);
 		Session session = sf.getCurrentSession();
 		session.merge(wL);
 		return wL;
 	}
+
 
 }

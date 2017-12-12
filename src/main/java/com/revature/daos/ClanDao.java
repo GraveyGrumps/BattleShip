@@ -14,6 +14,7 @@ public interface ClanDao {
     List<Clan> getAllClans();
 
     // PUT
+    Clan modifyClanViaClan(Clan clan);
     Clan modifyClanNameById(int id, String clanName);
 
     String modifyClanChatLogById(int id, String chatLog);
