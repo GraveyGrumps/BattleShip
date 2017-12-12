@@ -4,6 +4,7 @@ import java.sql.Timestamp;
 import java.util.List;
 
 import com.revature.entities.Report;
+import com.revature.entities.WinLoss;
 
 public interface ReportDao {
     // POST
@@ -32,7 +33,10 @@ public interface ReportDao {
     boolean changeReportNotesById(int id, String reportNotes);
 
     boolean changeReportFlagById(int id, int flag);
+    Report modify(Report rep2);
 
     // DELETE
     boolean deleteReportById(int id);
+
+	
 }

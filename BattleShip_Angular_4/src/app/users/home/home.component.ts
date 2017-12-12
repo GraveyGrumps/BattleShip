@@ -83,8 +83,9 @@ export class HomeComponent implements OnInit {
     }
   }
   private getTopTen() {
+    this.winlosses = this.winlosses.filter(i => i.losses > 0);
     this.winlosses.sort(this.compare);
-    this.winlosses = this.winlosses.filter(i => i.wins + i.losses > 10);
+
     if (this.winlosses.length > 10) {
       this.winlosses = this.winlosses.slice(0, 10);
     }

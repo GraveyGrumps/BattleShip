@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.revature.entities.Report;
+import com.revature.entities.WinLoss;
 
 @Repository
 public class ReportDaoHibernate implements ReportDao {
@@ -172,5 +173,14 @@ public class ReportDaoHibernate implements ReportDao {
 	session.delete(report);
 	return true;
     }
+
+	@Override
+	@Transactional
+	public Report modify(Report rep2) {
+		log.trace("merging report via report: " + rep2);
+		Session session = sf.getCurrentSession();
+		session.merge(rep2);
+		return rep2;
+	}
 
 }

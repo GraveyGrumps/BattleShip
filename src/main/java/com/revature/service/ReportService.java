@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.revature.daos.ReportDao;
 import com.revature.entities.Report;
 import com.revature.entities.User;
+import com.revature.entities.WinLoss;
 import com.revature.util.ValidationUtil;
 
 @Service
@@ -74,5 +75,10 @@ public class ReportService {
 	public Report loadgameReport(int id) {
 		// TODO Auto-generated method stub
 		return rpDao.getReportByGameId(id);
+	}
+
+	public Report modify(Report rep2) {
+		// TODO Auto-generated method stub
+		return rpDao.modify(rep2);
 	}
 }

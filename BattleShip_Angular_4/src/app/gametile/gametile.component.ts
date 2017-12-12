@@ -10,6 +10,7 @@ import { NgbModalRef } from '@ng-bootstrap/ng-bootstrap/modal/modal-ref';
 import { environment } from '../../environments/environment';
 import { Router } from '@angular/router';
 import { GameServiceService } from '../services/game-service.service';
+import { TestPannelComponent } from '../games/battleship/testpannel/testpannel.component';
 @Component({
   selector: 'app-gametile',
   templateUrl: './gametile.component.html',
@@ -22,6 +23,7 @@ export class GametileComponent implements OnInit {
   game: Game;
   gameRunning: boolean;
   gamePending: boolean;
+  myGame: boolean;
   @Input()
   user: User;
   gameUser: User;
@@ -33,6 +35,7 @@ export class GametileComponent implements OnInit {
   ngOnInit() {
     this.gameRunning = (this.game.status === 'inprogress');
     this.gamePending = (this.game.status === 'pending');
+    this.myGame = (this.game.player1Id === this.user.id);
     this.http.get(environment.context + '/user/' + this.game.player1Id).subscribe(
       (respbody) => {
         if (respbody.text() !== '') {
@@ -75,5 +78,13 @@ export class GametileComponent implements OnInit {
   }
   getUsername(num) {
     return this.usernames[num];
+  }
+
+  initGame() {
+    sessionStorage.setItem('gmID', JSON.stringify(this.game.id));
+  }
+
+  routeTo (location) {
+    this.router.navigateByUrl(location);
   }
 }

@@ -26,11 +26,11 @@ export class TestPannelComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.currUser = JSON.parse((sessionStorage.getItem('user')));
+    this.currUser = JSON.parse(sessionStorage.getItem('user'));
 
 
     let x = 'http://localhost:8080/Battleship/game/load';
-    x += '?id=' + 66;
+    x += '?id=' + JSON.parse(sessionStorage.getItem('gmID'));
     this.http.get(x, { withCredentials: true }).subscribe(
       (successResp) => {
         this.currGame = successResp.json();
@@ -42,7 +42,7 @@ export class TestPannelComponent implements OnInit {
     );
 
     let y = 'http://localhost:8080/Battleship/report/loadbygame';
-    y += '?id=' + 66;
+    y += '?id=' + JSON.parse(sessionStorage.getItem('gmID'));
     this.http.get(y, { withCredentials: true }).subscribe(
       (successResp) => {
         this.currReport = successResp.json();
@@ -54,30 +54,32 @@ export class TestPannelComponent implements OnInit {
     );
   }
 
-  initalize(gmId) {
-    let x = 'http://localhost:8080/Battleship/game/load';
-    x += '?id=' + gmId;
-    this.http.get(x, { withCredentials: true }).subscribe(
-      (successResp) => {
-        this.currGame = successResp.json();
-        console.log(this.currGame);
-      },
-      (failResp) => {
-        alert('Failed to Load Game');
-      }
-    );
-    let y = 'http://localhost:8080/Battleship/report/loadbygame';
-    y += '?id=' + gmId;
-    this.http.get(y, { withCredentials: true }).subscribe(
-      (successResp) => {
-        this.currReport = successResp.json();
-        console.log(this.currReport);
-      },
-      (failResp) => {
-        alert('Failed to Load Log');
-      }
-    );
-  }
+  // initalize(gmId) {
+  //   this.currUser = JSON.parse((sessionStorage.getItem('user')));
+
+  //   let x = 'http://localhost:8080/Battleship/game/load';
+  //   x += '?id=' + gmId;
+  //   this.http.get(x, { withCredentials: true }).subscribe(
+  //     (successResp) => {
+  //       this.currGame = successResp.json();
+  //       console.log(this.currGame);
+  //     },
+  //     (failResp) => {
+  //       alert('Failed to Load Game');
+  //     }
+  //   );
+  //   let y = 'http://localhost:8080/Battleship/report/loadbygame';
+  //   y += '?id=' + gmId;
+  //   this.http.get(y, { withCredentials: true }).subscribe(
+  //     (successResp) => {
+  //       this.currReport = successResp.json();
+  //       console.log(this.currReport);
+  //     },
+  //     (failResp) => {
+  //       alert('Failed to Load Log');
+  //     }
+  //   );
+  // }
 
   setup() {
     if (this.currGame.turn) {
@@ -88,21 +90,27 @@ export class TestPannelComponent implements OnInit {
     this.turnSwap();
   }
 
-  forcehit() {
+  hit() {
     this.currShipState = JSON.parse(this.currGame.shipState);
     let done = true;
     if (this.currGame.turn) {
       for (let i = 0; i < this.currShipState.details[0].length; i++) {
-        if (!(this.currShipState.details[0][i] === 0) && done) {
-          this.currShipState.details[0][i] -= 1;
-          done = false;
+        for (let j = 0; j < this.currShipState.details[0][i].length; j++) {
+          if (!this.currShipState.details[0][i][j] && done) {
+            this.currShipState.details[0][i][j] = true;
+            done = false;
+            this.currGame.shipState = JSON.stringify(this.currShipState);
+          }
         }
       }
     } else {
       for (let i = 0; i < this.currShipState.details[1].length; i++) {
-        if (!(this.currShipState.details[1][i] === 0) && done) {
-          this.currShipState.details[1][i] -= 1;
-          done = false;
+        for (let j = 0; j < this.currShipState.details[1][i].length; j++) {
+          if (!this.currShipState.details[1][i][j] && done) {
+            this.currShipState.details[1][i][j] = true;
+            done = false;
+            this.currGame.shipState = JSON.stringify(this.currShipState);
+          }
         }
       }
     }
