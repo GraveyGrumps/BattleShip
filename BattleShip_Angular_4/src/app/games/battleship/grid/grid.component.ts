@@ -35,8 +35,8 @@ export class GridComponent implements OnInit {
   }
 
   ngOnInit() {
-    // this.alive = true;
-    // this.currUser = JSON.parse(sessionStorage.getItem('user'));
+    this.alive = true;
+    this.currUser = JSON.parse(sessionStorage.getItem('user'));
 
 
     // let x = 'http://localhost:8080/Battleship/game/load';
@@ -74,5 +74,19 @@ export class GridComponent implements OnInit {
     //         alert('Failed to Load Log');
     //       });
     //   });
+  }
+
+  allowDrop(ev) {
+    ev.preventDefault();
+  }
+
+  drag(ev) {
+    ev.dataTransfer.setData('text', ev.target.id);
+  }
+
+  drop(ev) {
+    ev.preventDefault();
+    let data = ev.dataTransfer.getData('text');
+    ev.target.appendChild(document.getElementById(data));
   }
 }
