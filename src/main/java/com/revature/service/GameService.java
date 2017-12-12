@@ -39,7 +39,7 @@ public class GameService {
     public Game addNewGame(Game game) {
 	game.setPostDate(Timestamp.valueOf(LocalDateTime.now()));
 	game.setStatus("pending");
-	game.setTurn(random.nextInt(2));
+	game.setTurn(0);
 	game.setTurnDeadline(new Timestamp(0));
 	log.info("service has finished setting up game: " + game);
 	log.info("service is sending game to dao");

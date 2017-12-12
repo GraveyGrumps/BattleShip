@@ -61,12 +61,13 @@ export class TestPannelComponent implements OnInit {
       }
     );
 
-    IntervalObservable.create(1000)
+    IntervalObservable.create(3000)
       .takeWhile(() => this.alive) // only fires when component is alive
       .subscribe(() => {
         this.http.get(x, { withCredentials: true }).subscribe(
           (successResp) => {
             this.currGame = successResp.json();
+            console.log(this.currGame);
           },
           (failResp) => {
             alert('Failed to Load Log');
@@ -105,32 +106,40 @@ export class TestPannelComponent implements OnInit {
     if (this.currGame.turn) {
       this.currGame.status = 'inprogress';
     }
-    this.update();
-
+    
     this.turnSwap();
+    this.update();
   }
 
-  hit() {
+  forceHit() {
     this.currShipState = JSON.parse(this.currGame.shipState);
     let done = true;
     if (this.currGame.turn) {
       for (let i = 0; i < this.currShipState.details[0].length; i++) {
-        for (let j = 0; j < this.currShipState.details[0][i].length; j++) {
-          if (!this.currShipState.details[0][i][j] && done) {
-            this.currShipState.details[0][i][j] = true;
-            done = false;
-            this.currGame.shipState = JSON.stringify(this.currShipState);
+        if (done && this.currShipState.details[0][i] !== 0) {
+          this.currShipState.details[0][i] -= 1;
+          if (this.currShipState.details[0][i] === 0) {
+            alert('You sunk a ship!');
           }
         }
       }
+      for (let i = 0; i < this.currShipState.details[0].length; i++) {
+        if (this.currShipState.details[0][i] !== 0) {
+          done = false;
+        }
+      }
     } else {
-      for (let i = 0; i < this.currShipState.details[1].length; i++) {
-        for (let j = 0; j < this.currShipState.details[1][i].length; j++) {
-          if (!this.currShipState.details[1][i][j] && done) {
-            this.currShipState.details[1][i][j] = true;
-            done = false;
-            this.currGame.shipState = JSON.stringify(this.currShipState);
+      for (let i = 0; i < this.currShipState.details[0].length; i++) {
+        if (done && this.currShipState.details[0][i] !== 0) {
+          this.currShipState.details[0][i] -= 1;
+          if (this.currShipState.details[0][i] === 0) {
+            alert('You sunk a ship!');
           }
+        }
+      }
+      for (let i = 0; i < this.currShipState.details[0].length; i++) {
+        if (this.currShipState.details[0][i] !== 0) {
+          done = false;
         }
       }
     }
@@ -245,8 +254,9 @@ export class TestPannelComponent implements OnInit {
     if (this.currGame.turn) {
       this.currReport.winner = this.currGame.player2Id;
     } else {
-      this.currGame.turn = this.currGame.player1Id;
+      this.currReport.winner = this.currGame.player1Id;
     }
+    this.alive = false;
     this.update();
     this.updateReport();
     this.updateWL();
