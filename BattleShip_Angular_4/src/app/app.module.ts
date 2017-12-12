@@ -11,7 +11,6 @@ import { NavComponent } from './nav/nav.component';
 import { appRoutes } from './routes';
 import { LoginComponent } from './login/login.component';
 import { ChatWindowComponent } from './chat-window/chat-window.component';
-import { GlobalChatService } from './global-chat.service';
 import { BattleshipComponent } from './games/battleship/battleship.component';
 import { UsersComponent } from './users/users.component';
 import { HomeComponent } from './users/home/home.component';
@@ -29,6 +28,8 @@ import { MygamesComponent } from './mygames/mygames.component';
 import { LobbyComponent } from './lobby/lobby.component';
 import { MyspaceComponent } from './myspace/myspace.component';
 import { ProfileComponent } from './myspace/profile/profile.component';
+import { MyspaceboxComponent } from './myspace/myspacebox/myspacebox.component';
+import { GlobalchatService } from './services/globalchat.service';
 
 
 @NgModule({
@@ -55,11 +56,13 @@ import { ProfileComponent } from './myspace/profile/profile.component';
     MygamesComponent,
     LobbyComponent,
     MyspaceComponent,
-    ProfileComponent
+    ProfileComponent,
+    MyspaceboxComponent
   ],
   providers: [GameServiceService,
   WinlossService,
-  UserService],
+  UserService,
+  GlobalchatService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

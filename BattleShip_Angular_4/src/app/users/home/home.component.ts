@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Http } from '@angular/http';
 import { Game } from '../../games/battleship/beans/Game';
 import { environment } from '../../../environments/environment';
@@ -15,7 +15,7 @@ import { UserService } from '../../services/user.service';
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css']
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent implements OnInit, OnDestroy {
   global = true;
   games: Array<Game>;
   mygames: Array<Game>;
@@ -104,5 +104,9 @@ export class HomeComponent implements OnInit {
       this.range.push(i);
     }
   }
-
+  ngOnDestroy() {
+    this.gameSubscription.unsubscribe();
+    this.userSubscription.unsubscribe();
+    this.winlossSubscription.unsubscribe();
+  }
 }
