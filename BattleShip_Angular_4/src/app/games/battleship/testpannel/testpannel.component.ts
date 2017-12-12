@@ -203,15 +203,22 @@ export class TestPannelComponent implements OnInit {
   }
 
   updateReport() {
+    this.http.put('http://localhost:8080/Battleship/report/modify', (this.currReport), { withCredentials: true }).subscribe(
+      (successResp) => {
+      },
+      (failResp) => {
+        alert('Failed Update Report :`(');
+      }
+    );
+  }
+
+  finish() {
+    this.currGame.status = 'complete';
     if (this.currGame.turn) {
       this.currReport.winner = this.currGame.player2Id;
     } else {
       this.currGame.turn = this.currGame.player1Id;
     }
-  }
-
-  finish() {
-    this.currGame.status = 'complete';
     this.update();
     this.updateReport();
     this.updateWL();
