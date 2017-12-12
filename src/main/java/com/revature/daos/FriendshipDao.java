@@ -16,6 +16,7 @@ public interface FriendshipDao {
     List<Friendship> getAllFriendshipsByPending(int pending);
 
     // PUT
+    Friendship modifyFriendshipViaFriendship(Friendship friendship);
     boolean modifyFriendshipByUser1IdandPending(int id, int pending);
 
     String modifyChatLog(int p1Id, int p2Id, String chat);

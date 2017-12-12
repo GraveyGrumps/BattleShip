@@ -15,6 +15,7 @@ public interface BanDao {
     List<Ban> getAllBans();
 
     // PUT
+    Ban modifyBanViaBan(Ban ban);
     boolean modifyBanStatusById(int id, String status);
 
     boolean modifyBannedUntilById(int id, Timestamp time);

@@ -39,7 +39,7 @@ public interface UserDao {
 
     boolean modifyUserVerifiedById(int id, int verified);
 
-    User modifyWholeUser(User u);
+    User modifyUserViaUser(User u);
 
     // Delete
     boolean deleteUserById(int id);

@@ -10,7 +10,6 @@ public interface WinLossDao {
 	
 	//DELETE
 	boolean deleteWinLossById(int id);
-	WinLoss modify(WinLoss wL);
 
     // GET
     WinLoss getWinLossById(int id);
@@ -18,6 +17,7 @@ public interface WinLossDao {
     List<WinLoss> getAllWinLoss();
 
     // PUT
+    WinLoss modifyWinlossViaWinloss(WinLoss wl);
     boolean modifyWinLossWinsById(int id, int win);
 
     boolean modifyWinLossLossesById(int id, int loss);

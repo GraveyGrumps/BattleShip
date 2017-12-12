@@ -122,4 +122,12 @@ public class FriendshipDaoHibernate implements FriendshipDao {
 	criteria.add(Restrictions.and(Restrictions.eq("user1Id", p1Id), Restrictions.eq("user2Id", p2Id)));
 	return (Friendship) criteria.uniqueResult();
     }
+
+	@Override
+	@Transactional
+	public Friendship modifyFriendshipViaFriendship(Friendship friendship) {
+		log.trace("modifying friendship via friendship");
+		sf.getCurrentSession().merge(friendship);
+		return friendship;
+	}
 }

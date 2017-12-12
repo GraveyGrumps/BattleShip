@@ -199,7 +199,7 @@ public class UserDaoHibernate implements UserDao {
 
     @Override
     @Transactional
-    public User modifyWholeUser(User u) {
+    public User modifyUserViaUser(User u) {
 	log.trace("Modifying entire user via a user object");
 	Session session = sf.getCurrentSession();
 	session.merge(u);

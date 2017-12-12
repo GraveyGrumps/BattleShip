@@ -11,6 +11,7 @@ public interface SettingsDao {
     Settings getSettingsById(int id);
 
     // PUT
+    Settings modifySettingsViaSettings(Settings setting);
     boolean modifyAllowGlobalChatById(int id, int allow);
 
     boolean modifyAllowInGameChatById(int id, int allow);

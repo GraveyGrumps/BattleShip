@@ -70,7 +70,7 @@ public class UserService {
 
     public User modifyUser(User user, User u) {
 	if (ValidationUtil.validateAccess(u, user)) {
-	    return ud.modifyWholeUser(user);
+	    return ud.modifyUserViaUser(user);
 	} else {
 	    return null;
 	}

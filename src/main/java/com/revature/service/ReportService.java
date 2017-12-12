@@ -79,6 +79,6 @@ public class ReportService {
 
 	public Report modify(Report rep2) {
 		// TODO Auto-generated method stub
-		return rpDao.modify(rep2);
+		return rpDao.modifyReportViaReport(rep2);
 	}
 }
