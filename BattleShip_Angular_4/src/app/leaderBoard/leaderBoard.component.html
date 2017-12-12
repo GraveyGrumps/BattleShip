@@ -4,8 +4,10 @@
     <thead>
       <tr>
         <th></th>
+        <th *ngIf = "displayNum"></th>
         <th>Name</th>
-        <th>Win/Loss</th>
+        <th>Win/Loss Ratio</th>
+        <th>Win vs Losses</th>
       </tr>
     </thead>
     <tbody *ngIf = "range !== undefined"> 
@@ -17,7 +19,9 @@
         <td *ngIf = "i > 2"> <img src = "assets/img/trophies/noTrophy.png" class = "image"></td>
         <td>{{convertToUsername(winlosses[i])}}</td>
         <td *ngIf = "global">{{winlosses[i].wins / winlosses[i].losses | number }}</td>
+        <td *ngIf = "global">{{winlosses[i].wins}} | {{winlosses[i].losses}}</td>
         <td *ngIf = "!global">{{winlosses[i].seasonWins / winlosses[i].seasonLosses | number }}</td>
+        <td *ngIf = "!global">{{winlosses[i].seasonWins}} | {{winlosses[i].seasonLosses}}</td>
       </tr>
     </tbody>
   </table>
