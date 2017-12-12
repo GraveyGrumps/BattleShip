@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { User } from '../beans/User';
 import { Router } from '@angular/router';
 import { WinlossService } from '../services/winloss.service';
@@ -6,13 +6,14 @@ import { WinLoss } from '../beans/WinLoss';
 import { Http } from '@angular/http';
 import { UserService } from '../services/user.service';
 import { Input } from '@angular/core/';
+import { Subscription } from 'rxjs/Subscription';
 
 @Component({
   selector: 'app-leaderboards',
   templateUrl: './leaderboards.component.html',
   styleUrls: ['./leaderboards.component.css']
 })
-export class LeaderboardsComponent implements OnInit {
+export class LeaderboardsComponent implements OnInit, OnDestroy {
 
   user: User;
   users: Array<User> = [];
@@ -26,7 +27,10 @@ export class LeaderboardsComponent implements OnInit {
   globalAroundRange: Array<number> = [];
   seasonAroundRange: Array<number> = [];
   global = true;
-  constructor(private router: Router, private winlossService: WinlossService, private http: Http, private userService: UserService) { }
+  alive = true;
+  private sub: Subscription;
+  constructor(private router: Router, private winlossService: WinlossService, private http: Http, private userService: UserService) {
+   }
 
   ngOnInit() {
     this.user = JSON.parse(sessionStorage.getItem('user'));
@@ -139,5 +143,8 @@ export class LeaderboardsComponent implements OnInit {
     for (let i = 0; i < length; i++) {
       range.push(i);
     }
+  }
+  ngOnDestroy() {
+    this.alive = false;
   }
 }

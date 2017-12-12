@@ -7,17 +7,20 @@ import { UserService } from '../services/user.service';
 import { environment } from '../../environments/environment';
 import { Http } from '@angular/http';
 import { Router } from '@angular/router/';
+import { Subscription } from 'rxjs/Subscription';
+import { OnDestroy } from '@angular/core/src/metadata/lifecycle_hooks';
 
 @Component({
   selector: 'app-mygames',
   templateUrl: './mygames.component.html',
   styleUrls: ['./mygames.component.css']
 })
-export class MygamesComponent implements OnInit {
+export class MygamesComponent implements OnInit, OnDestroy {
   pendingGames: Array<Game>;
   games: Array<Game>;
   users: Array<User>;
   user: User;
+  sub: Subscription;
   constructor(private gs: GameServiceService, private us: UserService, private http: Http, private router: Router) { }
 
   ngOnInit() {
@@ -25,7 +28,7 @@ export class MygamesComponent implements OnInit {
     if (this.user === null) {
       this.router.navigateByUrl('/login');
     }
-    this.http.get(environment.context + '/game/' + this.user.id).subscribe(
+    this.sub = this.http.get(environment.context + '/game/' + this.user.id).subscribe(
       (games) => {
         if (games.text() !== '') {
           console.log(games.json());
@@ -55,5 +58,7 @@ export class MygamesComponent implements OnInit {
     console.log('nonpending games');
     console.log(this.games);
   }
-
+  ngOnDestroy() {
+    this.sub.unsubscribe();
+  }
 }
