@@ -21,6 +21,8 @@ export class TestPannelComponent implements OnInit {
   currReport: Report;
   currShipState: Shipstate;
   currWL: WinLoss;
+  wWL: WinLoss;
+  lWL: WinLoss;
   alive: boolean;
 
 
@@ -67,7 +69,6 @@ export class TestPannelComponent implements OnInit {
         this.http.get(x, { withCredentials: true }).subscribe(
           (successResp) => {
             this.currGame = successResp.json();
-            console.log(this.currGame);
           },
           (failResp) => {
             alert('Failed to Load Log');
@@ -187,6 +188,64 @@ export class TestPannelComponent implements OnInit {
         this.http.get(x, { withCredentials: true }).subscribe(
           (successResp2) => {
             this.currWL = successResp2.json();
+            console.log(successResp2.json());
+            console.log(this.currWL);
+          },
+          (failResp) => {
+            alert('Failed to W/L');
+          }
+        );
+      },
+      (failResp) => {
+        alert('Failed to W/L');
+      }
+    );
+  }
+
+  winnerWL(pId) {
+    let x = 'http://localhost:8080/Battleship/user/getWL';
+    x += '?id=' + pId;
+    this.http.get(x, { withCredentials: true }).subscribe(
+      (successResp) => {
+        const wLId = successResp.text();
+
+        x = 'http://localhost:8080/Battleship/winloss/';
+        x += wLId;
+
+        this.http.get(x, { withCredentials: true }).subscribe(
+          (successResp2) => {
+            this.wWL = successResp2.json();
+            this.wWL.wins += 1;
+            this.wWL.seasonWins += 1;
+            this.saveWL(this.wWL);
+          },
+          (failResp) => {
+            alert('Failed to W/L');
+          }
+        );
+      },
+      (failResp) => {
+        alert('Failed to W/L');
+      }
+    );
+  }
+
+  loserWL(pId) {
+    let x = 'http://localhost:8080/Battleship/user/getWL';
+    x += '?id=' + pId;
+    this.http.get(x, { withCredentials: true }).subscribe(
+      (successResp) => {
+        const wLId = successResp.text();
+
+        x = 'http://localhost:8080/Battleship/winloss/';
+        x += wLId;
+
+        this.http.get(x, { withCredentials: true }).subscribe(
+          (successResp2) => {
+            this.lWL = successResp2.json();
+            this.lWL.losses += 1;
+            this.lWL.seasonLosses += 1;
+            this.saveWL(this.lWL);
           },
           (failResp) => {
             alert('Failed to W/L');
@@ -203,33 +262,20 @@ export class TestPannelComponent implements OnInit {
 
     if (this.currGame.turn) {
       // Winner
-      this.getWL(this.currGame.player2Id);
-      this.currWL.wins += 1;
-      this.currWL.seasonWins += 1;
-      this.saveWL();
-
+      this.winnerWL(this.currGame.player2Id);
       // Loser
-      this.getWL(this.currGame.player1Id);
-      this.currWL.losses += 1;
-      this.currWL.seasonLosses += 1;
-      this.saveWL();
+      this.loserWL(this.currGame.player1Id);
+
     } else {
       // Winner
-      this.getWL(this.currGame.player1Id);
-      this.currWL.wins += 1;
-      this.currWL.seasonWins += 1;
-      this.saveWL();
-
+      this.winnerWL(this.currGame.player1Id);
       // Loser
-      this.getWL(this.currGame.player2Id);
-      this.currWL.losses += 1;
-      this.currWL.seasonLosses += 1;
-      this.saveWL();
+      this.loserWL(this.currGame.player2Id);
     }
   }
 
-  saveWL() {
-    this.http.put('http://localhost:8080/Battleship/winloss/modify', (this.currWL), { withCredentials: true }).subscribe(
+  saveWL(inWL) {
+    this.http.put('http://localhost:8080/Battleship/winloss/modify', (inWL), { withCredentials: true }).subscribe(
       (successResp) => {
       },
       (failResp) => {
