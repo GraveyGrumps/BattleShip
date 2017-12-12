@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, OnDestroy, OnInit, Inject } from '@angular/core';
 import { Http } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import { Game } from '../beans/Game';
@@ -6,6 +6,7 @@ import { Shipstate } from '../beans/Shipstate';
 import { Report } from '../../../beans/Report';
 import { User } from '../../../beans/User';
 import { WinLoss } from '../../../beans/WinLoss';
+import { IntervalObservable } from 'rxjs/observable/IntervalObservable';
 
 @Component({
   selector: 'app-testpannel',
@@ -15,17 +16,24 @@ import { WinLoss } from '../../../beans/WinLoss';
 
 export class TestPannelComponent implements OnInit {
 
-  currUser = new User();
-  currGame = new Game();
-  currReport = new Report();
-  currShipState = new Shipstate();
-  currWL = new WinLoss();
+  currUser: User;
+  currGame: Game;
+  currReport: Report;
+  currShipState: Shipstate;
+  currWL: WinLoss;
+  alive: boolean;
+
 
   constructor( @Inject(Http) public http: Http) {
+    this.alive = true;
+  }
 
+  ngOnDestroy() {
+    this.alive = false;
   }
 
   ngOnInit() {
+    this.alive = true;
     this.currUser = JSON.parse(sessionStorage.getItem('user'));
 
 
@@ -52,34 +60,46 @@ export class TestPannelComponent implements OnInit {
         alert('Failed to Load Log');
       }
     );
+
+    IntervalObservable.create(1000)
+      .takeWhile(() => this.alive) // only fires when component is alive
+      .subscribe(() => {
+        this.http.get(x, { withCredentials: true }).subscribe(
+          (successResp) => {
+            this.currGame = successResp.json();
+          },
+          (failResp) => {
+            alert('Failed to Load Log');
+          });
+      });
   }
 
-  // initalize(gmId) {
-  //   this.currUser = JSON.parse((sessionStorage.getItem('user')));
+  reinitalize(gmId) {
+    this.currUser = JSON.parse((sessionStorage.getItem('user')));
 
-  //   let x = 'http://localhost:8080/Battleship/game/load';
-  //   x += '?id=' + gmId;
-  //   this.http.get(x, { withCredentials: true }).subscribe(
-  //     (successResp) => {
-  //       this.currGame = successResp.json();
-  //       console.log(this.currGame);
-  //     },
-  //     (failResp) => {
-  //       alert('Failed to Load Game');
-  //     }
-  //   );
-  //   let y = 'http://localhost:8080/Battleship/report/loadbygame';
-  //   y += '?id=' + gmId;
-  //   this.http.get(y, { withCredentials: true }).subscribe(
-  //     (successResp) => {
-  //       this.currReport = successResp.json();
-  //       console.log(this.currReport);
-  //     },
-  //     (failResp) => {
-  //       alert('Failed to Load Log');
-  //     }
-  //   );
-  // }
+    let x = 'http://localhost:8080/Battleship/game/load';
+    x += '?id=' + gmId;
+    this.http.get(x, { withCredentials: true }).subscribe(
+      (successResp) => {
+        this.currGame = successResp.json();
+        console.log(this.currGame);
+      },
+      (failResp) => {
+        alert('Failed to Load Game');
+      }
+    );
+    let y = 'http://localhost:8080/Battleship/report/loadbygame';
+    y += '?id=' + gmId;
+    this.http.get(y, { withCredentials: true }).subscribe(
+      (successResp) => {
+        this.currReport = successResp.json();
+        console.log(this.currReport);
+      },
+      (failResp) => {
+        alert('Failed to Load Log');
+      }
+    );
+  }
 
   setup() {
     if (this.currGame.turn) {
