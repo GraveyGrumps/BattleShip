@@ -23,7 +23,11 @@ export class LeaderBoardComponent implements OnInit {
   title: String;
   @Input()
   global;
+  @Input()
+  displayNum: boolean;
+  user: User;
   ngOnInit() {
+    this.user = JSON.parse(sessionStorage.getItem('user'));
   }
   public convertToUsername(winloss) {
     try {
