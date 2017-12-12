@@ -21,11 +21,6 @@ public class FriendshipDaoHibernate implements FriendshipDao {
     @Autowired
     private SessionFactory sf;
 
-    // TODO Add function that modifies the value of "pending"
-    // @Override
-    // @Transactional
-    // public boolean changePending
-
     @Override
     @Transactional
     public boolean addFriendship(Friendship friendship) throws ConstraintViolationException {
@@ -126,11 +121,11 @@ public class FriendshipDaoHibernate implements FriendshipDao {
 	return (Friendship) criteria.uniqueResult();
     }
 
-	@Override
-	@Transactional
-	public Friendship modifyFriendshipViaFriendship(Friendship friendship) {
-		log.trace("modifying friendship via friendship");
-		sf.getCurrentSession().merge(friendship);
-		return friendship;
-	}
+    @Override
+    @Transactional
+    public Friendship modifyFriendshipViaFriendship(Friendship friendship) {
+	log.trace("modifying friendship via friendship");
+	sf.getCurrentSession().merge(friendship);
+	return friendship;
+    }
 }

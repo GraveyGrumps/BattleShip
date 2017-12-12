@@ -13,7 +13,6 @@ import com.revature.entities.Settings;
 import com.revature.entities.User;
 import com.revature.entities.WinLoss;
 import com.revature.util.EncryptionUtil;
-import com.revature.util.ValidationUtil;
 
 @Service
 public class UserService {
@@ -69,12 +68,11 @@ public class UserService {
     }
 
     public User modifyUser(User user, User u) {
-	if (ValidationUtil.validateAccess(u, user)) {
-	    return ud.modifyUserViaUser(user);
-	} else {
-	    return null;
-	}
-
+	// if (ValidationUtil.validateAccess(u, user)) {
+	return ud.modifyUserViaUser(user);
+	// } else {
+	// return null;
+	// }
     }
 
     public User getUserById(int id, User u) {
@@ -89,12 +87,10 @@ public class UserService {
     }
 
     public User getUserByWinlossId(int id) {
-
 	return ud.getUserByWinlossId(id);
     }
 
     public int getWL(int id) {
-	// TODO Auto-generated method stub
 	return ud.getUserById(id).getWinLossId();
     }
 
