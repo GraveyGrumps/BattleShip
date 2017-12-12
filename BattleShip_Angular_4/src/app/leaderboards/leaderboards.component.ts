@@ -5,6 +5,7 @@ import { WinlossService } from '../services/winloss.service';
 import { WinLoss } from '../beans/WinLoss';
 import { Http } from '@angular/http';
 import { UserService } from '../services/user.service';
+import { Input } from '@angular/core/';
 
 @Component({
   selector: 'app-leaderboards',
@@ -12,6 +13,7 @@ import { UserService } from '../services/user.service';
   styleUrls: ['./leaderboards.component.css']
 })
 export class LeaderboardsComponent implements OnInit {
+
   user: User;
   users: Array<User> = [];
   winlosses: Array<WinLoss>;
@@ -21,6 +23,8 @@ export class LeaderboardsComponent implements OnInit {
   aroundUserSeasonalWinLoss: Array<WinLoss>;
   globalrange: Array<number> = [];
   seasonalrange: Array<number> = [];
+  globalAroundRange: Array<number> = [];
+  seasonAroundRange: Array<number> = [];
   global = true;
   constructor(private router: Router, private winlossService: WinlossService, private http: Http, private userService: UserService) { }
 
@@ -35,8 +39,8 @@ export class LeaderboardsComponent implements OnInit {
           this.winlosses = winlossarray;
           this.loadGlobal20();
           this.loadSeasonal20();
-          this.loadGlobalAround();
-          this.loadSeasonalAround();
+          this.loadAroundRange(this.globalAroundRange, this.aroundUserGlobalWinLoss);
+          this.loadAroundRange(this.seasonAroundRange, this.aroundUserSeasonalWinLoss);
         }
       }
     );
@@ -52,6 +56,7 @@ export class LeaderboardsComponent implements OnInit {
   private loadGlobal20() {
     this.top20GlobalWinLoss = this.winlosses.filter(i => i.losses > 0);
     this.top20GlobalWinLoss.sort(this.compareGlobal);
+    this.aroundUserGlobalWinLoss = this.top20GlobalWinLoss;
     if (this.top20GlobalWinLoss.length > 20) {
       this.top20GlobalWinLoss = this.top20GlobalWinLoss.slice(0, 20);
     }
@@ -61,19 +66,55 @@ export class LeaderboardsComponent implements OnInit {
   private loadSeasonal20() {
     this.top20SeaonalWinLoss = this.winlosses.filter( i => i.seasonLosses > 0);
     this.top20SeaonalWinLoss.sort(this.compareSeasonal);
+    this.aroundUserSeasonalWinLoss = this.top20SeaonalWinLoss;
     if (this.top20SeaonalWinLoss.length > 20) {
       this.top20SeaonalWinLoss = this.top20SeaonalWinLoss.slice(0, 20);
     }
-    console.log(this.top20SeaonalWinLoss);
     this.populate(this.seasonalrange, this.top20SeaonalWinLoss.length);
   }
 
-  private loadGlobalAround() {
-
+  private loadAroundRange(range, array) {
+    let i;
+    for (i = 0; i < array.length; i++) {
+      if (array[i].id === this.user.winLossId) {
+        break;
+      }
+    }
+    let five = 6;
+    let placeholder = i + 1;
+    while (i >= 0 && five > 0) {
+      range.push(i);
+      five --;
+      i--;
+    }
+    range.reverse();
+    five = 5;
+    while (placeholder < array.length && five > 0) {
+      range.push(placeholder++);
+      five--;
+    }
   }
 
   private loadSeasonalAround() {
-
+    let i;
+    for (i = 0; i < this.aroundUserGlobalWinLoss.length; i++) {
+      if (this.aroundUserGlobalWinLoss[i].id === this.user.winLossId) {
+        break;
+      }
+    }
+    let five = 6;
+    let placeholder = i + 1;
+    while (i >= 0 && five > 0) {
+      this.globalAroundRange.push(i);
+      five --;
+      i--;
+    }
+    this.globalAroundRange.reverse();
+    five = 5;
+    while (placeholder < this.aroundUserGlobalWinLoss.length && five > 0) {
+      this.globalAroundRange.push(placeholder++);
+      five--;
+    }
   }
 
   private compareGlobal(a, b) {

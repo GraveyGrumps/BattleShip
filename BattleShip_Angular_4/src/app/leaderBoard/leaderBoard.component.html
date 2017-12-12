@@ -9,7 +9,8 @@
       </tr>
     </thead>
     <tbody *ngIf = "range !== undefined"> 
-      <tr *ngFor = "let i of range" >
+      <tr *ngFor = "let i of range" [ngClass]="winlosses[i].id == user.winLossId ? 'me': 'ignore'">
+        <td *ngIf = "displayNum">{{i+1}}</td>
         <td *ngIf = "i == 0"> <img src = "assets/img/trophies/goldTrophy.png" class = "image">  </td>
         <td *ngIf = "i == 1"> <img src = "assets/img/trophies/silverTrophy.png" class = "image"></td>
         <td *ngIf = "i == 2"> <img src = "assets/img/trophies/bronzeTrophy.png" class = "image"></td>
