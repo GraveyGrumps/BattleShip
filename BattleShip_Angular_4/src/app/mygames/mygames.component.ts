@@ -26,7 +26,8 @@ export class MygamesComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.user = JSON.parse(sessionStorage.getItem('user'));
     if (this.user === null) {
-      this.router.navigateByUrl('/login');
+      this.router.navigateByUrl('login');
+      return;
     }
     this.sub = this.http.get(environment.context + '/game/' + this.user.id).subscribe(
       (games) => {
@@ -59,6 +60,5 @@ export class MygamesComponent implements OnInit, OnDestroy {
     console.log(this.games);
   }
   ngOnDestroy() {
-    this.sub.unsubscribe();
   }
 }
