@@ -1,9 +1,12 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, OnDestroy, OnInit, Inject } from '@angular/core';
 import { Http } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import { Game } from '../beans/Game';
 import { Shipstate } from '../beans/Shipstate';
 import { Report } from '../../../beans/Report';
+import { User } from '../../../beans/User';
+import { WinLoss } from '../../../beans/WinLoss';
+import { IntervalObservable } from 'rxjs/observable/IntervalObservable';
 
 @Component({
   selector: 'app-testpannel',
@@ -13,17 +16,29 @@ import { Report } from '../../../beans/Report';
 
 export class TestPannelComponent implements OnInit {
 
-  currGame = new Game();
-  currReport = new Report();
-  currShipState = new Shipstate();
+  currUser: User;
+  currGame: Game;
+  currReport: Report;
+  currShipState: Shipstate;
+  currWL: WinLoss;
+  alive: boolean;
+
 
   constructor( @Inject(Http) public http: Http) {
+    this.alive = true;
+  }
 
+  ngOnDestroy() {
+    this.alive = false;
   }
 
   ngOnInit() {
+    this.alive = true;
+    this.currUser = JSON.parse(sessionStorage.getItem('user'));
+
+
     let x = 'http://localhost:8080/Battleship/game/load';
-    x += '?id=' + 66;
+    x += '?id=' + JSON.parse(sessionStorage.getItem('gmID'));
     this.http.get(x, { withCredentials: true }).subscribe(
       (successResp) => {
         this.currGame = successResp.json();
@@ -35,7 +50,7 @@ export class TestPannelComponent implements OnInit {
     );
 
     let y = 'http://localhost:8080/Battleship/report/loadbygame';
-    y += '?id=' + 66;
+    y += '?id=' + JSON.parse(sessionStorage.getItem('gmID'));
     this.http.get(y, { withCredentials: true }).subscribe(
       (successResp) => {
         this.currReport = successResp.json();
@@ -45,9 +60,23 @@ export class TestPannelComponent implements OnInit {
         alert('Failed to Load Log');
       }
     );
+
+    IntervalObservable.create(1000)
+      .takeWhile(() => this.alive) // only fires when component is alive
+      .subscribe(() => {
+        this.http.get(x, { withCredentials: true }).subscribe(
+          (successResp) => {
+            this.currGame = successResp.json();
+          },
+          (failResp) => {
+            alert('Failed to Load Log');
+          });
+      });
   }
 
-  initalize(gmId) {
+  reinitalize(gmId) {
+    this.currUser = JSON.parse((sessionStorage.getItem('user')));
+
     let x = 'http://localhost:8080/Battleship/game/load';
     x += '?id=' + gmId;
     this.http.get(x, { withCredentials: true }).subscribe(
@@ -137,13 +166,89 @@ export class TestPannelComponent implements OnInit {
     );
   }
 
+  getWL(pId) {
+    let x = 'http://localhost:8080/Battleship/user/getWL';
+    x += '?id=' + pId;
+    this.http.get(x, { withCredentials: true }).subscribe(
+      (successResp) => {
+        const wLId = successResp.text();
+
+        x = 'http://localhost:8080/Battleship/winloss/';
+        x += wLId;
+
+        this.http.get(x, { withCredentials: true }).subscribe(
+          (successResp2) => {
+            this.currWL = successResp2.json();
+          },
+          (failResp) => {
+            alert('Failed to W/L');
+          }
+        );
+      },
+      (failResp) => {
+        alert('Failed to W/L');
+      }
+    );
+  }
+
+  updateWL() {
+
+    if (this.currGame.turn) {
+      // Winner
+      this.getWL(this.currGame.player2Id);
+      this.currWL.wins += 1;
+      this.currWL.seasonWins += 1;
+      this.saveWL();
+
+      // Loser
+      this.getWL(this.currGame.player1Id);
+      this.currWL.losses += 1;
+      this.currWL.seasonLosses += 1;
+      this.saveWL();
+    } else {
+      // Winner
+      this.getWL(this.currGame.player1Id);
+      this.currWL.wins += 1;
+      this.currWL.seasonWins += 1;
+      this.saveWL();
+
+      // Loser
+      this.getWL(this.currGame.player2Id);
+      this.currWL.losses += 1;
+      this.currWL.seasonLosses += 1;
+      this.saveWL();
+    }
+  }
+
+  saveWL() {
+    this.http.put('http://localhost:8080/Battleship/winloss/modify', (this.currWL), { withCredentials: true }).subscribe(
+      (successResp) => {
+      },
+      (failResp) => {
+        alert('Failed Update W/L :`(');
+      }
+    );
+  }
+
+  updateReport() {
+    this.http.put('http://localhost:8080/Battleship/report/modify', (this.currReport), { withCredentials: true }).subscribe(
+      (successResp) => {
+      },
+      (failResp) => {
+        alert('Failed Update Report :`(');
+      }
+    );
+  }
+
   finish() {
     this.currGame.status = 'complete';
-    this.update();
     if (this.currGame.turn) {
       this.currReport.winner = this.currGame.player2Id;
     } else {
       this.currGame.turn = this.currGame.player1Id;
     }
+    this.update();
+    this.updateReport();
+    this.updateWL();
   }
 }
