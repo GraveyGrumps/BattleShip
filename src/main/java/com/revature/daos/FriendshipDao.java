@@ -8,7 +8,7 @@ import com.revature.entities.Friendship;
 
 public interface FriendshipDao {
     // POST
-    boolean addFriendShip(Friendship friendship) throws ConstraintViolationException;
+    boolean addFriendship(Friendship friendship) throws ConstraintViolationException;
 
     // GET
     List<Friendship> getAllFriendshipsById(int id);

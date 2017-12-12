@@ -21,9 +21,11 @@ public class FriendshipDaoHibernate implements FriendshipDao {
     @Autowired
     private SessionFactory sf;
 
+    // TODO Add function that modifies the value of "pending"
+
     @Override
     @Transactional
-    public boolean addFriendShip(Friendship friendship) throws ConstraintViolationException {
+    public boolean addFriendship(Friendship friendship) throws ConstraintViolationException {
 	log.trace("Adding a new Friendship to the Database");
 	sf.getCurrentSession().save(friendship);
 	return true;
