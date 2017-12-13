@@ -29,8 +29,8 @@ import { LobbyComponent } from './lobby/lobby.component';
 import { MyspaceComponent } from './myspace/myspace.component';
 import { GridComponent } from './games/battleship/grid/grid.component';
 import { ProfileComponent } from './myspace/profile/profile.component';
-import { MyspaceboxComponent } from './myspace/myspacebox/myspacebox.component';
 import { GlobalchatService } from './services/globalchat.service';
+import { StatsComponent } from './myspace/stats/stats.component';
 
 
 @NgModule({
@@ -58,14 +58,14 @@ import { GlobalchatService } from './services/globalchat.service';
     LobbyComponent,
     MyspaceComponent,
     ProfileComponent,
-    MyspaceboxComponent,
     GridComponent,
-    ProfileComponent
+    ProfileComponent,
+    StatsComponent
   ],
   providers: [GameServiceService,
-  WinlossService,
-  UserService,
-  GlobalchatService],
+    WinlossService,
+    UserService,
+    GlobalchatService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
