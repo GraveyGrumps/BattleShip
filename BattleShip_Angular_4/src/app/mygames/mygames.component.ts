@@ -9,6 +9,7 @@ import { Http } from '@angular/http';
 import { Router } from '@angular/router/';
 import { Subscription } from 'rxjs/Subscription';
 import { OnDestroy } from '@angular/core/src/metadata/lifecycle_hooks';
+import { IntervalObservable } from 'rxjs/observable/IntervalObservable';
 
 @Component({
   selector: 'app-mygames',
@@ -21,6 +22,7 @@ export class MygamesComponent implements OnInit, OnDestroy {
   users: Array<User>;
   user: User;
   sub: Subscription;
+  alive: boolean;
   constructor(private gs: GameServiceService, private us: UserService, private http: Http, private router: Router) { }
 
   ngOnInit() {
@@ -29,36 +31,39 @@ export class MygamesComponent implements OnInit, OnDestroy {
       this.router.navigateByUrl('login');
       return;
     }
-    this.sub = this.http.get(environment.context + '/game/' + this.user.id).subscribe(
-      (games) => {
-        if (games.text() !== '') {
-          console.log(games.json());
-          this.games = games.json();
-          this.sortgames();
-        }
-      });
-    this.us.getSubject().subscribe(
-      (users) => {
-        if (users !== null) {
-          this.users = users;
-        }
+    this.alive = true;
+    IntervalObservable.create(1000)
+      .takeWhile(() => this.alive)
+      .subscribe(() => {
+        this.sub = this.http.get(environment.context + '/game/' + this.user.id).subscribe(
+          (games) => {
+            if (games.text() !== '') {
+              console.log(games.json());
+              this.games = games.json();
+              this.sortgames();
+            }
+          });
+        this.us.getSubject().subscribe(
+          (users) => {
+            if (users !== null) {
+              this.users = users;
+            }
+          });
       });
   }
   sortgames() {
-    console.log(typeof(this.games[0].status));
-    for (let g of this.games) {
-      console.log(g.status === 'pending');
-      console.log(g.status);
+    let holder = this.games.filter(i => i.status === 'pending');
+    if (JSON.stringify(holder) !== JSON.stringify(this.pendingGames)) {
+      this.pendingGames = holder;
     }
-
-    this.pendingGames = this.games.filter(i => i.status === 'pending');
-    console.log('pendinggames');
-    console.log(this.pendingGames);
-
-    this.games = this.games.filter( i => i.status !== 'pending');
-    console.log('nonpending games');
-    console.log(this.games);
+    holder = this.games.filter(i => i.status !== 'pending');
+    if (JSON.stringify(holder) !== JSON.stringify(this.games)) {
+      this.games = this.games.filter(i => i.status !== 'pending');
+    }
   }
   ngOnDestroy() {
+    if (this.alive) {
+      this.alive = false;
+    }
   }
 }
