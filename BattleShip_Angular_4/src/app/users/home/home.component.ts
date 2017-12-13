@@ -9,6 +9,7 @@ import { Router } from '@angular/router';
 import { WinlossService } from '../../services/winloss.service';
 import { WinLoss } from '../../beans/WinLoss';
 import { UserService } from '../../services/user.service';
+import { IntervalObservable } from 'rxjs/observable/IntervalObservable';
 
 @Component({
   selector: 'app-home',
@@ -28,6 +29,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   userSubscription: Subscription;
   range: Array<number> = [];
   title: String;
+  alive: boolean;
   constructor(private http: Http, private gss: GameServiceService, private router: Router,
      private wls: WinlossService, private us: UserService) { }
 
@@ -37,57 +39,71 @@ export class HomeComponent implements OnInit, OnDestroy {
     if (this.user === null) {
       this.router.navigateByUrl('login');
     }
-    this.gameSubscription = this.gss.getSubject().subscribe(
-      (listGames) => {
-        if (listGames !== null) {
-          this.games = listGames;
-          this.getPending();
-          this.http.get(environment.context + '/game/' + this.user.id, { withCredentials: true }).subscribe(
-            (respbody) => {
-              if (respbody.text() !== '') {
-                this.mygames = respbody.json();
-                this.currentlyRunningGames();
-              }
-            });
+    this.alive = true;
+    IntervalObservable.create(1000)
+    .takeWhile(() => this.alive)
+    .subscribe(() => {
+      this.gameSubscription = this.gss.getSubject().subscribe(
+        (listGames) => {
+          if (listGames !== null) {
+            this.games = listGames;
+            this.getPending();
+            this.currentlyRunningGames();
+            // this.http.get(environment.context + '/game/' + this.user.id, { withCredentials: true }).subscribe(
+            //   (respbody) => {
+            //     if (respbody.text() !== '') {
+            //       this.mygames = respbody.json();
+            //       this.currentlyRunningGames();
+            //     }
+            //   });
+          }
         }
-      }
-    );
-    this.winlossSubscription = this.wls.getSubject().subscribe(
-      (listWinLosses) => {
-        if (listWinLosses !== null) {
-          this.winlosses = listWinLosses;
-          this.getTopTen();
-          this.populateRange();
+      );
+      this.winlossSubscription = this.wls.getSubject().subscribe(
+        (listWinLosses) => {
+          if (listWinLosses !== null) {
+            this.winlosses = listWinLosses;
+            this.getTopTen();
+            this.populateRange();
+          }
         }
-      }
-    );
-    this.userSubscription = this.us.getSubject().subscribe(
-      (userArray) => {
-        if (userArray !== null) {
-          this.users = userArray;
+      );
+      this.userSubscription = this.us.getSubject().subscribe(
+        (userArray) => {
+          if (userArray !== null) {
+            this.users = userArray;
+          }
         }
-      }
-    );
+      );
+    });
   }
-  currentlyRunningGames() {
-    this.mygames = this.games.filter(i => i.status === 'inprogress' &&
+  private currentlyRunningGames() {
+    let myRunningGames = this.games.filter(i => i.status === 'inprogress' &&
      ((i.turn === 0 && i.player1Id === this.user.id) || (i.turn === 1 && i.player2Id === this.user.id)));
-    if (this.mygames.length > 3) {
-      this.mygames = this.mygames.slice(0, 3);
+    if (myRunningGames.length > 3) {
+      myRunningGames = myRunningGames.slice(0, 3);
+    }
+    if (JSON.stringify(this.mygames) !== JSON.stringify(myRunningGames)) {
+      this.mygames = myRunningGames;
     }
   }
-  getPending() {
-    this.pendinggames = this.games.filter(i => i.status === 'pending' && i.player1Id !== this.user.id);
-    if (this.pendinggames.length > 5) {
-      this.pendinggames = this.pendinggames.slice(0, 5);
+  private getPending() {
+    let holder = this.games.filter(i => i.status === 'pending' && i.player1Id !== this.user.id);
+    if (holder.length > 5) {
+      holder = holder.slice(0, 5);
+    }
+    if (JSON.stringify(this.pendinggames) !== JSON.stringify(holder)) {
+      this.pendinggames = holder;
     }
   }
   private getTopTen() {
-    this.winlosses = this.winlosses.filter(i => i.losses > 0);
-    this.winlosses.sort(this.compare);
-
-    if (this.winlosses.length > 10) {
-      this.winlosses = this.winlosses.slice(0, 10);
+    let holder = this.winlosses.filter(i => i.losses > 0);
+    holder.sort(this.compare);
+    if (holder.length > 10) {
+      holder = holder.slice(0, 10);
+    }
+    if (JSON.stringify(holder) !== JSON.stringify(this.winlosses)) {
+      this.winlosses = holder;
     }
   }
   private compare(a, b) {
@@ -100,10 +116,17 @@ export class HomeComponent implements OnInit, OnDestroy {
     return 0;
   }
   private populateRange() {
+    this.range = [];
     for (let i = 0; i < this.winlosses.length; i++) {
       this.range.push(i);
     }
   }
   ngOnDestroy() {
+    if (this.alive) {
+      this.alive = false;
+      this.gameSubscription.unsubscribe();
+      this.userSubscription.unsubscribe();
+      this.winlossSubscription.unsubscribe();
+    }
   }
 }

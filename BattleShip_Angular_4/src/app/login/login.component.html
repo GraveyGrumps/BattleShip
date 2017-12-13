@@ -1,10 +1,7 @@
-<div class="text-center">
-  <h1>BATTLEBLIP</h1>
-  <h2 class="form-signin-heading">Sign in to play</h2>
-</div>
-
 <div class="container">
   <form class="form-signin" (submit)="submit()">
+      <h1 class = "title">BATTLEBLIP</h1>
+      <h2 class="form-signin-heading">Sign in to play</h2>
     <label for="inputUsername" class="sr-only">UserName</label>
     <input [(ngModel)]="credential.username" name="email" type="email" id="inputUsername" class="form-control" placeholder="Username"
       required autofocus>

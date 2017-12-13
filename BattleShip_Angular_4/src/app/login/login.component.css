@@ -1,26 +1,38 @@
-body {
-  padding-top: 40px;
-  padding-bottom: 40px;
-  background-color: #eee;
+body,html, div {
+  height: 100%;
+  background: black;
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
 }
-
 .form-signin {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   max-width: 330px;
-  padding: 15px;
+  padding: 50px;
   margin: 0 auto;
+  background: url("../../assets/img/shipfiring2.gif") repeat;
+  background-position-x: 40%;
+  background-size: cover;
+}
+.form-signin-heading
+{
+   /* color: rgb(250, 90, 90); */
+  /* color: #3A40B1; */
+  color: white;
+  text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+  /* text-shadow: -1px 0 white, 0 1px white, 1px 0 white, 0 -1px white; */
+  text-align: center;
 }
 .form-signin .form-signin-heading,
 .form-signin .checkbox {
   margin-bottom: 10px;
 }
-.form-signin .checkbox {
-  font-weight: normal;
-}
 .form-signin .form-control {
   position: relative;
+  box-sizing: border-box;
   height: auto;
-  -webkit-box-sizing: border-box;
-          box-sizing: border-box;
   padding: 10px;
   font-size: 16px;
 }
@@ -37,7 +49,9 @@ body {
   border-top-left-radius: 0;
   border-top-right-radius: 0;
 }
-.formimg{
-  width:50px;
-  height:auto;
+.title {
+  color: white;
+  text-shadow: -3px 0 black, 0 3px black, 3px 0 black, 0 -3px black;
+  /* text-shadow: -1px 0 white, 0 1px white, 1px 0 white, 0 -1px white; */
+  text-align: center;
 }

@@ -1,11 +1,20 @@
-<nav class="navbar navbar-expand-md navbar-dark bg-dark justify-content-between sticky-top">
-  <a class="navbar-brand active" href="#">BattleBlip</a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample04" aria-controls="navbarsExample04"
-    aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
+<nav *ngIf="!hasUser" class="navbar navbar-expand-md navbar-toggleable-md navbar-dark bg-dark justify-content-between sticky-top">
+  <label class="navbar-brand active">BattleBlip</label>
+  <div ngbDropdown class="d-inline-block">
+    <button class="navbar-toggler" id="dropdownBasic1" ngbDropdownToggle>Menu</button>
+    <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+      <button class="dropdown-item" (click)="routeTo('/users/home')">Home</button>
+      <button class="dropdown-item" (click)= "routeTo('leaderboard')">Leaderboards</button>
+      <button class="dropdown-item" (click)="routeTo('lobby')">Lobby</button>
+      <button class="dropdown-item" (click)="routeTo('grid')">Test</button>
+      <button class="dropdown-item" (click)="routeTo('game/new')">Create New Game</button>
+      <button class="dropdown-item" (click)="routeTo('game/my')">My Games</button>
+      <button class="dropdown-item" (click)="routeTo('users/myspace')">My Profile</button>
+      <button class="dropdown-item" (click) = "routeTo('/login')">Logout</button>
+    </div>
+  </div>
 
-  <div class="float">
+  <div  class="float">
     <div class="collapse navbar-collapse" id="navbarsExample04">
       <ul class="navbar-nav mr-auto">
         <li class="nav-item active">

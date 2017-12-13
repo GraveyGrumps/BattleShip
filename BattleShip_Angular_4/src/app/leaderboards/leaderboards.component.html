@@ -10,21 +10,21 @@
   <div class="row">
     <div class="col">
       <h4>Top 20 Global</h4>
-      <app-leader-board [winlosses] = "top20GlobalWinLoss" [range] = "globalrange" [users] = "users" [global] = "global" [displayNum] = "!global"></app-leader-board>
+      <app-leader-board [winlosses]="top20GlobalWinLoss" [range]="globalrange" [users]="users" [global]="global" [displayNum]="!global"></app-leader-board>
     </div>
     <div class="col">
       <h4>Top 20 Seasonal</h4>
-      <app-leader-board [winlosses] = "top20SeaonalWinLoss" [range] = "seasonalrange" [users] = "users" [global] = "!global" [displayNum] = "!global"></app-leader-board>
+      <app-leader-board [winlosses]="top20SeaonalWinLoss" [range]="seasonalrange" [users]="users" [global]="!global" [displayNum]="!global"></app-leader-board>
     </div>
   </div>
   <div class="row">
     <div class="col">
       <h4>Your Ranking</h4>
-      <app-leader-board [winlosses] = "aroundUserGlobalWinLoss" [range] = "globalAroundRange" [users] = "users" [global] = "global" [displayNum] = "global"></app-leader-board>
+      <app-leader-board [winlosses]="aroundUserGlobalWinLoss" [range]="globalAroundRange" [users]="users" [global]="global" [displayNum]="global"></app-leader-board>
     </div>
-    <div class = "col">
+    <div class="col">
       <h4>Your Ranking</h4>
-      <app-leader-board [winlosses] = "aroundUserSeasonalWinLoss" [range] = "seasonAroundRange" [users] = "users" [global] = "global" [displayNum] = "global"></app-leader-board>
+      <app-leader-board [winlosses]="aroundUserSeasonalWinLoss" [range]="seasonAroundRange" [users]="users" [global]="global" [displayNum]="global"></app-leader-board>
     </div>
   </div>
 </div>

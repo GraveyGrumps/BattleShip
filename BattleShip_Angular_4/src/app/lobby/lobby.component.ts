@@ -29,7 +29,8 @@ export class LobbyComponent implements OnInit, OnDestroy {
         (games) => {
           if (games !== null) {
             games = games.filter(i => i.status === 'pending');
-            if (this.games === undefined || this.games.length !== games.length) {
+            //console.log(JSON.stringify(games) === JSON.stringify( this.games));
+            if (JSON.stringify(games) !== JSON.stringify( this.games)) {
               this.games = games;
             }
           }
