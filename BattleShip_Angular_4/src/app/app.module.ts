@@ -29,10 +29,11 @@ import { LobbyComponent } from './lobby/lobby.component';
 import { MyspaceComponent } from './myspace/myspace.component';
 import { GridComponent } from './games/battleship/grid/grid.component';
 import { ProfileComponent } from './myspace/profile/profile.component';
-import { MyspaceboxComponent } from './myspace/myspacebox/myspacebox.component';
 import { GlobalchatService } from './services/globalchat.service';
 import { AdminHomeComponent } from './users/adminHome/adminhome.component';
 import { TickettileComponent } from './tickettile/tickettile.component';
+import { StatsComponent } from './myspace/stats/stats.component';
+
 
 
 @NgModule({
@@ -60,16 +61,17 @@ import { TickettileComponent } from './tickettile/tickettile.component';
     LobbyComponent,
     MyspaceComponent,
     ProfileComponent,
-    MyspaceboxComponent,
     GridComponent,
     ProfileComponent,
     AdminHomeComponent,
-    TickettileComponent
+    TickettileComponent,
+    StatsComponent
+
   ],
   providers: [GameServiceService,
-  WinlossService,
-  UserService,
-  GlobalchatService],
+    WinlossService,
+    UserService,
+    GlobalchatService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
