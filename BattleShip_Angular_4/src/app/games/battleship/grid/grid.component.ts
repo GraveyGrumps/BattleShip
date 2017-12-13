@@ -7,9 +7,6 @@ import { Report } from '../../../beans/Report';
 import { User } from '../../../beans/User';
 import { WinLoss } from '../../../beans/WinLoss';
 import { IntervalObservable } from 'rxjs/observable/IntervalObservable';
-import { JQueryStyleEventEmitter } from 'rxjs/observable/FromEventObservable';
-declare var jquery: any;
-declare var $: any;
 
 @Component({
   selector: 'app-grid',
@@ -27,9 +24,6 @@ export class GridComponent implements OnInit {
   wWL: WinLoss;
   lWL: WinLoss;
   alive: boolean;
-  playerFleet: any;
-  cpuFleet: any;
-  attemptedHits: any;
 
 
   constructor( @Inject(Http) public http: Http) {
@@ -43,6 +37,7 @@ export class GridComponent implements OnInit {
   ngOnInit() {
     this.alive = true;
     this.currUser = JSON.parse(sessionStorage.getItem('user'));
+
 
     // let x = 'http://localhost:8080/Battleship/game/load';
     // x += '?id=' + JSON.parse(sessionStorage.getItem('gmID'));
@@ -81,6 +76,17 @@ export class GridComponent implements OnInit {
     //   });
   }
 
-  // **************************************************************************************************************************************
-  // **************************************************************************************************************************************
+  allowDrop(ev) {
+    ev.preventDefault();
+  }
+
+  drag(ev) {
+    ev.dataTransfer.setData('text', ev.target.id);
+  }
+
+  drop(ev) {
+    ev.preventDefault();
+    let data = ev.dataTransfer.getData('text');
+    ev.target.appendChild(document.getElementById(data));
+  }
 }
