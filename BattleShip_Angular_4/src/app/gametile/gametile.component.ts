@@ -72,6 +72,8 @@ export class GametileComponent implements OnInit {
         if (respbody.text() !== '') {
           c('Close click');
           this.gss.updateSubject();
+          this.initGame();
+          this.routeTo('test');
         }
       }
     );
