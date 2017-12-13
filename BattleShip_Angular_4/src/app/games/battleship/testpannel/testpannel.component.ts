@@ -14,24 +14,18 @@ import { IntervalObservable } from 'rxjs/observable/IntervalObservable';
   styleUrls: ['./testpannel.component.css']
 })
 
-export class TestPannelComponent implements OnInit {
+export class TestPannelComponent implements OnInit, OnDestroy {
 
   currUser: User;
   currGame: Game;
   currReport: Report;
   currShipState: Shipstate;
-  currWL: WinLoss;
-  wWL: WinLoss;
-  lWL: WinLoss;
   alive: boolean;
+  reportText: String;
 
 
   constructor( @Inject(Http) public http: Http) {
     this.alive = true;
-  }
-
-  ngOnDestroy() {
-    this.alive = false;
   }
 
   ngOnInit() {
@@ -47,21 +41,10 @@ export class TestPannelComponent implements OnInit {
         console.log(this.currGame);
       },
       (failResp) => {
-        alert('Failed to Load Game');
       }
     );
 
-    let y = 'http://localhost:8080/Battleship/report/loadbygame';
-    y += '?id=' + JSON.parse(sessionStorage.getItem('gmID'));
-    this.http.get(y, { withCredentials: true }).subscribe(
-      (successResp) => {
-        this.currReport = successResp.json();
-        console.log(this.currReport);
-      },
-      (failResp) => {
-        alert('Failed to Load Log');
-      }
-    );
+    this.loadReport();
 
     IntervalObservable.create(3000)
       .takeWhile(() => this.alive) // only fires when component is alive
@@ -71,9 +54,21 @@ export class TestPannelComponent implements OnInit {
             this.currGame = successResp.json();
           },
           (failResp) => {
-            alert('Failed to Load Log');
           });
       });
+  }
+
+  loadReport() {
+    let y = 'http://localhost:8080/Battleship/report/loadbygame';
+    y += '?id=' + JSON.parse(sessionStorage.getItem('gmID'));
+    this.http.get(y, { withCredentials: true }).subscribe(
+      (successResp) => {
+        this.currReport = successResp.json();
+        console.log(this.currReport);
+      },
+      (failResp) => {
+      }
+    );
   }
 
   reinitalize(gmId) {
@@ -87,7 +82,6 @@ export class TestPannelComponent implements OnInit {
         console.log(this.currGame);
       },
       (failResp) => {
-        alert('Failed to Load Game');
       }
     );
     let y = 'http://localhost:8080/Battleship/report/loadbygame';
@@ -98,7 +92,6 @@ export class TestPannelComponent implements OnInit {
         console.log(this.currReport);
       },
       (failResp) => {
-        alert('Failed to Load Log');
       }
     );
   }
@@ -107,7 +100,6 @@ export class TestPannelComponent implements OnInit {
     if (this.currGame.turn) {
       this.currGame.status = 'inprogress';
     }
-    
     this.turnSwap();
     this.update();
   }
@@ -120,7 +112,6 @@ export class TestPannelComponent implements OnInit {
         if (done && this.currShipState.details[0][i] !== 0) {
           this.currShipState.details[0][i] -= 1;
           if (this.currShipState.details[0][i] === 0) {
-            alert('You sunk a ship!');
           }
         }
       }
@@ -134,7 +125,6 @@ export class TestPannelComponent implements OnInit {
         if (done && this.currShipState.details[0][i] !== 0) {
           this.currShipState.details[0][i] -= 1;
           if (this.currShipState.details[0][i] === 0) {
-            alert('You sunk a ship!');
           }
         }
       }
@@ -150,6 +140,35 @@ export class TestPannelComponent implements OnInit {
     } else {
       this.turnSwap();
     }
+  }
+
+  report() {
+    this.currGame.status = 'setup2';
+    this.currGame.turnDeadline.setFullYear(this.currGame.turnDeadline.getFullYear() + 100);
+    this.update();
+    this.currReport.flag = 1;
+    this.currReport.reportDate = new Date();
+
+    if (this.currGame.turn) {
+      this.currReport.claimant = this.currGame.player2Id;
+      this.currReport.defendant = this.currGame.player1Id;
+    } else {
+      this.currReport.claimant = this.currGame.player1Id;
+      this.currReport.defendant = this.currGame.player2Id;
+    }
+
+    this.updateReport();
+  }
+
+  reporttext() {
+    this.loadReport();
+    this.currReport.reportNotes.replace('null', '');
+    this.currReport.reportNotes += 'User ' + this.currUser.id + ': ' + this.reportText + '\n';
+    this.reportText = '';
+
+    console.log(this.currReport);
+    this.updateReport();
+    this.loadReport();
   }
 
   turnSwap() {
@@ -171,12 +190,13 @@ export class TestPannelComponent implements OnInit {
       (successResp) => {
       },
       (failResp) => {
-        alert('Failed Update Game :`(');
       }
     );
   }
 
   getWL(pId) {
+    let currWL = new WinLoss();
+
     let x = 'http://localhost:8080/Battleship/user/getWL';
     x += '?id=' + pId;
     this.http.get(x, { withCredentials: true }).subscribe(
@@ -188,22 +208,22 @@ export class TestPannelComponent implements OnInit {
 
         this.http.get(x, { withCredentials: true }).subscribe(
           (successResp2) => {
-            this.currWL = successResp2.json();
-            console.log(successResp2.json());
-            console.log(this.currWL);
+            currWL = successResp2.json();
           },
           (failResp) => {
-            alert('Failed to W/L');
           }
         );
       },
       (failResp) => {
-        alert('Failed to W/L');
       }
     );
+
+    return currWL;
   }
 
   winnerWL(pId) {
+    let wWL = new WinLoss();
+
     let x = 'http://localhost:8080/Battleship/user/getWL';
     x += '?id=' + pId;
     this.http.get(x, { withCredentials: true }).subscribe(
@@ -215,23 +235,23 @@ export class TestPannelComponent implements OnInit {
 
         this.http.get(x, { withCredentials: true }).subscribe(
           (successResp2) => {
-            this.wWL = successResp2.json();
-            this.wWL.wins += 1;
-            this.wWL.seasonWins += 1;
-            this.saveWL(this.wWL);
+            wWL = successResp2.json();
+            wWL.wins += 1;
+            wWL.seasonWins += 1;
+            this.saveWL(wWL);
           },
           (failResp) => {
-            alert('Failed to W/L');
           }
         );
       },
       (failResp) => {
-        alert('Failed to W/L');
       }
     );
   }
 
   loserWL(pId) {
+    let lWL = new WinLoss();
+
     let x = 'http://localhost:8080/Battleship/user/getWL';
     x += '?id=' + pId;
     this.http.get(x, { withCredentials: true }).subscribe(
@@ -243,18 +263,16 @@ export class TestPannelComponent implements OnInit {
 
         this.http.get(x, { withCredentials: true }).subscribe(
           (successResp2) => {
-            this.lWL = successResp2.json();
-            this.lWL.losses += 1;
-            this.lWL.seasonLosses += 1;
-            this.saveWL(this.lWL);
+            lWL = successResp2.json();
+            lWL.losses += 1;
+            lWL.seasonLosses += 1;
+            this.saveWL(lWL);
           },
           (failResp) => {
-            alert('Failed to W/L');
           }
         );
       },
       (failResp) => {
-        alert('Failed to W/L');
       }
     );
   }
@@ -280,7 +298,6 @@ export class TestPannelComponent implements OnInit {
       (successResp) => {
       },
       (failResp) => {
-        alert('Failed Update W/L :`(');
       }
     );
   }
@@ -290,7 +307,6 @@ export class TestPannelComponent implements OnInit {
       (successResp) => {
       },
       (failResp) => {
-        alert('Failed Update Report :`(');
       }
     );
   }
@@ -306,5 +322,9 @@ export class TestPannelComponent implements OnInit {
     this.update();
     this.updateReport();
     this.updateWL();
+  }
+
+  ngOnDestroy() {
+    this.alive = false;
   }
 }

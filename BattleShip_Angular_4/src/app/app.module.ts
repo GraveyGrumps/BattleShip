@@ -30,7 +30,10 @@ import { MyspaceComponent } from './myspace/myspace.component';
 import { GridComponent } from './games/battleship/grid/grid.component';
 import { ProfileComponent } from './myspace/profile/profile.component';
 import { GlobalchatService } from './services/globalchat.service';
+import { AdminHomeComponent } from './users/adminHome/adminhome.component';
+import { TickettileComponent } from './tickettile/tickettile.component';
 import { StatsComponent } from './myspace/stats/stats.component';
+
 
 
 @NgModule({
@@ -60,7 +63,10 @@ import { StatsComponent } from './myspace/stats/stats.component';
     ProfileComponent,
     GridComponent,
     ProfileComponent,
+    AdminHomeComponent,
+    TickettileComponent,
     StatsComponent
+
   ],
   providers: [GameServiceService,
     WinlossService,
