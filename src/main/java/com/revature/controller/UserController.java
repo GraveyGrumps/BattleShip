@@ -77,14 +77,6 @@ public class UserController {
 	return us.getUserById(id, (User) request.getAttribute("user"));
     }
 
-    @GetMapping("winloss/{id}")
-    @ResponseBody
-    public User getUserByWinlossId(@PathVariable int id) {
-	log.info("Getting user by Winloss id");
-	log.trace("id is: " + id);
-	return us.getUserByWinlossId(id);
-    }
-
     @GetMapping("settings/{userId}")
     @ResponseBody
     public Settings getUserSettings(@PathVariable int userId) {

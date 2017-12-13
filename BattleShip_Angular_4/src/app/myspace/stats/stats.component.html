@@ -1,0 +1,47 @@
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h3>Lifetime</h3>
+  </div>
+  <div class="panel-body">
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th>Wins</th>
+          <th>Losses</th>
+          <th>Ratio</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>{{winLoss.wins}}</td>
+          <td>{{winLoss.losses}}</td>
+          <td>{{(winLoss.wins / winLoss.losses).toPrecision(2)}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h4>Seasonal</h4>
+  </div>
+  <div class="panel-body">
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th>Wins</th>
+          <th>Losses</th>
+          <th>Ratio</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>{{winLoss.seasonWins}}</td>
+          <td>{{winLoss.seasonLosses}}</td>
+          <td>{{(winLoss.seasonWins / winLoss.seasonLosses).toPrecision(2)}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
