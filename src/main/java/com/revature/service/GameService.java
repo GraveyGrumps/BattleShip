@@ -38,7 +38,7 @@ public class GameService {
 	 */
 	public Game addNewGame(Game game) {
 		game.setPostDate(Timestamp.valueOf(LocalDateTime.now()));
-		game.setStatus("inprogress");
+		game.setStatus("pending");
 		game.setTurn(0);
 		game.setTurnDeadline(setTurnDeadline(game.getTurnLength()));
 		log.info("service has finished setting up game: " + game);
