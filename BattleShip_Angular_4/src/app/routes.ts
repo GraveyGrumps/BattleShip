@@ -9,6 +9,7 @@ import { MygamesComponent } from './mygames/mygames.component';
 import { LobbyComponent } from './lobby/lobby.component';
 import { MyspaceComponent } from './myspace/myspace.component';
 import { GridComponent } from './games/battleship/grid/grid.component';
+import { AdminHomeComponent } from './users/adminHome/adminhome.component';
 
 export const appRoutes: Routes = [
   {
@@ -53,7 +54,11 @@ export const appRoutes: Routes = [
   {
     path: 'grid',
     component: GridComponent
-    },
+  },
+  {
+    path: 'admin',
+    component: AdminHomeComponent
+  },
   {
     path: 'lobby',
     component: LobbyComponent

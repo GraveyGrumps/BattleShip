@@ -37,11 +37,10 @@ export class NewGameComponent implements OnInit {
     console.log(JSON.stringify(this.newGame));
     this.http.post('http://localhost:8080/Battleship/game/new', (this.newGame), { withCredentials: true }).subscribe(
       (successResp) => {
-        alert('Creating new game');
         this.gs.updateSubject();
+        this.router.navigateByUrl('game/my');
       },
       (failResp) => {
-        alert('Failed Create new game');
       }
     );
   }

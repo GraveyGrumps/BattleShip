@@ -31,6 +31,8 @@ import { GridComponent } from './games/battleship/grid/grid.component';
 import { ProfileComponent } from './myspace/profile/profile.component';
 import { MyspaceboxComponent } from './myspace/myspacebox/myspacebox.component';
 import { GlobalchatService } from './services/globalchat.service';
+import { AdminHomeComponent } from './users/adminHome/adminhome.component';
+import { TickettileComponent } from './tickettile/tickettile.component';
 
 
 @NgModule({
@@ -60,7 +62,9 @@ import { GlobalchatService } from './services/globalchat.service';
     ProfileComponent,
     MyspaceboxComponent,
     GridComponent,
-    ProfileComponent
+    ProfileComponent,
+    AdminHomeComponent,
+    TickettileComponent
   ],
   providers: [GameServiceService,
   WinlossService,
