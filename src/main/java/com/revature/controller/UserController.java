@@ -17,10 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.revature.daos.UserDao;
-import com.revature.entities.Settings;
 import com.revature.entities.User;
-import com.revature.service.SettingsService;
 import com.revature.service.UserService;
 
 @Controller
@@ -32,10 +29,6 @@ public class UserController {
     private Logger log = Logger.getRootLogger();
     @Autowired
     private UserService us;
-    @Autowired
-    private SettingsService setSvc;
-    @Autowired
-    private UserDao usrDao;
 
     @PostMapping("login")
     @ResponseBody
@@ -75,29 +68,6 @@ public class UserController {
     @ResponseBody
     public User getUserById(@PathVariable int id, HttpServletRequest request) {
 	return us.getUserById(id, (User) request.getAttribute("user"));
-    }
-
-    @GetMapping("settings/{userId}")
-    @ResponseBody
-    public Settings getUserSettings(@PathVariable int userId) {
-	User currentUser = usrDao.getUserById(2); // admin
-	// User currentUser = request.getParameter("user");
-	int settingsId = us.getUserById(userId, currentUser).getSettingsId();
-	return setSvc.findById(settingsId, currentUser);
-    }
-
-    @PutMapping("settings/save")
-    @ResponseBody
-    public Settings saveUserSettings(@RequestBody Settings inputSettings) {
-	User currentUser = usrDao.getUserById(2); // admin
-	// User currentUser = request.getParameter("user");
-	Settings settingsToEdit = setSvc.findById(inputSettings.getId(), currentUser);
-	setSvc.modifyAllowGlobalChat(settingsToEdit, inputSettings.getGlobalChat(), currentUser);
-	setSvc.modifyInGameChat(settingsToEdit, inputSettings.getInGameChat(), currentUser);
-	setSvc.modifyAllowFriendRequests(settingsToEdit, inputSettings.getAcceptFriendship(), currentUser);
-	setSvc.modifyAllowChallenges(settingsToEdit, inputSettings.getAllowChallenges(), currentUser);
-	setSvc.modifyViewableProfile(settingsToEdit, inputSettings.getViewable(), currentUser);
-	return setSvc.findById(inputSettings.getId(), currentUser);
     }
 
     @GetMapping("getWL")

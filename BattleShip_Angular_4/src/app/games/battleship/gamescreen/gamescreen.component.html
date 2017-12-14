@@ -1,4 +1,3 @@
-<p>{{game?.status}}</p>
 <div class="container">
   <div class="row">
     <div class="col-8">
@@ -9,12 +8,12 @@
       <label class = "badge badge-primary">Game Status</label>
       <p>{{game.status}}</p>
       <label class = "badge badge-primary">Who's Turn</label>
-      <p>{{game.turn}}</p>
+      <p>{{isItMyTurn()}}</p>
       <label class = "badge badge-primary">Turn Ends</label>
       <p>{{game.turnDeadline | date : 'medium'}}</p>
     </div>
     <div class="col-2">
-      in game chat
+      <app-ingamechat [report] = "report"></app-ingamechat>
     </div>
   </div>
 </div>

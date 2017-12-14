@@ -8,6 +8,7 @@ import { MygamesComponent } from './mygames/mygames.component';
 import { LobbyComponent } from './lobby/lobby.component';
 import { MyspaceComponent } from './myspace/myspace.component';
 import { GridComponent } from './games/battleship/grid/grid.component';
+import { SettingsComponent } from './settings/settings.component';
 
 import { AdminHomeComponent } from './users/adminHome/adminhome.component';
 
@@ -66,6 +67,10 @@ export const appRoutes: Routes = [
   {
     path: 'lobby',
     component: LobbyComponent
+  },
+  {
+    path: 'settings',
+    component: SettingsComponent
   },
   {
     path: '**',

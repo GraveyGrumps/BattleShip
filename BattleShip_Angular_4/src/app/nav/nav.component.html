@@ -5,17 +5,17 @@
     <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
       <button class="dropdown-item" (click)="routeTo('/users/home')">Home</button>
       <button class="dropdown-item" (click)="routeTo('admin')" *ngIf="this.user.admin">Admin Tools</button>
-      <button class="dropdown-item" (click)= "routeTo('leaderboard')">Leaderboards</button>
+      <button class="dropdown-item" (click)="routeTo('leaderboard')">Leaderboards</button>
       <button class="dropdown-item" (click)="routeTo('lobby')">Lobby</button>
       <button class="dropdown-item" (click)="routeTo('grid')">Test</button>
       <button class="dropdown-item" (click)="routeTo('game/new')">Create New Game</button>
       <button class="dropdown-item" (click)="routeTo('game/my')">My Games</button>
       <button class="dropdown-item" (click)="routeTo('users/myspace')">My Profile</button>
-      <button class="dropdown-item" (click) = "routeTo('/login')">Logout</button>
+      <button class="dropdown-item" (click)="routeTo('/login')">Logout</button>
     </div>
   </div>
 
-  <div  class="float">
+  <div class="float">
     <div class="collapse navbar-collapse" id="navbarsExample04">
       <ul class="navbar-nav mr-auto">
         <li class="nav-item active">
@@ -24,10 +24,10 @@
           </a>
         </li>
         <li class="nav-item active">
-            <a class="nav-link" (click)= "routeTo('admin')" *ngIf="this.user.admin">Admin Tools</a>
-          </li>
+          <a class="nav-link" (click)="routeTo('admin')" *ngIf="this.user.admin">Admin Tools</a>
+        </li>
         <li class="nav-item active">
-          <a class="nav-link" (click)= "routeTo('leaderboard')">Leaderboards</a>
+          <a class="nav-link" (click)="routeTo('leaderboard')">Leaderboards</a>
         </li>
         <li class="nav-item active">
           <a class="nav-link" (click)="routeTo('lobby')">Lobby</a>
@@ -47,16 +47,16 @@
           <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
             <button class="dropdown-item">Friends</button>
             <button class="dropdown-item">Private Messages</button>
-            <button class="dropdown-item">Settings</button>
+            <button class="dropdown-item" (click)="routeTo('/settings')">Settings</button>
             <button class="dropdown-item">Log Out</button>
           </div>
         </li>
         <li>
-          <img *ngIf= "user === null" id="profile-img" class="profile-img-card" src="//ssl.gstatic.com/accounts/ui/avatar_2x.png" />
-          <img *ngIf = "user !== null" id="profile-img" class="profile-img-card" (click)="routeTo('users/myspace')"  src = {{user.profilePic}} />
+          <img *ngIf="user === null" id="profile-img" class="profile-img-card" src="//ssl.gstatic.com/accounts/ui/avatar_2x.png" />
+          <img *ngIf="user !== null" id="profile-img" class="profile-img-card" (click)="routeTo('users/myspace')" src={{user.profilePic}}/>
         </li>
-        <li class = "nav-item active">
-          <a class = "nav-link" (click) = "routeTo('/login')">Logout</a>
+        <li class="nav-item active">
+          <a class="nav-link" (click)="routeTo('/login')">Logout</a>
         </li>
       </ul>
     </div>
