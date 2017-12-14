@@ -5,7 +5,13 @@
       <app-game [game]="game" [user] = "user"></app-game>
     </div>
     <div class="col-2">
-      ship state
+      <h2>Game info</h2>
+      <label class = "badge badge-primary">Game Status</label>
+      <p>{{game.status}}</p>
+      <label class = "badge badge-primary">Who's Turn</label>
+      <p>{{game.turn}}</p>
+      <label class = "badge badge-primary">Turn Ends</label>
+      <p>{{game.turnDeadline | date : 'medium'}}</p>
     </div>
     <div class="col-2">
       in game chat
