@@ -13,6 +13,7 @@ import { Settings } from '../beans/Settings';
   styleUrls: ['./ingamechat.component.css']
 })
 export class IngamechatComponent implements OnInit, OnDestroy, DoCheck {
+
   private static flag: boolean;
   @Input()
   private report: Report;
@@ -25,9 +26,11 @@ export class IngamechatComponent implements OnInit, OnDestroy, DoCheck {
   settings: Settings = new Settings;
 
   ngOnInit() {
-    this.user = JSON.parse(sessionStorage.getItem('user'));
-    this.getSettings();
-  }
+      this.user = JSON.parse(sessionStorage.getItem('user'));
+      if (!this.report.chatLog) {
+        this.report.chatLog += (`*`);
+      }
+    }
 
   ngDoCheck() {
   }

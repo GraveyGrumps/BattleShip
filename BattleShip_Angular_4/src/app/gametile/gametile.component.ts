@@ -99,4 +99,15 @@ export class GametileComponent implements OnInit {
   routeTo(location) {
     this.router.navigateByUrl(location);
   }
+
+  endGame() {
+    this.game.status = 'complete';
+    this.http.put('http://localhost:8080/Battleship/game/modify', (this.game), { withCredentials: true }).subscribe(
+      (successResp) => {
+      },
+      (failResp) => {
+        alert('Failed Update Game :`(');
+      }
+    );
+  }
 }
