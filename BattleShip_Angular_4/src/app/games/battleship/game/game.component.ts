@@ -79,22 +79,18 @@ export class GameComponent implements OnInit, DoCheck, OnDestroy {
     this.loadBoards();
   }
   ngDoCheck() {
-    //console.log(JSON.stringify(this.boardstate) === this.game.boardState);
     if (this.boardstate !== this.game.boardState) {
       this.boardstate = JSON.parse(this.game.boardState);
       this.shipstate = JSON.parse(this.game.shipState);
       if (this.user.id === this.game.player1Id) {
-        //this.whatUserAmI = 0;
-        if(this.game.status === 'inprogress') {
+        if (this.game.status === 'inprogress') {
           this.myboard = this.boardstate.p1board;
           this.myShipsStatus = this.shipstate.p1ships;
         }
-        
         this.opboard = this.boardstate.p2board;
         this.opShipsStatus = this.shipstate.p2ships;
       } else {
-        //this.whatUserAmI = 1;
-        if(this.game.status === 'inprogress') {
+        if (this.game.status === 'inprogress') {
           this.myboard = this.boardstate.p2board;
           this.myShipsStatus = this.shipstate.p2ships;
         }
@@ -155,12 +151,10 @@ export class GameComponent implements OnInit, DoCheck, OnDestroy {
     console.log('checking for ships at: ' + loc1, loc2);
     console.log(this.opboard[loc1][loc2]);
     if (this.opboard[loc1][loc2] === -1) {
-      // document.getElementById('0' + loc1.toString() + loc2.toString()).className = 'boardgridwhite';
       this.opboard[loc1][loc2] = 0;
     } else {
       const value = this.opboard[loc1][loc2];
       this.opboard[loc1][loc2] = 1;
-      // document.getElementById('0' + loc1.toString() + loc2.toString()).className = 'boardgridred';
       this.damageShip(value);
     }
     this.checkEnd();
@@ -176,6 +170,8 @@ export class GameComponent implements OnInit, DoCheck, OnDestroy {
     // if has ship
     if (this.currentship !== -1 && !this.placed[this.currentship - 2]) {
       // check down
+      console.log('down');
+      console.log(this.down);
       if (this.down) {
         // check for placing down
         if (loc1 + this.myShipsStatus[this.currentship - 2] <= 10 && this.collisionCheck(this.down, loc1, loc2)) {
@@ -193,14 +189,17 @@ export class GameComponent implements OnInit, DoCheck, OnDestroy {
           while (temp < 10 && temp < loc1 + this.myShipsStatus[this.currentship - 2]) {
             this.holderarray.push([temp, loc2]);
             if (this.myboard[temp][loc2] === -1) {
+              console.log('red at: ' + temp, loc2);
               document.getElementById('1' + temp.toString() + loc2.toString()).className = 'boardgridred';
+              //this.myboard[temp][loc2] = 1;
             }
             temp++;
           }
           this.validplacement = false;
         }
       } else {
-        if (loc2 + this.myShipsStatus[this.currentship] <= 10 && this.collisionCheck(this.down, loc1, loc2)) {
+        console.log('checking right');
+        if (loc2 + this.myShipsStatus[this.currentship - 2] <= 10 && this.collisionCheck(this.down, loc1, loc2)) {
           console.log('can place right');
           let temp = loc2;
           while (temp < loc2 + this.myShipsStatus[this.currentship - 2]) {
@@ -215,7 +214,9 @@ export class GameComponent implements OnInit, DoCheck, OnDestroy {
           while (temp < 10 && temp < loc2 + this.myShipsStatus[this.currentship - 2]) {
             this.holderarray.push([loc1, temp]);
             if (this.myboard[loc1][temp] === -1) {
+              console.log('red at: ' + temp, loc2);
               document.getElementById('1' + loc1.toString() + temp.toString()).className = 'boardgridred';
+              //this.myboard[loc1][temp] = 1;
             }
             temp++;
           }
@@ -229,8 +230,8 @@ export class GameComponent implements OnInit, DoCheck, OnDestroy {
     console.log(this.holderarray);
     if (this.holderarray.length > 0) {
       for (const elem of this.holderarray) {
-        // console.log(elem);
-        // console.log(this.board[elem[0]][elem[1]] );
+        console.log(elem);
+        console.log(this.myboard[elem[0]][elem[1]] );
 
         if (this.validplacement) {
           this.myboard[elem[0]][elem[1]] = -1;
@@ -245,10 +246,12 @@ export class GameComponent implements OnInit, DoCheck, OnDestroy {
   }
 
   collisionCheck(isDown: boolean, loc1: number, loc2: number) {
-    console.log('the current ship is: ' + this.myShipsStatus[this.currentship]);
+    console.log('the current ship is: ' + this.myShipsStatus[this.currentship - 2]);
+    console.log(this.myShipsStatus);
+    console.log(this.currentship);
     if (isDown) {
       let temp = loc1;
-      while (temp < 10 && temp < loc1 + this.myShipsStatus[this.currentship]) {
+      while (temp <= 10 && temp < loc1 + this.myShipsStatus[this.currentship - 2]) {
         console.log('board');
         console.log(this.myboard[temp][loc2]);
         console.log('location');
@@ -265,12 +268,13 @@ export class GameComponent implements OnInit, DoCheck, OnDestroy {
       }
     } else {
       let temp = loc2;
-      while (temp < 10 && temp < loc2 + this.myShipsStatus[this.currentship]) {
+      while (temp <= 10 && temp < loc2 + this.myShipsStatus[this.currentship - 2]) {
         console.log('board');
         console.log(this.myboard[loc1][temp]);
         console.log('location');
         console.log(loc1, temp);
         if (this.myboard[loc1][temp] !== -1) {
+          this.validplacement = false;
           return false;
         }
         temp++;
@@ -286,7 +290,7 @@ export class GameComponent implements OnInit, DoCheck, OnDestroy {
       this.placed[this.currentship - 2] = true;
     }
     this.currentship = this.ship[ship];
-
+    console.log(this.currentship);
   }
   clearBoardErrors() {
     console.log(this.myboard);
@@ -395,7 +399,6 @@ export class GameComponent implements OnInit, DoCheck, OnDestroy {
         console.log('successResp');
         console.log(successResp.json());
         console.log(this.game.turn);
-        //alert('success');
       },
       (failResp) => {
         alert('Failed Update Game :`(');
@@ -426,7 +429,7 @@ export class GameComponent implements OnInit, DoCheck, OnDestroy {
         opId = this.game.player1Id;
       }
       console.log('opId: ' + opId);
-      this.us.getSubject().subscribe( (user) => {
+      this.us.getSubject().subscribe((user) => {
         if (user.length !== 0) {
           op = user.filter(i => i.id === opId)[0];
           console.log(op);
