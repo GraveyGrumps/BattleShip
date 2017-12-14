@@ -14,7 +14,7 @@ export class SettingsComponent implements OnInit {
 
   currentUser: User;
   settings: Settings = new Settings;
-  newUsername = '';
+  newEmail = '';
   newPassword = '';
   passwordConfirm = '';
   updatedUser = false;
@@ -41,8 +41,8 @@ export class SettingsComponent implements OnInit {
     this.settings.allowChallenges = this.boolToNum(this.settings.allowChallenges);
     this.settings.viewable = this.boolToNum(this.settings.viewable);
 
-    if (this.newUsername.length > 0) {
-      this.currentUser.username = this.newUsername;
+    if (this.newEmail.length > 0) {
+      this.currentUser.email = this.newEmail;
       this.updatedUser = true;
     }
 
@@ -50,9 +50,6 @@ export class SettingsComponent implements OnInit {
       this.currentUser.password = this.newPassword;
       this.updatedUser = true;
     }
-
-    console.log('this.currentUser.username: ' + this.currentUser.username);
-    console.log('this.currentUser.password: ' + this.currentUser.password);
 
     this.http.put(environment.context + '/settings/save/', this.settings)
       .subscribe((succResp) => {
