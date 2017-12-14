@@ -29,8 +29,11 @@ import { LobbyComponent } from './lobby/lobby.component';
 import { MyspaceComponent } from './myspace/myspace.component';
 import { GridComponent } from './games/battleship/grid/grid.component';
 import { ProfileComponent } from './myspace/profile/profile.component';
-import { MyspaceboxComponent } from './myspace/myspacebox/myspacebox.component';
 import { GlobalchatService } from './services/globalchat.service';
+import { AdminHomeComponent } from './users/adminHome/adminhome.component';
+import { TickettileComponent } from './tickettile/tickettile.component';
+import { StatsComponent } from './myspace/stats/stats.component';
+
 import { GameComponent } from './games/battleship/game/game.component';
 import { GamescreenComponent } from './games/battleship/gamescreen/gamescreen.component';
 import { ShipstatusComponent } from './games/battleship/shipstatus/shipstatus.component';
@@ -62,18 +65,22 @@ import { HealthstatusComponent } from './games/battleship/healthstatus/healthsta
     LobbyComponent,
     MyspaceComponent,
     ProfileComponent,
-    MyspaceboxComponent,
     GridComponent,
     ProfileComponent,
+
+   AdminHomeComponent,
+    TickettileComponent,
+    StatsComponent,
     GameComponent,
     GamescreenComponent,
     ShipstatusComponent,
     HealthstatusComponent
+
   ],
   providers: [GameServiceService,
-  WinlossService,
-  UserService,
-  GlobalchatService],
+    WinlossService,
+    UserService,
+    GlobalchatService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

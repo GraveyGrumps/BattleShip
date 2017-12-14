@@ -8,8 +8,12 @@ import { MygamesComponent } from './mygames/mygames.component';
 import { LobbyComponent } from './lobby/lobby.component';
 import { MyspaceComponent } from './myspace/myspace.component';
 import { GridComponent } from './games/battleship/grid/grid.component';
+
+import { AdminHomeComponent } from './users/adminHome/adminhome.component';
+
 import { GameComponent } from './games/battleship/game/game.component';
 import { GamescreenComponent } from './games/battleship/gamescreen/gamescreen.component';
+
 
 export const appRoutes: Routes = [
   {
@@ -52,9 +56,13 @@ export const appRoutes: Routes = [
     component: GameComponent
   },
   {
+    path: 'admin',
+    component: AdminHomeComponent
+  },
+  {
     path: 'gamer',
     component: GamescreenComponent
-    },
+  },
   {
     path: 'lobby',
     component: LobbyComponent

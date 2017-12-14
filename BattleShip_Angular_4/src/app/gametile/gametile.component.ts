@@ -10,6 +10,7 @@ import { NgbModalRef } from '@ng-bootstrap/ng-bootstrap/modal/modal-ref';
 import { environment } from '../../environments/environment';
 import { Router } from '@angular/router';
 import { GameServiceService } from '../services/game-service.service';
+import { Report } from '../beans/Report';
 // import { TestPannelComponent } from '../games/battleship/testpannel/testpannel.component';
 @Component({
   selector: 'app-gametile',
@@ -29,6 +30,9 @@ export class GametileComponent implements OnInit {
   gameUser: User;
   winloss: WinLoss;
   usernames: Array<String> = [];
+  @Input()
+  ticket: Report;
+
   constructor(private router: Router, private modalService: NgbModal, private http: Http, private gss: GameServiceService) {
   }
 
@@ -60,7 +64,7 @@ export class GametileComponent implements OnInit {
   }
 
   startGame(c) {
-    if (this.game.player1Id == this.user.id) {
+    if (this.game.player1Id === this.user.id) {
       c('Close click');
       alert('cannot start a game with yourself');
       return;

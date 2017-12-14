@@ -52,18 +52,18 @@ export class LoginComponent implements OnInit {
       return;
     } else {
       this.http.post(environment.context + '/user/new', this.user, { withCredentials: true })
-      .subscribe((succResp) => {
-        if (succResp.text() !== '') {
-          alert('successfully made user');
-          this.user.username = '';
-          this.user.email = '';
-          this.user.password = '';
-          this.user.profilePic = '';
-          c('close');
-        } else {
-          alert('failed to create user');
-        }
-       });
+        .subscribe((succResp) => {
+          if (succResp.text() !== '') {
+            alert('successfully made user');
+            this.user.username = '';
+            this.user.email = '';
+            this.user.password = '';
+            this.user.profilePic = '';
+            c('close');
+          } else {
+            alert('failed to create user');
+          }
+        });
     }
   }
 }

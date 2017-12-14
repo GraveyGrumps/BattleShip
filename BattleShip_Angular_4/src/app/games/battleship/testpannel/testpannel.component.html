@@ -1,4 +1,4 @@
-<div class="container" *ngIf="this.currGame.player1Id == this.currUser.id">
+<div class="container" *ngIf="this.currGame.player1Id == this.currUser.id && this.currGame.status != 'setup2'">
   <div class="card card-container" *ngIf="this.currGame.status == 'complete'">
     <div *ngIf="!this.currGame.turn">
       You Won!!!!!!!!!!!!!!!!!!!!!!!!!
@@ -78,4 +78,24 @@
   <div class="card card-container" *ngIf="!this.currGame.turn && this.currGame.status == 'setup1'">
     Player 1 is setting up
   </div>
+</div>
+
+<div class="container">
+  <div class="card card-container" *ngIf="this.currGame.status != 'setup1' && this.currGame.status != 'setup2'">
+    <button class="btn btn-lg btn-primary btn-block btn-signin" (click)="report()">
+      Report Game
+    </button>
+  </div>
+  <div class="card card-container" *ngIf="this.currGame.status == 'setup2'">
+    This Game Has Been Reported
+  </div>
+  <div class="card card-container" *ngIf="this.currGame.status == 'setup2'">
+    
+    <label for="report-in">Would you like to add to the report?</label>
+    <input type="text" class="form-control" id="report-in" [(ngModel)]="this.reportText">
+    <button class="btn btn-lg btn-primary btn-block btn-signin" (click)="reporttext()">
+      Report
+    </button>
+
+  </div> 
 </div>

@@ -6,6 +6,7 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -83,5 +84,12 @@ public class GameController {
 	log.info("Updating a game");
 	log.trace("Game is: " + game);
 	return gs.updateGame(game);
+    }
+    
+    @DeleteMapping("{id}")
+    @ResponseBody
+    public void deleteGame(@PathVariable int id) {
+	log.info("Deleting games with id: " + id);
+	gs.delete(id);
     }
 }

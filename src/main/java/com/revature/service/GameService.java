@@ -86,4 +86,9 @@ public class GameService {
     }
 
 
+	public void delete(int id) {
+		gd.deleteGameById(id);
+	}
+
+
 }

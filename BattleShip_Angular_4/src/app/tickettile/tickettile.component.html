@@ -1,0 +1,66 @@
+<div class="container align-items-center" id="gameTile" (click)="showModal(content)" *ngIf="ticket.flag == 1">
+  <div class="row vertical-align">
+    <div class="col-xs col-centered">
+      <img class="Img" src="assets/img/battleshipcover.jpg">
+      <p id="gameName">BattleShip</p>
+    </div>
+    <div class="col-xs col-centered">
+      <label class="badge badge-primary">Game Reported On</label>
+      <p>{{ticket?.reportDate | date: 'short'}}</p>
+    </div>
+    <div class="col-xs col-centered">
+      <label class="badge badge-primary">Claimant</label>
+      <p>{{claimant?.username}}</p>
+      <label class="badge badge-primary">Defendant</label>
+      <p>{{defendant?.username}}</p>
+
+    </div>
+  </div>
+</div>
+
+
+<ng-template #content let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title">Report</h4>
+    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="container">
+      <div class="row">
+        <div class="col">
+          <img class="Img" src="assets/img/battleshipcover.jpg">
+        </div>
+        <div class="col">
+          <div>
+            <label class="badge badge-warning">Game Reported On</label>
+            <p> {{ticket?.reportDate | date: 'medium'}}</p>
+            <label class="badge badge-primary">Claimant</label>
+            <p>{{claimant?.username}}</p>
+            <label class="badge badge-primary">Defendant</label>
+            <p>{{defendant?.username}}</p>
+          </div>
+        </div>
+
+        <div class="col">
+          <label class="badge badge-primary">Report Notes</label>
+          <p>{{ticket?.reportNotes}}</p>
+        </div>
+
+        <div class="col">
+          <label class="badge badge-primary">Chat Log</label>
+          <p>{{ticket?.chatLog}}</p>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-primary" (click)="c('Close click');dismiss()">Dismiss</button>
+        <button type="button" class="btn btn-warning" (click)="deleteGame();c('Close click')">Delete Game</button>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-danger" (click)="punishClaimant();c('Close click')">Punish Claimant</button>
+      <button type="button" class="btn btn-danger" (click)="punishDefendant();c('Close click')">Punish Defendant</button>
+    </div>
+  </div>
+</ng-template>

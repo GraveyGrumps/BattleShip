@@ -37,7 +37,7 @@ public class ReportService {
 	// }
     }
 
-    public List<Report> getFlaggedReports(User currentUser) {
+    public List<Report> getFlaggedReports() {
 	// if (ValidationUtil.validateAdmin(currentUser)) {
 	return rpDao.getFlaggedReports();
 	// } else {
