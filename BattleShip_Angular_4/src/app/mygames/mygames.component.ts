@@ -38,15 +38,19 @@ export class MygamesComponent implements OnInit, OnDestroy {
         this.sub = this.http.get(environment.context + '/game/' + this.user.id).subscribe(
           (games) => {
             if (games.text() !== '') {
-              console.log(games.json());
-              this.games = games.json();
-              this.sortgames();
+              if (JSON.stringify(this.games) !== JSON.stringify(games.json())) {
+                this.games = games.json();
+                this.sortgames();
+                console.log(games);
+              }
             }
           });
         this.us.getSubject().subscribe(
           (users) => {
             if (users !== null) {
-              this.users = users;
+              if (JSON.stringify(this.users) !== JSON.stringify(users)) {
+                this.users = users;
+              }
             }
           });
       });

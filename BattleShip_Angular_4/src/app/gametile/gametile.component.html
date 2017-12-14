@@ -20,7 +20,7 @@
     </div>
     <div class="col-xs col-centered" *ngIf="gamePending">
       <img class="Img" src= {{gameUser?.profilePic}}>
-      <p id="oponentName">{{gameUser?.username}}</p>
+      <p id="oponentName">{{gameUser1?.username}}</p>
     </div>
     <div class="col-xs col-centered" *ngIf="!gamePending">
       <label class = "badge badge-primary">Game Status </label>
@@ -55,8 +55,8 @@
 
         </div>
         <div class="col">
-          <img class="Img" src= {{gameUser?.profilePic}}>
-          <p id="oponentName">{{gameUser.username}}</p>
+          <img class="Img" src= {{gameUser1?.profilePic}}>
+          <p id="oponentName">{{gameUser1?.username}}</p>
           <label class="badge badge-danger"> Win / Losses</label>
           <p> {{winloss.wins}} / {{winloss.losses}}</p>
         </div>
