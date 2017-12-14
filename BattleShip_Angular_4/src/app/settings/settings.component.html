@@ -5,14 +5,14 @@
     <div class="col-sm-5">
       <div class="form-group">
         <label for="usr">Change username:</label>
-        <input type="text" placeholder="New username" class="form-control" id="usr">
+        <input type="text" placeholder="New username" class="form-control" id="usr" [(ngModel)]="newUsername">
       </div>
       <div class="form-group">
         <label for="pwd">Change password:</label>
-        <input type="password" placeholder="New password" class="form-control" id="pwd">
+        <input type="password" placeholder="New password" class="form-control" id="pwd" [(ngModel)]="newPassword">
       </div>
       <!-- <div class="form-group"> -->
-      <input type="password" placeholder="Confirm new password" class="form-control" id="pwd">
+      <input type="password" placeholder="Confirm new password" class="form-control" id="pwd" [(ngModel)]="passwordConfirm">
       <!-- </div> -->
     </div>
     <div class="col-sm-5">

@@ -14,6 +14,10 @@ export class SettingsComponent implements OnInit {
 
   currentUser: User;
   settings: Settings = new Settings;
+  newUsername = '';
+  newPassword = '';
+  passwordConfirm = '';
+  updatedUser = false;
 
   constructor(private http: Http, private modalService: NgbModal) {
   }
@@ -36,16 +40,36 @@ export class SettingsComponent implements OnInit {
     this.settings.acceptFriendship = this.boolToNum(this.settings.acceptFriendship);
     this.settings.allowChallenges = this.boolToNum(this.settings.allowChallenges);
     this.settings.viewable = this.boolToNum(this.settings.viewable);
-    // console.log(this.settings);
+
+    if (this.newUsername.length > 0) {
+      this.currentUser.username = this.newUsername;
+      this.updatedUser = true;
+    }
+
+    if (this.newPassword.length > 0 && this.newPassword === this.passwordConfirm) {
+      this.currentUser.password = this.newPassword;
+      this.updatedUser = true;
+    }
+
+    console.log('this.currentUser.username: ' + this.currentUser.username);
+    console.log('this.currentUser.password: ' + this.currentUser.password);
 
     this.http.put(environment.context + '/settings/save/', this.settings)
       .subscribe((succResp) => {
         if (succResp.text() !== '') {
-          alert('settings saved.');
+          alert('Your settings have been updated.');
         } else {
-          alert('settings failed to save.');
+          alert('Something went wrong.');
         }
       });
+
+    if (this.updatedUser) {
+      this.http.put(environment.context + '/user/modify', this.currentUser)
+        .subscribe((succResp) => { });
+
+      this.http.put(environment.context + '/user/login', this.currentUser)
+        .subscribe((succResp) => { });
+    }
   }
 
   boolToNum(bool) {
