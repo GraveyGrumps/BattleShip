@@ -31,13 +31,13 @@ A web based battleship game that updates player actions without reloading the pa
 |As a user, I can change my email address.|1|
 |As a user, I can change my password.|1|
 |As a user, I can forfeit a game.|2| X|
-|As a user, I can view my ship placement board.|2|
-|As a user, I can view my missile fire location board.|3|
-|As a user, I can place my ships legally.|13|
-|As a user, I can place missiles.|3|
-|As a user, I can sink my opponent’s ships.|2|
-|As a user, I can win a game.|2|
-|As a user, I can lose a game.|2|
+|As a user, I can view my ship placement board.|2|X
+|As a user, I can view my missile fire location board.|3|X
+|As a user, I can place my ships legally.|13|X
+|As a user, I can place missiles.|3|X
+|As a user, I can sink my opponent’s ships.|2|X
+|As a user, I can win a game.|2|X
+|As a user, I can lose a game.|2|X
 |As a user, I can view my win/loss ratio.|1| X
 |As a user, I can view other users' win/loss ratio.|3| X
 |As a user, I can view a global leaderboard.|2| X
