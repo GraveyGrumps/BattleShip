@@ -1,3 +1,10 @@
-<p>
-  ingamechat works!
-</p>
+<div id="chatboxDiv">
+  <h3>In Game Chat</h3>
+
+  <div *ngFor="let line of globalchat">
+    <span>{{line}}</span>
+  </div>
+  <div id="inputdiv">
+    <input type="text" id="chat" #chat (keyup.enter)="onKey(chat)" placeholder="Talk to Global Chat">
+  </div>
+</div>
