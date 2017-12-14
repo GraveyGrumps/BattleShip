@@ -10,7 +10,7 @@ import { NgbModalRef } from '@ng-bootstrap/ng-bootstrap/modal/modal-ref';
 import { environment } from '../../environments/environment';
 import { Router } from '@angular/router';
 import { GameServiceService } from '../services/game-service.service';
-import { TestPannelComponent } from '../games/battleship/testpannel/testpannel.component';
+//import { TestPannelComponent } from '../games/battleship/testpannel/testpannel.component';
 import { Report } from '../beans/Report';
 import { IntervalObservable } from 'rxjs/observable/IntervalObservable';
 

@@ -1,6 +1,5 @@
 body,html, div {
   height: 100%;
-  background: black;
   background-size: 100% 100%;
   background-repeat: no-repeat;
 }
@@ -54,4 +53,7 @@ body,html, div {
   text-shadow: -3px 0 black, 0 3px black, 3px 0 black, 0 -3px black;
   /* text-shadow: -1px 0 white, 0 1px white, 1px 0 white, 0 -1px white; */
   text-align: center;
+}
+img {
+  width: 50px;
 }
