@@ -1,17 +1,20 @@
-import { Component, OnInit, Input, DoCheck } from '@angular/core';
+import { Component, OnInit, Input, DoCheck, OnDestroy } from '@angular/core';
 import { Game } from '../beans/Game';
 import { User } from '../../../beans/User';
 import { Http } from '@angular/http';
 import { Boardstate2 } from '../beans/boardstate2';
 import { Shipstate } from '../beans/Shipstate';
 import { WinLoss } from '../../../beans/WinLoss';
+import { IntervalObservable } from 'rxjs/observable/IntervalObservable';
+import { GameServiceService } from '../../../services/game-service.service';
+import { UserService } from '../../../services/user.service';
 
 @Component({
   selector: 'app-game',
   templateUrl: './game.component.html',
   styleUrls: ['./game.component.css']
 })
-export class GameComponent implements OnInit, DoCheck {
+export class GameComponent implements OnInit, DoCheck, OnDestroy {
 
   @Input()
   game: Game;
@@ -37,8 +40,10 @@ export class GameComponent implements OnInit, DoCheck {
   whatUserAmI;
   boardstate;
   shipstate;
+  alive = true;
+  settingup;
   canInteract: boolean;
-  constructor(private http: Http) { }
+  constructor(private http: Http, private gss: GameServiceService, private us: UserService) { }
 
   ngOnInit() {
     console.log(this.game);
@@ -57,9 +62,10 @@ export class GameComponent implements OnInit, DoCheck {
       this.myShipsStatus = this.shipstate.p2ships;
       this.opShipsStatus = this.shipstate.p1ships;
     }
-    console.log(this.myboard);
-    console.log(this.opboard);
     console.log(this.game);
+    if (JSON.stringify(this.boardstate) !== this.game.boardState) {
+      console.log('boards are wrong');
+    }
     if (this.game.turn !== this.whatUserAmI) {
       this.canInteract = false;
       console.log('not your turn!');
@@ -70,19 +76,41 @@ export class GameComponent implements OnInit, DoCheck {
         this.isplaying = true;
       }
     }
-    // this.board = [[-1,-1,-1,-1,-1,-1,-1-1][2,-1,-1,-1,-1,-1,-1,-1]];
+    this.loadBoards();
   }
   ngDoCheck() {
-    if(this.game.status === 'inprogress') {
+    //console.log(JSON.stringify(this.boardstate) === this.game.boardState);
+    if (this.boardstate !== this.game.boardState) {
+      this.boardstate = JSON.parse(this.game.boardState);
+      this.shipstate = JSON.parse(this.game.shipState);
+      if (this.user.id === this.game.player1Id) {
+        //this.whatUserAmI = 0;
+        if(this.game.status === 'inprogress') {
+          this.myboard = this.boardstate.p1board;
+          this.myShipsStatus = this.shipstate.p1ships;
+        }
+        
+        this.opboard = this.boardstate.p2board;
+        this.opShipsStatus = this.shipstate.p2ships;
+      } else {
+        //this.whatUserAmI = 1;
+        if(this.game.status === 'inprogress') {
+          this.myboard = this.boardstate.p2board;
+          this.myShipsStatus = this.shipstate.p2ships;
+        }
+        this.opboard = this.boardstate.p1board;
+        this.opShipsStatus = this.shipstate.p1ships;
+      }
+      this.loadBoards();
+    }
+
+    if (this.game.status === 'inprogress') {
       this.isplaying = true;
     } else if (this.game.status !== 'complete') {
       this.isplaying = false;
     }
     if (this.game.turn === this.whatUserAmI) {
-      // console.log(this.game.turn);
-      // console.log(this.whatUserAmI);
       this.canInteract = true;
-      this.loadBoards();
     } else {
       this.canInteract = false;
     }
@@ -90,6 +118,7 @@ export class GameComponent implements OnInit, DoCheck {
 
   fire(board, loc1, loc2) {
     console.log('fire information');
+    console.log(this.boards);
     console.log(board, loc1, loc2);
     console.log(this.isplaying);
     if (!this.canInteract) {
@@ -145,7 +174,7 @@ export class GameComponent implements OnInit, DoCheck {
   }
   placeShip(loc1: number, loc2: number) {
     // if has ship
-    if (this.currentship !== -1 && !this.placed[this.currentship]) {
+    if (this.currentship !== -1 && !this.placed[this.currentship - 2]) {
       // check down
       if (this.down) {
         // check for placing down
@@ -338,6 +367,8 @@ export class GameComponent implements OnInit, DoCheck {
   submitMove() {
     this.canInteract = false;
     console.log('submitting');
+    console.log(this.whatUserAmI);
+    console.log(this.game);
     if (this.whatUserAmI === 0) {
       this.boardstate.p1board = this.myboard;
       this.boardstate.p2board = this.opboard;
@@ -354,18 +385,25 @@ export class GameComponent implements OnInit, DoCheck {
       this.shipstate.p2ships = this.myShipsStatus;
       this.game.status = 'inprogress';
     }
+    console.log('board state and ship state');
     this.game.boardState = JSON.stringify(this.boardstate);
     this.game.shipState = JSON.stringify(this.shipstate);
     this.game.turn = ((this.game.turn + 1) % 2);
+    console.log(this.game);
     this.http.put('http://localhost:8080/Battleship/game/modify', (this.game), { withCredentials: true }).subscribe(
       (successResp) => {
+        console.log('successResp');
+        console.log(successResp.json());
         console.log(this.game.turn);
-        alert('success');
+        //alert('success');
       },
       (failResp) => {
         alert('Failed Update Game :`(');
       }
     );
+
+
+    this.settingup = false;
   }
   checkEnd() {
     // check p1 ships
@@ -377,22 +415,30 @@ export class GameComponent implements OnInit, DoCheck {
       }
     }
     if (!flag) {
+      console.log('no flag');
       let myWin: WinLoss;
       let opWin: WinLoss;
       let opId: number;
+      let op: User;
       if (this.whatUserAmI === 0) {
         opId = this.game.player2Id;
       } else {
         opId = this.game.player1Id;
       }
-
-      this.http.get('http://localhost:8080/Battleship/winloss/' + this.user.id, { withCredentials: true }).subscribe(
+      this.us.getSubject().subscribe( (user) => {
+        if (user.length !== 0) {
+          op = user.filter(i => i.id === opId)[0];
+        }
+      });
+      this.http.get('http://localhost:8080/Battleship/winloss/' + this.user.winLossId, { withCredentials: true }).subscribe(
         (resp) => {
           if (resp.text !== null) {
             myWin = resp.json();
-            myWin.wins++;
-            myWin.seasonWins++;
-            this.http.put('http://localhost:8080/Battleship/winloss/modify', (myWin) , { withCredentials: true}).subscribe(
+            console.log(myWin);
+            myWin.wins = myWin.wins + 1;
+            myWin.seasonWins = myWin.seasonWins + 1;
+            console.log(myWin);
+            this.http.put('http://localhost:8080/Battleship/winloss/modify', (myWin), { withCredentials: true }).subscribe(
               (successResp) => {
                 alert('Congrats you WINNER');
               },
@@ -406,21 +452,27 @@ export class GameComponent implements OnInit, DoCheck {
           alert('Failed Update Game :`(');
         }
       );
-    this.http.get('http://localhost:8080/Battleship/user/winloss/' + opId, { withCredentials: true}).subscribe(
-      (resp) => {
-        if (resp.text !== null) {
-          opWin = resp.json();
-          opWin.losses++;
-          opWin.seasonLosses++;
-          this.http.put('http://localhost:8080/Battleship/winloss/modify', (myWin) , { withCredentials: true}).subscribe();
+      this.http.get('http://localhost:8080/Battleship/user/winloss/' + op.winLossId, { withCredentials: true }).subscribe(
+        (resp) => {
+          if (resp.text !== null) {
+            opWin = resp.json();
+            opWin.losses = opWin.losses + 1;
+            opWin.seasonLosses = opWin.seasonLosses + 1;
+
+            this.http.put('http://localhost:8080/Battleship/winloss/modify', (myWin), { withCredentials: true }).subscribe(
+              (respa) => console.log(respa));
+          }
         }
-      }
-    );
-    this.game.status = 'complete';
-    this.game.turn = 2;
-    this.http.put('http://localhost:8080/Battleship/game/modify', (this.game), { withCredentials: true }).subscribe();
+      );
+      this.game.status = 'complete';
+      this.game.turn = 2;
+      this.http.put('http://localhost:8080/Battleship/game/modify', (this.game), { withCredentials: true }).subscribe(
+        (respa) => console.log(respa));
     } else {
       this.submitMove();
     }
+  }
+  ngOnDestroy() {
+    this.alive = false;
   }
 }

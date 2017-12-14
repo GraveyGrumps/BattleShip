@@ -73,7 +73,7 @@ export class GametileComponent implements OnInit {
           c('Close click');
           this.gss.updateSubject();
           this.initGame();
-          this.routeTo('test');
+          this.routeTo('gamer');
         }
       }
     );
