@@ -425,9 +425,24 @@ export class GameComponent implements OnInit, DoCheck, OnDestroy {
       } else {
         opId = this.game.player1Id;
       }
+      console.log('opId: ' + opId);
       this.us.getSubject().subscribe( (user) => {
         if (user.length !== 0) {
           op = user.filter(i => i.id === opId)[0];
+          console.log(op);
+          this.http.get('http://localhost:8080/Battleship/winloss/' + op.winLossId, { withCredentials: true }).subscribe(
+            (resp) => {
+              if (resp.text !== null) {
+                opWin = resp.json();
+                opWin.losses = opWin.losses + 1;
+                opWin.seasonLosses = opWin.seasonLosses + 1;
+                console.log('op win');
+                console.log(opWin);
+                this.http.put('http://localhost:8080/Battleship/winloss/modify', (myWin), { withCredentials: true }).subscribe(
+                  (respa) => console.log(respa));
+              }
+            }
+          );
         }
       });
       this.http.get('http://localhost:8080/Battleship/winloss/' + this.user.winLossId, { withCredentials: true }).subscribe(
@@ -452,18 +467,7 @@ export class GameComponent implements OnInit, DoCheck, OnDestroy {
           alert('Failed Update Game :`(');
         }
       );
-      this.http.get('http://localhost:8080/Battleship/user/winloss/' + op.winLossId, { withCredentials: true }).subscribe(
-        (resp) => {
-          if (resp.text !== null) {
-            opWin = resp.json();
-            opWin.losses = opWin.losses + 1;
-            opWin.seasonLosses = opWin.seasonLosses + 1;
 
-            this.http.put('http://localhost:8080/Battleship/winloss/modify', (myWin), { withCredentials: true }).subscribe(
-              (respa) => console.log(respa));
-          }
-        }
-      );
       this.game.status = 'complete';
       this.game.turn = 2;
       this.http.put('http://localhost:8080/Battleship/game/modify', (this.game), { withCredentials: true }).subscribe(
