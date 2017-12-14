@@ -43,6 +43,11 @@ export class GameComponent implements OnInit, DoCheck, OnDestroy {
   alive = true;
   settingup;
   canInteract: boolean;
+  patrolboat = true;
+  destroyer = true;
+  submarine = true;
+  battleship = true;
+  carrier = true;
   constructor(private http: Http, private gss: GameServiceService, private us: UserService) { }
 
   ngOnInit() {
@@ -191,7 +196,7 @@ export class GameComponent implements OnInit, DoCheck, OnDestroy {
             if (this.myboard[temp][loc2] === -1) {
               console.log('red at: ' + temp, loc2);
               document.getElementById('1' + temp.toString() + loc2.toString()).className = 'boardgridred';
-              //this.myboard[temp][loc2] = 1;
+              // this.myboard[temp][loc2] = 1;
             }
             temp++;
           }
@@ -216,7 +221,7 @@ export class GameComponent implements OnInit, DoCheck, OnDestroy {
             if (this.myboard[loc1][temp] === -1) {
               console.log('red at: ' + temp, loc2);
               document.getElementById('1' + loc1.toString() + temp.toString()).className = 'boardgridred';
-              //this.myboard[loc1][temp] = 1;
+              // this.myboard[loc1][temp] = 1;
             }
             temp++;
           }
@@ -288,9 +293,25 @@ export class GameComponent implements OnInit, DoCheck, OnDestroy {
     this.holderarray.length = 0;
     if (this.validplacement) {
       this.placed[this.currentship - 2] = true;
+      switch (this.currentship) {
+        case 2: this.patrolboat = false;
+        break;
+        case 3: this.destroyer = false;
+        break;
+        case 4: this.submarine = false;
+        break;
+        case 5: this.battleship = false;
+        break;
+        case 6: this.carrier = false;
+        break;
+      }
     }
     this.currentship = this.ship[ship];
     console.log(this.currentship);
+    if (this.checkAllBoatsPlaced()) {
+      this.isplaying = false;
+      this.submitMove();
+    }
   }
   clearBoardErrors() {
     console.log(this.myboard);
@@ -351,12 +372,6 @@ export class GameComponent implements OnInit, DoCheck, OnDestroy {
       for (let j = 0; j < 10; j++) {
         this.setColor(1, i, j, this.myboard[i][j]);
       }
-    }
-  }
-  finishedPlacing() {
-    if (this.checkAllBoatsPlaced()) {
-      this.isplaying = false;
-      this.submitMove();
     }
   }
   checkAllBoatsPlaced() {

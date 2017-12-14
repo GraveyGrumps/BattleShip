@@ -7,6 +7,9 @@ import { Shipstate } from '../beans/Shipstate';
 import { IntervalObservable } from 'rxjs/observable/IntervalObservable';
 import { Subscription } from 'rxjs/Subscription';
 import { GameServiceService } from '../../../services/game-service.service';
+import { Report } from '../../../beans/Report';
+import { Http } from '@angular/http';
+import { environment } from '../../../../environments/environment';
 
 @Component({
   selector: 'app-gamescreen',
@@ -21,7 +24,8 @@ export class GamescreenComponent implements OnInit, OnDestroy {
   renderShips = true;
   alive = true;
   sub: Subscription;
-  constructor(private router: Router, private gss: GameServiceService) { }
+  report: Report;
+  constructor(private router: Router, private gss: GameServiceService, private http: Http) { }
 
   ngOnInit() {
     this.user = JSON.parse(sessionStorage.getItem('user'));
@@ -50,12 +54,27 @@ export class GamescreenComponent implements OnInit, OnDestroy {
               }
             }
           });
+        this.http.get(environment.context + '/report/loadbygame/?id=' + this.game.id).subscribe( (report) => {
+        if (report.text().length !== 0) {
+          if (JSON.stringify(this.report) !== report.text()) {
+            this.report = report.json();
+          }
+        }
+      });
       });
   }
   ngOnDestroy() {
     if (this.alive) {
       this.alive = false;
     }
-
+  }
+  isItMyTurn() {
+    if (this.user.id === this.game.player1Id && this.game.turn === 0) {
+      return 'My Turn';
+    } else if (this.user.id === this.game.player2Id && this.game.turn === 1) {
+      return 'My Turn';
+    } else {
+      return `Opponent's Turn`;
+    }
   }
 }

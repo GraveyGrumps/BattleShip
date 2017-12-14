@@ -121,7 +121,6 @@
       <div class="boardgridblue" id="099" (click)="fire(0,9,9)"></div>
     </div>
     <br>
-    <br>
     <div class="row">
         <div class="boardgridblue" id="100" (click)="fire(1,0,0)"></div>
         <div class="boardgridblue" id="101" (click)="fire(1,0,1)"></div>
@@ -244,13 +243,13 @@
       </div>
 
     <div class="container" *ngIf="!isplaying && canInteract">
-      <button class="btn btn-primary" (click)="selected(0)">Patrol boat</button>
-      <button class="btn btn-primary" (click)="selected(1)">destroyer</button>
-      <button class="btn btn-primary" (click)="selected(2)">submarine</button>
-      <button class="btn btn-primary" (click)="selected(3)">Battleship</button>
-      <button class="btn btn-primary" (click)="selected(4)">Carrier</button>
+      <button *ngIf="patrolboat" class="btn btn-primary" (click)="selected(0)">Patrol boat</button>
+      <button *ngIf="destroyer" class="btn btn-primary" (click)="selected(1)">Destroyer</button>
+      <button *ngIf="submarine" class="btn btn-primary" (click)="selected(2)">Submarine</button>
+      <button *ngIf="battleship"class="btn btn-primary" (click)="selected(3)">Battleship</button>
+      <button *ngIf="carrier" class="btn btn-primary" (click)="selected(4)">Carrier</button>
     </div>
-    <button *ngIf="!isplaying && canInteract" class="btn btn-danger" (click)="finishedPlacing()">Finish Placing</button>
+    <button *ngIf="!isplaying && canInteract" class="btn btn-danger" (click)="selected(-1)">Finished Placing</button>
   </div>
 
 </div>
