@@ -43,7 +43,7 @@ A web based battleship game that updates player actions without reloading the pa
 |As a user, I can view a global leaderboard.|2| X
 |As a user, I can view leaderboards based on seasonal ratios.|5| X
 |As a user, I can send and read messages sent through the in-game chat.|5| X
-|As a user, I can report unsportsmanlike conduct to the admin.|3| X
+|As a user, I can report unsportsmanlike conduct to the admin.|3|
 |As an admin, I can log in.|1|X|
 |As an admin, I can log out.|1|X|
 |As an admin, I can view all ongoing games.|2|X
