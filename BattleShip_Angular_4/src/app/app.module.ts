@@ -74,7 +74,7 @@ import { SettingsComponent } from './settings/settings.component';
     GridComponent,
     ProfileComponent,
 
-   AdminHomeComponent,
+    AdminHomeComponent,
     TickettileComponent,
     StatsComponent,
     GameComponent,

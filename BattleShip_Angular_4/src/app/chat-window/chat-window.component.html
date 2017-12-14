@@ -1,4 +1,4 @@
-<div id="chatboxDiv">
+<div id="chatboxDiv" *ngIf="settings.globalChat===1">
   <h3>Global Chat</h3>
 
   <div *ngFor="let line of globalchat">
