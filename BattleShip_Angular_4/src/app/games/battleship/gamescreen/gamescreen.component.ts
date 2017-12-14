@@ -33,23 +33,23 @@ export class GamescreenComponent implements OnInit, OnDestroy {
       this.router.navigateByUrl('/login');
     }
     this.game = JSON.parse(sessionStorage.getItem('game'));
-    //console.log(this.game);
+    // console.log(this.game);
     this.shipStates = JSON.parse(this.game.shipState);
-    //console.log(this.shipStates);
-    //console.log(this.user.id);
-    //console.log(this.game.player1Id);
-    //console.log(this.game.player2Id);
+    // console.log(this.shipStates);
+    // console.log(this.user.id);
+    // console.log(this.game.player1Id);
+    //  console.log(this.game.player2Id);
     IntervalObservable.create(300)
       .takeWhile(() => this.alive)
       .subscribe(() => {
         this.gss.getSubject().subscribe(
           (games) => {
             if (games.length !== 0) {
-              //console.log(this.game);
+              // console.log(this.game);
               const holder = games.filter(i => i.id === this.game.id)[0];
               if (holder !== undefined && JSON.stringify(holder) !== JSON.stringify(this.game)) {
-                console.log('merging with holder');
-                console.log(holder);
+                // console.log('merging with holder');
+                // console.log(holder);
                 this.game = holder;
               }
             }
