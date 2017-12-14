@@ -1,11 +1,14 @@
 package com.revature.service;
 
+import org.apache.log4j.Logger;
+import org.springframework.mail.MailException;
 import org.springframework.mail.MailSender;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.stereotype.Service;
 
 public class EmailServiceImpl {
 
+	private Logger log = Logger.getRootLogger();
 	private MailSender mailSender;
 	
 	public void setMailSender(MailSender mailSender) {
@@ -20,6 +23,10 @@ public class EmailServiceImpl {
 		message.setTo(to);
 		message.setSubject(subject);
 		message.setText(msg);
-		mailSender.send(message);
+		try {
+			mailSender.send(message);
+		} catch(MailException e) {
+			log.warn("unable to send email to: " + to);
+		}
 	}
 }

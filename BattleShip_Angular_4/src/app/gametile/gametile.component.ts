@@ -10,8 +10,8 @@ import { NgbModalRef } from '@ng-bootstrap/ng-bootstrap/modal/modal-ref';
 import { environment } from '../../environments/environment';
 import { Router } from '@angular/router';
 import { GameServiceService } from '../services/game-service.service';
-import { TestPannelComponent } from '../games/battleship/testpannel/testpannel.component';
 import { Report } from '../beans/Report';
+// import { TestPannelComponent } from '../games/battleship/testpannel/testpannel.component';
 @Component({
   selector: 'app-gametile',
   templateUrl: './gametile.component.html',
@@ -77,7 +77,7 @@ export class GametileComponent implements OnInit {
           c('Close click');
           this.gss.updateSubject();
           this.initGame();
-          this.routeTo('test');
+          this.routeTo('gamer');
         }
       }
     );
@@ -87,7 +87,7 @@ export class GametileComponent implements OnInit {
   }
 
   initGame() {
-    sessionStorage.setItem('gmID', JSON.stringify(this.game.id));
+    sessionStorage.setItem('game', JSON.stringify(this.game));
   }
 
   routeTo (location) {

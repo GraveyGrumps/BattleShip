@@ -20,7 +20,7 @@ import { GametileComponent } from './gametile/gametile.component';
 
 import { GameServiceService } from './services/game-service.service';
 
-import { TestPannelComponent } from './games/battleship/testpannel/testpannel.component';
+// import { TestPannelComponent } from './games/battleship/testpannel/testpannel.component';
 import { WinlossService } from './services/winloss.service';
 import { LeaderboardsComponent } from './leaderboards/leaderboards.component';
 import { UserService } from './services/user.service';
@@ -34,6 +34,10 @@ import { AdminHomeComponent } from './users/adminHome/adminhome.component';
 import { TickettileComponent } from './tickettile/tickettile.component';
 import { StatsComponent } from './myspace/stats/stats.component';
 
+import { GameComponent } from './games/battleship/game/game.component';
+import { GamescreenComponent } from './games/battleship/gamescreen/gamescreen.component';
+import { ShipstatusComponent } from './games/battleship/shipstatus/shipstatus.component';
+import { HealthstatusComponent } from './games/battleship/healthstatus/healthstatus.component';
 
 
 @NgModule({
@@ -55,7 +59,7 @@ import { StatsComponent } from './myspace/stats/stats.component';
     NewGameComponent,
     LeaderBoardComponent,
     GametileComponent,
-    TestPannelComponent,
+    // TestPannelComponent,
     LeaderboardsComponent,
     MygamesComponent,
     LobbyComponent,
@@ -63,9 +67,14 @@ import { StatsComponent } from './myspace/stats/stats.component';
     ProfileComponent,
     GridComponent,
     ProfileComponent,
-    AdminHomeComponent,
+
+   AdminHomeComponent,
     TickettileComponent,
-    StatsComponent
+    StatsComponent,
+    GameComponent,
+    GamescreenComponent,
+    ShipstatusComponent,
+    HealthstatusComponent
 
   ],
   providers: [GameServiceService,

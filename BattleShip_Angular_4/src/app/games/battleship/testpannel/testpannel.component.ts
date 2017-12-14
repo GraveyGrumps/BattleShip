@@ -1,330 +1,311 @@
-import { Component, OnDestroy, OnInit, Inject } from '@angular/core';
-import { Http } from '@angular/http';
-import { Observable } from 'rxjs/Observable';
-import { Game } from '../beans/Game';
-import { Shipstate } from '../beans/Shipstate';
-import { Report } from '../../../beans/Report';
-import { User } from '../../../beans/User';
-import { WinLoss } from '../../../beans/WinLoss';
-import { IntervalObservable } from 'rxjs/observable/IntervalObservable';
+// import { Component, OnDestroy, OnInit, Inject } from '@angular/core';
+// import { Http } from '@angular/http';
+// import { Observable } from 'rxjs/Observable';
+// import { Game } from '../beans/Game';
+// import { Shipstate } from '../beans/Shipstate';
+// import { Report } from '../../../beans/Report';
+// import { User } from '../../../beans/User';
+// import { WinLoss } from '../../../beans/WinLoss';
+// import { IntervalObservable } from 'rxjs/observable/IntervalObservable';
 
-@Component({
-  selector: 'app-testpannel',
-  templateUrl: './testpannel.component.html',
-  styleUrls: ['./testpannel.component.css']
-})
+// @Component({
+//   selector: 'app-testpannel',
+//   templateUrl: './testpannel.component.html',
+//   styleUrls: ['./testpannel.component.css']
+// })
 
-export class TestPannelComponent implements OnInit, OnDestroy {
+// export class TestPannelComponent implements OnInit {
 
-  currUser: User;
-  currGame: Game;
-  currReport: Report;
-  currShipState: Shipstate;
-  alive: boolean;
-  reportText: String;
-
-
-  constructor( @Inject(Http) public http: Http) {
-    this.alive = true;
-  }
-
-  ngOnInit() {
-    this.alive = true;
-    this.currUser = JSON.parse(sessionStorage.getItem('user'));
+//   currUser: User;
+//   currGame: Game;
+//   currReport: Report;
+//   currShipState: Shipstate;
+//   currWL: WinLoss;
+//   wWL: WinLoss;
+//   lWL: WinLoss;
+//   alive: boolean;
 
 
-    let x = 'http://localhost:8080/Battleship/game/load';
-    x += '?id=' + JSON.parse(sessionStorage.getItem('gmID'));
-    this.http.get(x, { withCredentials: true }).subscribe(
-      (successResp) => {
-        this.currGame = successResp.json();
-        console.log(this.currGame);
-      },
-      (failResp) => {
-      }
-    );
+//   constructor( @Inject(Http) public http: Http) {
+//     this.alive = true;
+//   }
 
-    this.loadReport();
+//   ngOnDestroy() {
+//     this.alive = false;
+//   }
 
-    IntervalObservable.create(3000)
-      .takeWhile(() => this.alive) // only fires when component is alive
-      .subscribe(() => {
-        this.http.get(x, { withCredentials: true }).subscribe(
-          (successResp) => {
-            this.currGame = successResp.json();
-          },
-          (failResp) => {
-          });
-      });
-  }
+//   ngOnInit() {
+//     this.alive = true;
+//     this.currUser = JSON.parse(sessionStorage.getItem('user'));
 
-  loadReport() {
-    let y = 'http://localhost:8080/Battleship/report/loadbygame';
-    y += '?id=' + JSON.parse(sessionStorage.getItem('gmID'));
-    this.http.get(y, { withCredentials: true }).subscribe(
-      (successResp) => {
-        this.currReport = successResp.json();
-        console.log(this.currReport);
-      },
-      (failResp) => {
-      }
-    );
-  }
 
-  reinitalize(gmId) {
-    this.currUser = JSON.parse((sessionStorage.getItem('user')));
+//     let x = 'http://localhost:8080/Battleship/game/load';
+//     x += '?id=' + JSON.parse(sessionStorage.getItem('gmID'));
+//     this.http.get(x, { withCredentials: true }).subscribe(
+//       (successResp) => {
+//         this.currGame = successResp.json();
+//         console.log(this.currGame);
+//       },
+//       (failResp) => {
+//         alert('Failed to Load Game');
+//       }
+//     );
 
-    let x = 'http://localhost:8080/Battleship/game/load';
-    x += '?id=' + gmId;
-    this.http.get(x, { withCredentials: true }).subscribe(
-      (successResp) => {
-        this.currGame = successResp.json();
-        console.log(this.currGame);
-      },
-      (failResp) => {
-      }
-    );
-    let y = 'http://localhost:8080/Battleship/report/loadbygame';
-    y += '?id=' + gmId;
-    this.http.get(y, { withCredentials: true }).subscribe(
-      (successResp) => {
-        this.currReport = successResp.json();
-        console.log(this.currReport);
-      },
-      (failResp) => {
-      }
-    );
-  }
+//     let y = 'http://localhost:8080/Battleship/report/loadbygame';
+//     y += '?id=' + JSON.parse(sessionStorage.getItem('gmID'));
+//     this.http.get(y, { withCredentials: true }).subscribe(
+//       (successResp) => {
+//         this.currReport = successResp.json();
+//         console.log(this.currReport);
+//       },
+//       (failResp) => {
+//         alert('Failed to Load Log');
+//       }
+//     );
 
-  setup() {
-    if (this.currGame.turn) {
-      this.currGame.status = 'inprogress';
-    }
-    this.turnSwap();
-    this.update();
-  }
+//     IntervalObservable.create(3000)
+//       .takeWhile(() => this.alive) // only fires when component is alive
+//       .subscribe(() => {
+//         this.http.get(x, { withCredentials: true }).subscribe(
+//           (successResp) => {
+//             this.currGame = successResp.json();
+//           },
+//           (failResp) => {
+//             alert('Failed to Load Log');
+//           });
+//       });
+//   }
 
-  forceHit() {
-    this.currShipState = JSON.parse(this.currGame.shipState);
-    let done = true;
-    if (this.currGame.turn) {
-      for (let i = 0; i < this.currShipState.details[0].length; i++) {
-        if (done && this.currShipState.details[0][i] !== 0) {
-          this.currShipState.details[0][i] -= 1;
-          if (this.currShipState.details[0][i] === 0) {
-          }
-        }
-      }
-      for (let i = 0; i < this.currShipState.details[0].length; i++) {
-        if (this.currShipState.details[0][i] !== 0) {
-          done = false;
-        }
-      }
-    } else {
-      for (let i = 0; i < this.currShipState.details[0].length; i++) {
-        if (done && this.currShipState.details[0][i] !== 0) {
-          this.currShipState.details[0][i] -= 1;
-          if (this.currShipState.details[0][i] === 0) {
-          }
-        }
-      }
-      for (let i = 0; i < this.currShipState.details[0].length; i++) {
-        if (this.currShipState.details[0][i] !== 0) {
-          done = false;
-        }
-      }
-    }
+//   reinitalize(gmId) {
+//     this.currUser = JSON.parse((sessionStorage.getItem('user')));
 
-    if (done) {
-      this.finish();
-    } else {
-      this.turnSwap();
-    }
-  }
+//     let x = 'http://localhost:8080/Battleship/game/load';
+//     x += '?id=' + gmId;
+//     this.http.get(x, { withCredentials: true }).subscribe(
+//       (successResp) => {
+//         this.currGame = successResp.json();
+//         console.log(this.currGame);
+//       },
+//       (failResp) => {
+//         alert('Failed to Load Game');
+//       }
+//     );
+//     let y = 'http://localhost:8080/Battleship/report/loadbygame';
+//     y += '?id=' + gmId;
+//     this.http.get(y, { withCredentials: true }).subscribe(
+//       (successResp) => {
+//         this.currReport = successResp.json();
+//         console.log(this.currReport);
+//       },
+//       (failResp) => {
+//         alert('Failed to Load Log');
+//       }
+//     );
+//   }
 
-  report() {
-    this.currGame.status = 'setup2';
-    this.currGame.turnDeadline.setFullYear(this.currGame.turnDeadline.getFullYear() + 100);
-    this.update();
-    this.currReport.flag = 1;
-    this.currReport.reportDate = new Date();
+//   setup() {
+//     if (this.currGame.turn) {
+//       this.currGame.status = 'inprogress';
+//     }
+    
+//     this.turnSwap();
+//     this.update();
+//   }
 
-    if (this.currGame.turn) {
-      this.currReport.claimant = this.currGame.player2Id;
-      this.currReport.defendant = this.currGame.player1Id;
-    } else {
-      this.currReport.claimant = this.currGame.player1Id;
-      this.currReport.defendant = this.currGame.player2Id;
-    }
+//   forceHit() {
+//     this.currShipState = JSON.parse(this.currGame.shipState);
+//     let done = true;
+//     if (this.currGame.turn) {
+//       for (let i = 0; i < this.currShipState.details[0].length; i++) {
+//         if (done && this.currShipState.details[0][i] !== 0) {
+//           this.currShipState.details[0][i] -= 1;
+//           if (this.currShipState.details[0][i] === 0) {
+//             alert('You sunk a ship!');
+//           }
+//         }
+//       }
+//       for (let i = 0; i < this.currShipState.details[0].length; i++) {
+//         if (this.currShipState.details[0][i] !== 0) {
+//           done = false;
+//         }
+//       }
+//     } else {
+//       for (let i = 0; i < this.currShipState.details[0].length; i++) {
+//         if (done && this.currShipState.details[0][i] !== 0) {
+//           this.currShipState.details[0][i] -= 1;
+//           if (this.currShipState.details[0][i] === 0) {
+//             alert('You sunk a ship!');
+//           }
+//         }
+//       }
+//       for (let i = 0; i < this.currShipState.details[0].length; i++) {
+//         if (this.currShipState.details[0][i] !== 0) {
+//           done = false;
+//         }
+//       }
+//     }
 
-    this.updateReport();
-  }
+//     if (done) {
+//       this.finish();
+//     } else {
+//       this.turnSwap();
+//     }
+//   }
 
-  reporttext() {
-    this.loadReport();
-    this.currReport.reportNotes.replace('null', '');
-    this.currReport.reportNotes += 'User ' + this.currUser.id + ': ' + this.reportText + '\n';
-    this.reportText = '';
+//   turnSwap() {
+//     if (this.currGame.turn) {
+//       this.currGame.turn = 0;
+//     } else {
+//       this.currGame.turn = 1;
+//     }
+//     this.update();
+//   }
 
-    console.log(this.currReport);
-    this.updateReport();
-    this.loadReport();
-  }
+//   concede() {
+//     this.turnSwap();
+//     this.finish();
+//   }
 
-  turnSwap() {
-    if (this.currGame.turn) {
-      this.currGame.turn = 0;
-    } else {
-      this.currGame.turn = 1;
-    }
-    this.update();
-  }
+//   update() {
+//     this.http.put('http://localhost:8080/Battleship/game/modify', (this.currGame), { withCredentials: true }).subscribe(
+//       (successResp) => {
+//       },
+//       (failResp) => {
+//         alert('Failed Update Game :`(');
+//       }
+//     );
+//   }
 
-  concede() {
-    this.turnSwap();
-    this.finish();
-  }
+//   getWL(pId) {
+//     let x = 'http://localhost:8080/Battleship/user/getWL';
+//     x += '?id=' + pId;
+//     this.http.get(x, { withCredentials: true }).subscribe(
+//       (successResp) => {
+//         const wLId = successResp.text();
 
-  update() {
-    this.http.put('http://localhost:8080/Battleship/game/modify', (this.currGame), { withCredentials: true }).subscribe(
-      (successResp) => {
-      },
-      (failResp) => {
-      }
-    );
-  }
+//         x = 'http://localhost:8080/Battleship/winloss/';
+//         x += wLId;
 
-  getWL(pId) {
-    let currWL = new WinLoss();
+//         this.http.get(x, { withCredentials: true }).subscribe(
+//           (successResp2) => {
+//             this.currWL = successResp2.json();
+//             console.log(successResp2.json());
+//             console.log(this.currWL);
+//           },
+//           (failResp) => {
+//             alert('Failed to W/L');
+//           }
+//         );
+//       },
+//       (failResp) => {
+//         alert('Failed to W/L');
+//       }
+//     );
+//   }
 
-    let x = 'http://localhost:8080/Battleship/user/getWL';
-    x += '?id=' + pId;
-    this.http.get(x, { withCredentials: true }).subscribe(
-      (successResp) => {
-        const wLId = successResp.text();
+//   winnerWL(pId) {
+//     let x = 'http://localhost:8080/Battleship/user/getWL';
+//     x += '?id=' + pId;
+//     this.http.get(x, { withCredentials: true }).subscribe(
+//       (successResp) => {
+//         const wLId = successResp.text();
 
-        x = 'http://localhost:8080/Battleship/winloss/';
-        x += wLId;
+//         x = 'http://localhost:8080/Battleship/winloss/';
+//         x += wLId;
 
-        this.http.get(x, { withCredentials: true }).subscribe(
-          (successResp2) => {
-            currWL = successResp2.json();
-          },
-          (failResp) => {
-          }
-        );
-      },
-      (failResp) => {
-      }
-    );
+//         this.http.get(x, { withCredentials: true }).subscribe(
+//           (successResp2) => {
+//             this.wWL = successResp2.json();
+//             this.wWL.wins += 1;
+//             this.wWL.seasonWins += 1;
+//             this.saveWL(this.wWL);
+//           },
+//           (failResp) => {
+//             alert('Failed to W/L');
+//           }
+//         );
+//       },
+//       (failResp) => {
+//         alert('Failed to W/L');
+//       }
+//     );
+//   }
 
-    return currWL;
-  }
+//   loserWL(pId) {
+//     let x = 'http://localhost:8080/Battleship/user/getWL';
+//     x += '?id=' + pId;
+//     this.http.get(x, { withCredentials: true }).subscribe(
+//       (successResp) => {
+//         const wLId = successResp.text();
 
-  winnerWL(pId) {
-    let wWL = new WinLoss();
+//         x = 'http://localhost:8080/Battleship/winloss/';
+//         x += wLId;
 
-    let x = 'http://localhost:8080/Battleship/user/getWL';
-    x += '?id=' + pId;
-    this.http.get(x, { withCredentials: true }).subscribe(
-      (successResp) => {
-        const wLId = successResp.text();
+//         this.http.get(x, { withCredentials: true }).subscribe(
+//           (successResp2) => {
+//             this.lWL = successResp2.json();
+//             this.lWL.losses += 1;
+//             this.lWL.seasonLosses += 1;
+//             this.saveWL(this.lWL);
+//           },
+//           (failResp) => {
+//             alert('Failed to W/L');
+//           }
+//         );
+//       },
+//       (failResp) => {
+//         alert('Failed to W/L');
+//       }
+//     );
+//   }
 
-        x = 'http://localhost:8080/Battleship/winloss/';
-        x += wLId;
+//   updateWL() {
 
-        this.http.get(x, { withCredentials: true }).subscribe(
-          (successResp2) => {
-            wWL = successResp2.json();
-            wWL.wins += 1;
-            wWL.seasonWins += 1;
-            this.saveWL(wWL);
-          },
-          (failResp) => {
-          }
-        );
-      },
-      (failResp) => {
-      }
-    );
-  }
+//     if (this.currGame.turn) {
+//       // Winner
+//       this.winnerWL(this.currGame.player2Id);
+//       // Loser
+//       this.loserWL(this.currGame.player1Id);
 
-  loserWL(pId) {
-    let lWL = new WinLoss();
+//     } else {
+//       // Winner
+//       this.winnerWL(this.currGame.player1Id);
+//       // Loser
+//       this.loserWL(this.currGame.player2Id);
+//     }
+//   }
 
-    let x = 'http://localhost:8080/Battleship/user/getWL';
-    x += '?id=' + pId;
-    this.http.get(x, { withCredentials: true }).subscribe(
-      (successResp) => {
-        const wLId = successResp.text();
+//   saveWL(inWL) {
+//     this.http.put('http://localhost:8080/Battleship/winloss/modify', (inWL), { withCredentials: true }).subscribe(
+//       (successResp) => {
+//       },
+//       (failResp) => {
+//         alert('Failed Update W/L :`(');
+//       }
+//     );
+//   }
 
-        x = 'http://localhost:8080/Battleship/winloss/';
-        x += wLId;
+//   updateReport() {
+//     this.http.put('http://localhost:8080/Battleship/report/modify', (this.currReport), { withCredentials: true }).subscribe(
+//       (successResp) => {
+//       },
+//       (failResp) => {
+//         alert('Failed Update Report :`(');
+//       }
+//     );
+//   }
 
-        this.http.get(x, { withCredentials: true }).subscribe(
-          (successResp2) => {
-            lWL = successResp2.json();
-            lWL.losses += 1;
-            lWL.seasonLosses += 1;
-            this.saveWL(lWL);
-          },
-          (failResp) => {
-          }
-        );
-      },
-      (failResp) => {
-      }
-    );
-  }
+//   finish() {
+//     this.currGame.status = 'complete';
+//     if (this.currGame.turn) {
+//       this.currReport.winner = this.currGame.player2Id;
+//     } else {
+//       this.currReport.winner = this.currGame.player1Id;
+//     }
+//     this.alive = false;
+//     this.update();
+//     this.updateReport();
+//     this.updateWL();
+//   }
+// }
 
-  updateWL() {
-
-    if (this.currGame.turn) {
-      // Winner
-      this.winnerWL(this.currGame.player2Id);
-      // Loser
-      this.loserWL(this.currGame.player1Id);
-
-    } else {
-      // Winner
-      this.winnerWL(this.currGame.player1Id);
-      // Loser
-      this.loserWL(this.currGame.player2Id);
-    }
-  }
-
-  saveWL(inWL) {
-    this.http.put('http://localhost:8080/Battleship/winloss/modify', (inWL), { withCredentials: true }).subscribe(
-      (successResp) => {
-      },
-      (failResp) => {
-      }
-    );
-  }
-
-  updateReport() {
-    this.http.put('http://localhost:8080/Battleship/report/modify', (this.currReport), { withCredentials: true }).subscribe(
-      (successResp) => {
-      },
-      (failResp) => {
-      }
-    );
-  }
-
-  finish() {
-    this.currGame.status = 'complete';
-    if (this.currGame.turn) {
-      this.currReport.winner = this.currGame.player2Id;
-    } else {
-      this.currReport.winner = this.currGame.player1Id;
-    }
-    this.alive = false;
-    this.update();
-    this.updateReport();
-    this.updateWL();
-  }
-
-  ngOnDestroy() {
-    this.alive = false;
-  }
-}
