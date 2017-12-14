@@ -1,49 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 
 export class Shipstate {
-    details: Array<Array<number>>;
+    p1ships;
+    p2ships;
 
     constructor() {
-        this.details = [];
-
-        for (let i = 0; i < 2; i++) {
-            this.details[i] = [];
-        }
-
-        // Player 1
-        // Ship 1 - Carrier
-        // Peg 1
-        this.details[0][0] = 5;
-
-        // Ship 2 - Battleship
-        // Peg 1
-        this.details[0][1] = 4;
-
-        // Ship 3 - Cruiser
-        this.details[0][2] = 3;
-
-        // Ship 4 - Submarine
-        this.details[0][3] = 3;
-
-        // Ship 5 - Destroyer
-        this.details[0][4] = 2;
-
-        // Player 2
-        // Ship 1 - Carrier
-        // Peg 1
-        this.details[1][0] = 5;
-
-        // Ship 2 - Battleship
-        // Peg 1
-        this.details[1][1] = 4;
-
-        // Ship 3 - Cruiser
-        this.details[1][2] = 3;
-
-        // Ship 4 - Submarine
-        this.details[1][3] = 3;
-
-        // Ship 5 - Destroyer
-        this.details[1][4] = 2;
+        this.p1ships = [2, 3, 3, 4, 5];
+        this.p2ships = [2, 3, 3, 4, 5];
     }
 }

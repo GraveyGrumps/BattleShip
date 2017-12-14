@@ -20,7 +20,7 @@ import { GametileComponent } from './gametile/gametile.component';
 
 import { GameServiceService } from './services/game-service.service';
 
-import { TestPannelComponent } from './games/battleship/testpannel/testpannel.component';
+// import { TestPannelComponent } from './games/battleship/testpannel/testpannel.component';
 import { WinlossService } from './services/winloss.service';
 import { LeaderboardsComponent } from './leaderboards/leaderboards.component';
 import { UserService } from './services/user.service';
@@ -31,6 +31,10 @@ import { GridComponent } from './games/battleship/grid/grid.component';
 import { ProfileComponent } from './myspace/profile/profile.component';
 import { MyspaceboxComponent } from './myspace/myspacebox/myspacebox.component';
 import { GlobalchatService } from './services/globalchat.service';
+import { GameComponent } from './games/battleship/game/game.component';
+import { GamescreenComponent } from './games/battleship/gamescreen/gamescreen.component';
+import { ShipstatusComponent } from './games/battleship/shipstatus/shipstatus.component';
+import { HealthstatusComponent } from './games/battleship/healthstatus/healthstatus.component';
 
 
 @NgModule({
@@ -52,7 +56,7 @@ import { GlobalchatService } from './services/globalchat.service';
     NewGameComponent,
     LeaderBoardComponent,
     GametileComponent,
-    TestPannelComponent,
+    // TestPannelComponent,
     LeaderboardsComponent,
     MygamesComponent,
     LobbyComponent,
@@ -60,7 +64,11 @@ import { GlobalchatService } from './services/globalchat.service';
     ProfileComponent,
     MyspaceboxComponent,
     GridComponent,
-    ProfileComponent
+    ProfileComponent,
+    GameComponent,
+    GamescreenComponent,
+    ShipstatusComponent,
+    HealthstatusComponent
   ],
   providers: [GameServiceService,
   WinlossService,

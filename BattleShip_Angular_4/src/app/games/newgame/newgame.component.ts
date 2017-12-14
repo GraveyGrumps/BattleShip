@@ -18,7 +18,7 @@ export class NewGameComponent implements OnInit {
   newGame = new Game();
 
 
-  constructor( @Inject(Http) public http: Http, private gs: GameServiceService, private router:Router) {
+  constructor( @Inject(Http) public http: Http, private gs: GameServiceService, private router: Router) {
 
   }
 

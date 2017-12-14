@@ -1,0 +1,5 @@
+<div class = "container">
+  <div class = "row" *ngFor= "let health of healthstatus">
+    <div [ngClass] = "health === true ? 'green' : 'red'"></div>
+  </div>
+</div>

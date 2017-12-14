@@ -21,7 +21,6 @@ export class LoginComponent implements OnInit {
     email: '',
     profilePic: '',
   };
-
   constructor(private router: Router, private http: Http, private modalService: NgbModal) { }
 
   ngOnInit() {
