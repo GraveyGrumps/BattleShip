@@ -4,8 +4,8 @@
   <div class="row">
     <div class="col-sm-5">
       <div class="form-group">
-        <label for="usr">Change username:</label>
-        <input type="text" placeholder="New username" class="form-control" id="usr" [(ngModel)]="newUsername">
+        <label for="usr">Change email address:</label>
+        <input type="text" placeholder="New email address" class="form-control" id="usr" [(ngModel)]="newEmail">
       </div>
       <div class="form-group">
         <label for="pwd">Change password:</label>
@@ -28,7 +28,7 @@
           <span class="slider round">In-game chat</span>
         </label>
         <br>
-        <label class="switch">
+        <!-- <label class="switch">
           <input type="checkbox" [(ngModel)]="settings.acceptFriendship">
           <span class="slider round">Allow friend requests</span>
         </label>
@@ -42,11 +42,11 @@
           <input type="checkbox" [(ngModel)]="settings.viewable">
           <span class="slider round">Public profile</span>
         </label>
+      </div> -->
+        <button type="button" class="btn btn-outline-success" (click)="saveSettings()">Save settings</button>
       </div>
-      <button type="button" class="btn btn-outline-success" (click)="saveSettings()">Save settings</button>
-    </div>
-    <div class="col-sm-2">
-      <app-global-chat></app-global-chat>
+      <div class="col-sm-2">
+        <app-global-chat></app-global-chat>
+      </div>
     </div>
   </div>
-</div>
