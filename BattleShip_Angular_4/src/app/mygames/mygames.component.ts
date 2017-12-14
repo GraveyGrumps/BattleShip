@@ -38,10 +38,11 @@ export class MygamesComponent implements OnInit, OnDestroy {
         this.sub = this.http.get(environment.context + '/game/' + this.user.id).subscribe(
           (games) => {
             if (games.text() !== '') {
-              if (JSON.stringify(this.games) !== JSON.stringify(games.json())) {
+              let holder = games.json();
+              holder = this.sortGames2(holder);
+              if (JSON.stringify(this.games) !== JSON.stringify(holder)) {
                 this.games = games.json();
                 this.sortgames();
-                console.log(games);
               }
             }
           });
@@ -65,6 +66,19 @@ export class MygamesComponent implements OnInit, OnDestroy {
       this.games = this.games.filter(i => i.status !== 'pending');
     }
   }
+
+  sortGames2(games) {
+    let holder = games.filter(i => i.status === 'pending');
+    if (JSON.stringify(holder) !== JSON.stringify(this.pendingGames)) {
+      this.pendingGames = holder;
+    }
+    holder = games.filter(i => i.status !== 'pending');
+    if (JSON.stringify(holder) !== JSON.stringify(games)) {
+      games = games.filter(i => i.status !== 'pending');
+    }
+    return games;
+  }
+
   ngOnDestroy() {
     if (this.alive) {
       this.alive = false;
