@@ -1,3 +1,52 @@
-<p>
-  settings works!
-</p>
+<br>
+<div class="container">
+  <h2>{{this.currentUser.username}}'s Settings</h2>
+  <div class="row">
+    <div class="col-sm-5">
+      <div class="form-group">
+        <label for="usr">Change username:</label>
+        <input type="text" placeholder="New username" class="form-control" id="usr">
+      </div>
+      <div class="form-group">
+        <label for="pwd">Change password:</label>
+        <input type="password" placeholder="New password" class="form-control" id="pwd">
+      </div>
+      <!-- <div class="form-group"> -->
+      <input type="password" placeholder="Confirm new password" class="form-control" id="pwd">
+      <!-- </div> -->
+    </div>
+    <div class="col-sm-5">
+      <div class="form-group">
+        <br>
+        <label class="switch">
+          <input type="checkbox" [(ngModel)]="settings.globalChat">
+          <span class="slider round">Global chat</span>
+        </label>
+        <br>
+        <label class="switch">
+          <input type="checkbox" [(ngModel)]="settings.inGameChat">
+          <span class="slider round">In-game chat</span>
+        </label>
+        <br>
+        <label class="switch">
+          <input type="checkbox" [(ngModel)]="settings.acceptFriendship">
+          <span class="slider round">Allow friend requests</span>
+        </label>
+        <br>
+        <label class="switch">
+          <input type="checkbox" [(ngModel)]="settings.allowChallenges">
+          <span class="slider round">Allow challenges</span>
+        </label>
+        <br>
+        <label class="switch">
+          <input type="checkbox" [(ngModel)]="settings.viewable">
+          <span class="slider round">Public profile</span>
+        </label>
+      </div>
+      <button type="button" class="btn btn-outline-success" (click)="saveSettings()">Save settings</button>
+    </div>
+    <div class="col-sm-2">
+      <app-global-chat></app-global-chat>
+    </div>
+  </div>
+</div>
