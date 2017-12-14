@@ -27,7 +27,8 @@ export class GametileComponent implements OnInit {
   myGame: boolean;
   @Input()
   user: User;
-  gameUser: User;
+  gameUser1: User;
+  gameUser2: User;
   winloss: WinLoss;
   usernames: Array<String> = [];
   @Input()
@@ -43,21 +44,26 @@ export class GametileComponent implements OnInit {
     this.http.get(environment.context + '/user/' + this.game.player1Id).subscribe(
       (respbody) => {
         if (respbody.text() !== '') {
-          this.gameUser = respbody.json();
-          if (this.game.player1Id === this.user.id) {
-            this.usernames.push(this.user.username);
-            this.usernames.push(this.gameUser.username);
-          } else {
-            this.usernames.push(this.gameUser.username);
-            this.usernames.push(this.user.username);
-          }
-          this.http.get(environment.context + '/winloss/' + this.gameUser.winLossId).subscribe(
-            (respbody2) => {
-              if (respbody2.text() !== '') { this.winloss = respbody2.json(); }
-            });
+          this.gameUser1 = respbody.json();
         }
+        this.http.get(environment.context + '/user/' + this.game.player2Id).subscribe(
+          (respbody2) => {
+            if (respbody2.text() !== '') {
+              this.gameUser2 = respbody2.json();
+              if (this.game.player1Id === this.user.id) {
+                this.usernames.push(this.gameUser2.username);
+                this.usernames.push(this.gameUser1.username);
+              } else {
+                this.usernames.push(this.gameUser1.username);
+                this.usernames.push(this.gameUser2.username);
+              }
+              this.http.get(environment.context + '/winloss/' + this.gameUser1.winLossId).subscribe(
+                (respbody3) => {
+                  if (respbody3.text() !== '') { this.winloss = respbody3.json(); }
+                });
+            }
+          });
       });
-
   }
   showModal(content) {
     this.modalService.open(content);
@@ -90,7 +96,7 @@ export class GametileComponent implements OnInit {
     sessionStorage.setItem('game', JSON.stringify(this.game));
   }
 
-  routeTo (location) {
+  routeTo(location) {
     this.router.navigateByUrl(location);
   }
 }

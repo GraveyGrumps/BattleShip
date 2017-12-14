@@ -4,6 +4,10 @@
       <h4 id = "openHeader"> Open Tickets</h4>
       <app-tickettile [ticket] = "ticket" *ngFor = "let ticket of tickets"></app-tickettile>
     </div>
+    <div class = "col-5">
+      <h4 id = "yourTurnHeader"> In-progress Games</h4>
+      <app-gametile [game] = "game" [user] = "user" *ngFor = "let game of games2"></app-gametile>
+    </div>
     <div class = "col-2">
       <app-global-chat></app-global-chat>
     </div>
