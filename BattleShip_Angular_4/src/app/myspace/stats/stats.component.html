@@ -1,6 +1,7 @@
+<h4>Stats</h4>
 <div class="panel panel-default">
   <div class="panel-heading">
-    <h3>Lifetime</h3>
+    <h5>Lifetime</h5>
   </div>
   <div class="panel-body">
     <table class="table table-bordered">
@@ -15,7 +16,7 @@
         <tr>
           <td>{{winLoss.wins}}</td>
           <td>{{winLoss.losses}}</td>
-          <td>{{(winLoss.wins / winLoss.losses).toPrecision(2)}}</td>
+          <td>{{(winLoss.wins/winLoss.losses).toFixed(2)}}</td>
         </tr>
       </tbody>
     </table>
@@ -24,7 +25,7 @@
 
 <div class="panel panel-default">
   <div class="panel-heading">
-    <h4>Seasonal</h4>
+    <h5>Seasonal</h5>
   </div>
   <div class="panel-body">
     <table class="table table-bordered">
@@ -39,7 +40,7 @@
         <tr>
           <td>{{winLoss.seasonWins}}</td>
           <td>{{winLoss.seasonLosses}}</td>
-          <td>{{(winLoss.seasonWins / winLoss.seasonLosses).toPrecision(2)}}</td>
+          <td>{{(winLoss.seasonWins/winLoss.seasonLosses).toFixed(2)}}</td>
         </tr>
       </tbody>
     </table>
