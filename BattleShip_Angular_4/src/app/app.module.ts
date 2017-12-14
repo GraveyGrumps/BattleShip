@@ -38,17 +38,8 @@ import { GameComponent } from './games/battleship/game/game.component';
 import { GamescreenComponent } from './games/battleship/gamescreen/gamescreen.component';
 import { ShipstatusComponent } from './games/battleship/shipstatus/shipstatus.component';
 import { HealthstatusComponent } from './games/battleship/healthstatus/healthstatus.component';
-
 import { ReportbuttonComponent } from './reportbutton/reportbutton.component';
 import { IngamechatComponent } from './ingamechat/ingamechat.component';
-
-
-import { ReportbuttonComponent } from './reportbutton/reportbutton.component';
-import { IngamechatComponent } from './ingamechat/ingamechat.component';
-
-import { SettingsComponent } from './settings/settings.component';
-
-
 
 
 @NgModule({
@@ -87,8 +78,7 @@ import { SettingsComponent } from './settings/settings.component';
     ShipstatusComponent,
     HealthstatusComponent,
     ReportbuttonComponent,
-    SettingsComponent
-
+    IngamechatComponent
 
   ],
   providers: [GameServiceService,
