@@ -16,5 +16,7 @@ export class Report {
         this.claimant = 0;
         this.defendant = 0;
         this.winner = 0;
+        this.chatLog = '*';
+        this.reportNotes = '';
     }
 }

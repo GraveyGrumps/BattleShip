@@ -69,6 +69,6 @@
     <button type="button" class="btn btn-secondary" (click)="c('Close click')">Close</button>
     <button  *ngIf="gamePending && !myGame" type="button" class="btn btn-primary" (click) = "startGame(c)">Start Game</button>
     <button *ngIf="!gamePending && (user.id == game.player1Id || user.id == game.player2Id)" type="button" class="btn btn-primary" (click)="initGame();routeTo('gamer');c('Close click')">Enter Game</button>
-    <button *ngIf="!gamePending && user.admin" type="button" class="btn btn-primary" (click)="endGame();c('Close click')">End Game</button>
+    <button *ngIf="!gamePending && user.admin" type="button" class="btn btn-warning" (click)="endGame();c('Close click')">End Game</button>
   </div>
 </ng-template>

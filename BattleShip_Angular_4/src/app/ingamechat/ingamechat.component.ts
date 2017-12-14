@@ -22,6 +22,9 @@ export class IngamechatComponent implements OnInit, OnDestroy, DoCheck {
     }
     ngOnInit() {
       this.user = JSON.parse(sessionStorage.getItem('user'));
+      if (!this.report.chatLog) {
+        this.report.chatLog += (`*`);
+      }
     }
     ngDoCheck() {
 

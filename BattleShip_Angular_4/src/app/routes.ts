@@ -14,6 +14,8 @@ import { AdminHomeComponent } from './users/adminHome/adminhome.component';
 
 import { GameComponent } from './games/battleship/game/game.component';
 import { GamescreenComponent } from './games/battleship/gamescreen/gamescreen.component';
+import { Component } from '@angular/core/src/metadata/directives';
+import { ReportbuttonComponent } from './reportbutton/reportbutton.component';
 
 
 export const appRoutes: Routes = [
