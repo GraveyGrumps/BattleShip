@@ -1,0 +1,12 @@
+.green {
+    height: 30px; 
+    width: 30px; 
+    background:green; 
+    border: solid black 1px;
+}
+.red {
+    height: 30px; 
+    width: 30px; 
+    background: red; 
+    border: solid black 1px;
+}

@@ -85,8 +85,10 @@ public class GameService {
     	return Timestamp.valueOf(turnEnds);
     }
 
+
 	public void delete(int id) {
 		gd.deleteGameById(id);
 	}
+
 
 }

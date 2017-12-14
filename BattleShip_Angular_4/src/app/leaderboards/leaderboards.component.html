@@ -1,12 +1,12 @@
 <div class="container">
   <div class="row">
-    <div class="col">
+    <div class="col-5">
       <h1>Global Stats</h1>
     </div>
-    <div class="col">
+    <div class="col-5">
       <h1>Seasonal Stats</h1>
     </div>
-    <div class = "col">
+    <div class = "col-2">
       <app-global-chat></app-global-chat>
     </div>
   </div>
@@ -26,8 +26,8 @@
       <app-leader-board [winlosses]="aroundUserGlobalWinLoss" [range]="globalAroundRange" [users]="users" [global]="global" [displayNum]="global"></app-leader-board>
     </div>
     <div class="col">
-      <h4>Your Ranking</h4>
-      <app-leader-board [winlosses]="aroundUserSeasonalWinLoss" [range]="seasonAroundRange" [users]="users" [global]="global" [displayNum]="global"></app-leader-board>
+      <h4>Your Seasonal Ranking</h4>
+      <app-leader-board [winlosses]="aroundUserSeasonalWinLoss" [range]="seasonAroundRange" [users]="users" [global]="!global" [displayNum]="global"></app-leader-board>
     </div>
   </div>
 </div>
