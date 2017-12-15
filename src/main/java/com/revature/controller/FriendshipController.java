@@ -28,97 +28,104 @@ import com.revature.service.UserService;
 // need allowCredentials, but won't need origins after bundling
 @CrossOrigin(allowCredentials = "true", origins = "http://localhost:4200")
 public class FriendshipController {
-    Logger log = Logger.getRootLogger();
-    @Autowired
-    FriendshipService frSvc;
-    @Autowired
-    UserService usrSvc;
-    @Autowired
-    UserDao usrDao;
+	Logger log = Logger.getRootLogger();
+	@Autowired
+	FriendshipService frSvc;
+	@Autowired
+	UserService usrSvc;
+	@Autowired
+	UserDao usrDao;
 
-    @GetMapping("{userId}")
-    @ResponseBody
-    public List<User> getAllFriendsOf(@PathVariable int userId) {
-	User currentUser = usrDao.getUserById(2); // admin
-	// User currentUser = request.getParameter("user");
-	User friend = usrSvc.getUserById(userId, currentUser);
-	return frSvc.getAllFriendsById(currentUser, friend);
-    }
-
-    @PostMapping("create")
-    @ResponseBody
-    public Friendship adminCreateFriendship(@RequestBody Friendship inputFs) {
-	User currentUser = usrDao.getUserById(2); // admin
-	// User currentUser = request.getParameter("user");
-	log.trace("in controller method");
-	return frSvc.adminCreateFriendship(currentUser, usrSvc.getUserById(inputFs.getUser1Id(), currentUser),
-		usrSvc.getUserById(inputFs.getUser2Id(), currentUser));
-    }
-
-    @DeleteMapping("destroy")
-    @ResponseBody
-    public ResponseEntity<Object> adminDestroyFriendship(@RequestBody Friendship inputFs) {
-	User currentUser = usrDao.getUserById(2); // admin
-	// User currentUser = request.getParameter("user");
-	Friendship fsToDelete = frSvc.adminDestroyFriendship(currentUser,
-		usrSvc.getUserById(inputFs.getUser1Id(), currentUser),
-		usrSvc.getUserById(inputFs.getUser2Id(), currentUser));
-	if (fsToDelete != null)
-	    return new ResponseEntity<>(HttpStatus.OK);
-	else {
-	    return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+	@GetMapping("{userId}")
+	@ResponseBody
+	public List<User> getAllFriendsOf(@PathVariable int userId) {
+		log.info("get all friends of user");
+		User currentUser = usrDao.getUserById(2); // admin
+		// User currentUser = request.getParameter("user");
+		User friend = usrSvc.getUserById(userId, currentUser);
+		return frSvc.getAllFriendsById(currentUser, friend);
 	}
-    }
 
-    @PostMapping("send/{userId}")
-    @ResponseBody
-    public Friendship sendFriendRequest(@PathVariable int userId) {
-	User currentUser = usrDao.getUserById(2); // admin
-	// User currentUser = request.getParameter("user");
-	Friendship newFs = frSvc.sendFriendRequest(currentUser, usrSvc.getUserById(userId, currentUser));
-	return newFs;
-    }
-
-    @PutMapping("accept/{userId}")
-    @ResponseBody
-    public Friendship acceptFriendRequest(@PathVariable int userId) {
-	User currentUser = usrDao.getUserById(2); // admin
-	// User currentUser = request.getParameter("user");
-	Friendship fs = frSvc.getFriendshipByIds(currentUser.getId(), userId);
-	if (fs != null) {
-	    fs.setPending(0);
-	    return frSvc.acceptFriendRequest(currentUser, usrSvc.getUserById(userId, currentUser));
-	} else {
-	    return null;
+	@PostMapping("create")
+	@ResponseBody
+	public Friendship adminCreateFriendship(@RequestBody Friendship inputFs) {
+		log.info("creating friend");
+		User currentUser = usrDao.getUserById(2); // admin
+		// User currentUser = request.getParameter("user");
+		log.trace("in controller method");
+		return frSvc.adminCreateFriendship(currentUser, usrSvc.getUserById(inputFs.getUser1Id(), currentUser),
+				usrSvc.getUserById(inputFs.getUser2Id(), currentUser));
 	}
-    }
 
-    @PutMapping("decline/{userId}")
-    @ResponseBody
-    public ResponseEntity<Object> declineFriendRequest(@PathVariable int userId) {
-	User currentUser = usrDao.getUserById(2); // admin
-	// User currentUser = request.getParameter("user");
-	Friendship fs = frSvc.getFriendshipByIds(currentUser.getId(), userId);
-	if (fs != null) {
-	    frSvc.declineFriendRequest(currentUser, usrSvc.getUserById(userId, currentUser));
-	    return new ResponseEntity<>(HttpStatus.OK);
-	} else {
-	    return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+	@DeleteMapping("destroy")
+	@ResponseBody
+	public ResponseEntity<Object> adminDestroyFriendship(@RequestBody Friendship inputFs) {
+		log.info("removing friend");
+		User currentUser = usrDao.getUserById(2); // admin
+		// User currentUser = request.getParameter("user");
+		Friendship fsToDelete = frSvc.adminDestroyFriendship(currentUser,
+				usrSvc.getUserById(inputFs.getUser1Id(), currentUser),
+				usrSvc.getUserById(inputFs.getUser2Id(), currentUser));
+		if (fsToDelete != null)
+			return new ResponseEntity<>(HttpStatus.OK);
+		else {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
 	}
-    }
 
-    @DeleteMapping("remove/{userId}")
-    @ResponseBody
-    public ResponseEntity<Object> removeFriend(@PathVariable int userId) {
-	User currentUser = usrDao.getUserById(2); // admin
-	// User currentUser = request.getParameter("user");
-	Friendship fs = frSvc.getFriendshipByIds(currentUser.getId(), userId);
-	if (fs != null) {
-	    frSvc.removeFriend(currentUser, usrSvc.getUserById(userId, currentUser));
-	    return new ResponseEntity<>(HttpStatus.OK);
-	} else {
-	    return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+	@PostMapping("send/{userId}")
+	@ResponseBody
+	public Friendship sendFriendRequest(@PathVariable int userId) {
+		log.debug("sending request");
+		User currentUser = usrDao.getUserById(2); // admin
+		// User currentUser = request.getParameter("user");
+		Friendship newFs = frSvc.sendFriendRequest(currentUser, usrSvc.getUserById(userId, currentUser));
+		return newFs;
 	}
-    }
+
+	@PutMapping("accept/{userId}")
+	@ResponseBody
+	public Friendship acceptFriendRequest(@PathVariable int userId) {
+		log.debug("accepting request");
+		User currentUser = usrDao.getUserById(2); // admin
+		// User currentUser = request.getParameter("user");
+		Friendship fs = frSvc.getFriendshipByIds(currentUser.getId(), userId);
+		if (fs != null) {
+			fs.setPending(0);
+			return frSvc.acceptFriendRequest(currentUser, usrSvc.getUserById(userId, currentUser));
+		} else {
+			return null;
+		}
+	}
+
+	@PutMapping("decline/{userId}")
+	@ResponseBody
+	public ResponseEntity<Object> declineFriendRequest(@PathVariable int userId) {
+		log.debug("declining request");
+		User currentUser = usrDao.getUserById(2); // admin
+		// User currentUser = request.getParameter("user");
+		Friendship fs = frSvc.getFriendshipByIds(currentUser.getId(), userId);
+		if (fs != null) {
+			frSvc.declineFriendRequest(currentUser, usrSvc.getUserById(userId, currentUser));
+			return new ResponseEntity<>(HttpStatus.OK);
+		} else {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
+	}
+
+	@DeleteMapping("remove/{userId}")
+	@ResponseBody
+	public ResponseEntity<Object> removeFriend(@PathVariable int userId) {
+		log.debug("removing request");
+		User currentUser = usrDao.getUserById(2); // admin
+		// User currentUser = request.getParameter("user");
+		Friendship fs = frSvc.getFriendshipByIds(currentUser.getId(), userId);
+		if (fs != null) {
+			frSvc.removeFriend(currentUser, usrSvc.getUserById(userId, currentUser));
+			return new ResponseEntity<>(HttpStatus.OK);
+		} else {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
+	}
 
 }

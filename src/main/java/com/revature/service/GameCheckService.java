@@ -2,7 +2,6 @@ package com.revature.service;
 
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
-import java.time.ZoneId;
 import java.util.List;
 
 import org.apache.log4j.Logger;
@@ -35,7 +34,7 @@ public class GameCheckService {
 	private UserDao ud;
 
 	// check every 5 minutes
-	//@Scheduled(fixedDelay = 300000)
+	@Scheduled(fixedDelay = 300000)
 	public void checkAllGame() {
 		log.info("checking all games to see if they should still be active");
 
@@ -49,11 +48,10 @@ public class GameCheckService {
 		if (game.getTurnDeadline().before(Timestamp.valueOf(LocalDateTime.now()))) {
 			log.trace("Deleting game with id: " + game.getId());
 			gd.deleteGameById(game.getId());
-		}
-		else if (game.getStatus().equals("inprogress")) {
+		} else if (game.getStatus().equals("inprogress")) {
 			gameWithinFiveMinutesOfEnding(game);
 		}
-		
+
 	}
 
 	private void gameWithinFiveMinutesOfEnding(Game game) {
@@ -65,7 +63,7 @@ public class GameCheckService {
 		log.warn(difference / 60000.0);
 		if (difference / 60000.0 < 5) {
 			User user;
-			if(game.getTurn() == 0) {
+			if (game.getTurn() == 0) {
 				user = ud.getUserById(game.getPlayer1Id());
 			} else {
 				user = ud.getUserById(game.getPlayer2Id());

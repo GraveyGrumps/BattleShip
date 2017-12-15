@@ -26,55 +26,59 @@ import com.revature.service.UserService;
 @CrossOrigin(allowCredentials = "true", origins = "http://localhost:4200")
 public class UserController {
 
-    private Logger log = Logger.getRootLogger();
-    @Autowired
-    private UserService us;
+	private Logger log = Logger.getRootLogger();
+	@Autowired
+	private UserService us;
 
-    @PostMapping("login")
-    @ResponseBody
-    public User login(@RequestBody User user, HttpServletRequest request) {
-	User u = us.login(user);
-	if (u == null) {
-	    log.trace("Invalid credentials");
-	    return null;
-	} else {
-	    log.trace("Valid credentials");
-	    log.trace("adding user");
-	    log.trace(u);
-	    request.getSession().setAttribute("user", u);
-	    return u;
+	@PostMapping("login")
+	@ResponseBody
+	public User login(@RequestBody User user, HttpServletRequest request) {
+		User u = us.login(user);
+		if (u == null) {
+			log.trace("Invalid credentials");
+			return null;
+		} else {
+			log.trace("Valid credentials");
+			log.trace("adding user");
+			log.trace(u);
+			request.getSession().setAttribute("user", u);
+			return u;
+		}
 	}
-    }
 
-    @PostMapping("new")
-    @ResponseBody
-    public User createUser(@RequestBody User user, HttpServletRequest request) {
-	return us.create(user);
-    }
+	@PostMapping("new")
+	@ResponseBody
+	public User createUser(@RequestBody User user, HttpServletRequest request) {
+		log.debug("creating user");
+		return us.create(user);
+	}
 
-    @GetMapping("all")
-    @ResponseBody
-    public List<User> getAll(HttpServletRequest request) {
-	return us.getAllUsers((User) request.getAttribute("user"));
-    }
+	@GetMapping("all")
+	@ResponseBody
+	public List<User> getAll(HttpServletRequest request) {
+		log.debug("getting all users");
+		return us.getAllUsers((User) request.getAttribute("user"));
+	}
 
-    @PutMapping("modify")
-    @ResponseBody
-    public User modifyUser(@RequestBody User user, HttpServletRequest request) {
-	return us.modifyUser(user, (User) request.getAttribute("user"));
-    }
+	@PutMapping("modify")
+	@ResponseBody
+	public User modifyUser(@RequestBody User user, HttpServletRequest request) {
+		log.debug("modifying user");
+		return us.modifyUser(user, (User) request.getAttribute("user"));
+	}
 
-    @GetMapping("{id}")
-    @ResponseBody
-    public User getUserById(@PathVariable int id, HttpServletRequest request) {
-	return us.getUserById(id, (User) request.getAttribute("user"));
-    }
+	@GetMapping("{id}")
+	@ResponseBody
+	public User getUserById(@PathVariable int id, HttpServletRequest request) {
+		log.debug("getting user by id");
+		return us.getUserById(id, (User) request.getAttribute("user"));
+	}
 
-    @GetMapping("getWL")
-    @ResponseBody
-    public int loadGame(@RequestParam("id") int id) {
-	log.info("Getting WL id of user " + id);
-	return us.getWL(id);
-    }
+	@GetMapping("getWL")
+	@ResponseBody
+	public int loadGame(@RequestParam("id") int id) {
+		log.info("Getting WL id of user " + id);
+		return us.getWL(id);
+	}
 
 }

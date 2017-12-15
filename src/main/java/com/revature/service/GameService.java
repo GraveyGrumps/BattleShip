@@ -3,7 +3,6 @@ package com.revature.service;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Random;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +22,6 @@ public class GameService {
 	private Report report;
 	@Autowired
 	private ReportDao rd;
-	private Random random = new Random();
 	private Logger log = Logger.getRootLogger();
 
 	public List<Game> getPendingGames() {
@@ -79,16 +77,14 @@ public class GameService {
 	}
 
 	private Timestamp setTurnDeadline(int turnlen) {
-    	log.trace("setting turn deadline");
-    	LocalDateTime turnEnds = LocalDateTime.now().plusMinutes(turnlen);
-    	log.trace("turn ends: " + turnEnds);
-    	return Timestamp.valueOf(turnEnds);
-    }
-
+		log.trace("setting turn deadline");
+		LocalDateTime turnEnds = LocalDateTime.now().plusMinutes(turnlen);
+		log.trace("turn ends: " + turnEnds);
+		return Timestamp.valueOf(turnEnds);
+	}
 
 	public void delete(int id) {
 		gd.deleteGameById(id);
 	}
-
 
 }
