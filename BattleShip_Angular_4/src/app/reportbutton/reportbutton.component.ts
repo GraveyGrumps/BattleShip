@@ -30,12 +30,12 @@ export class ReportbuttonComponent implements OnInit, OnDestroy {
 
     let y = 'http://localhost:8080/Battleship/report/loadbygame';
     y += '?id=' + this.currGame.id;
-    this.http.get(y, { withCredentials: true }).subscribe(
-      (successResp) => {
-      },
-      (failResp) => {
-      }
-    );
+    // this.http.get(y, { withCredentials: true }).subscribe(
+    //   (successResp) => {
+    //   },
+    //   (failResp) => {
+    //   }
+    // );
 
     IntervalObservable.create(5000)
       .takeWhile(() => this.alive) // only fires when component is alive
@@ -83,6 +83,13 @@ export class ReportbuttonComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     if (this.alive) {
       this.alive = false;
+    }
+  }
+  checkflag() {
+    if (this.currReport === undefined) {
+      return false;
+    } else {
+      return this.currReport.flag;
     }
   }
 }

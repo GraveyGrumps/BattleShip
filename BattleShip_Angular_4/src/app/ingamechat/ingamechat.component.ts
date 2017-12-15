@@ -26,11 +26,8 @@ export class IngamechatComponent implements OnInit, OnDestroy, DoCheck {
   settings: Settings = new Settings;
 
   ngOnInit() {
-      this.user = JSON.parse(sessionStorage.getItem('user'));
-      if (!this.report.chatLog) {
-        this.report.chatLog += (`*`);
-      }
-    }
+    this.user = JSON.parse(sessionStorage.getItem('user'));
+  }
 
   ngDoCheck() {
   }
@@ -57,5 +54,14 @@ export class IngamechatComponent implements OnInit, OnDestroy, DoCheck {
 
   ngOnDestroy() {
     this.alive = false;
+  }
+  getChat() {
+    if (this.report === undefined || this.report === null){
+      return '';
+    } else if  (this.report.chatLog === null || this.report.chatLog === undefined)  {
+      return '';
+    } else {
+      return this.report.chatLog.split('|');
+    }
   }
 }

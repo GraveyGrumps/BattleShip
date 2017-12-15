@@ -1,13 +1,13 @@
 <div class="container">
-  <div class="card card-container" *ngIf="!this.currReport.flag">
+  <div class="card card-container" *ngIf="!checkflag()">
     <button class="btn btn-lg btn-primary btn-block btn-signin" (click)="report()">
       Report Game
     </button>
   </div>
-  <div class="card card-container" *ngIf="this.currReport.flag">
+  <div class="card card-container" *ngIf="checkflag()">
     This Game Has Been Reported
   </div>
-  <div class="card card-container" *ngIf="this.currReport.flag">
+  <div class="card card-container" *ngIf="checkflag()">
     
     <label for="report-in">Would you like to add to the report?</label>
     <input type="text" class="form-control" id="report-in" [(ngModel)]="this.reportText">

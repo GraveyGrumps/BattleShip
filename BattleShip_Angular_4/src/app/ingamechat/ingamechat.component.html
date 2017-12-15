@@ -1,6 +1,6 @@
 <div id="chatboxDiv" *ngIf="settings.inGameChat===1">
   <h3>In Game Chat</h3>
-  <div *ngFor="let line of report.chatLog.split('|');">
+  <div *ngFor="let line of getChat();">
     <span>{{line}}</span>
   </div>
   <div id="inputdiv">
